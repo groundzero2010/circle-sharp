@@ -45,8 +45,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Communications.cs" />
+    <Compile Include="Database.cs" />
+    <Compile Include="Enumerations\AffectFlags.cs" />
+    <Compile Include="Enumerations\ClassFlags.cs" />
+    <Compile Include="Enumerations\ConnectState.cs" />
+    <Compile Include="Enumerations\ContainerFlags.cs" />
+    <Compile Include="Enumerations\DirectionFlags.cs" />
+    <Compile Include="Enumerations\DirectionOptionFlags.cs" />
+    <Compile Include="Enumerations\ItemAffectFlags.cs" />
+    <Compile Include="Enumerations\ItemFlags.cs" />
+    <Compile Include="Enumerations\ItemTypes.cs" />
+    <Compile Include="Enumerations\ItemWearFlags.cs" />
+    <Compile Include="Enumerations\LiquidTypes.cs" />
+    <Compile Include="Enumerations\MobileFlags.cs" />
+    <Compile Include="Enumerations\PlayerConditions.cs" />
+    <Compile Include="Enumerations\PlayerFlags.cs" />
+    <Compile Include="Enumerations\PositionTypes.cs" />
+    <Compile Include="Enumerations\PreferenceFlags.cs" />
+    <Compile Include="Enumerations\RentCodes.cs" />
+    <Compile Include="Enumerations\RoomFlags.cs" />
+    <Compile Include="Enumerations\SectorFlags.cs" />
+    <Compile Include="Enumerations\SexFlags.cs" />
+    <Compile Include="Enumerations\SkyState.cs" />
+    <Compile Include="Enumerations\SunState.cs" />
+    <Compile Include="Enumerations\WearTypes.cs" />
+    <Compile Include="GlobalConstants.cs" />
+    <Compile Include="GlobalUtilities.cs" />
+    <Compile Include="Handler.cs" />
+    <Compile Include="Interpreter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharpCore.cs" />
+    <Compile Include="Structures\AffectedType.cs" />
+    <Compile Include="Structures\CharacterAbilityData.cs" />
+    <Compile Include="Structures\CharacterData.cs" />
+    <Compile Include="Structures\CharacterPlayerData.cs" />
+    <Compile Include="Structures\CharacterPointData.cs" />
+    <Compile Include="Structures\CharacterSpecialData.cs" />
+    <Compile Include="Structures\DescriptorData.cs" />
+    <Compile Include="Structures\MobileSpecialData.cs" />
+    <Compile Include="Structures\ObjectData.cs" />
+    <Compile Include="Structures\PlayerSpecialData.cs" />
+    <Compile Include="Structures\TimeInfoData.cs" />
+    <Compile Include="Structures\WeatherData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
