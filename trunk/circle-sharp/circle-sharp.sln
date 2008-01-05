@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "circle-sharp", "circle-sharp.csproj", "{E2632E98-2C34-4E26-85EB-DDAB2A7F8893}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "circle-sharp-gui", "..\circle-sharp-gui\circle-sharp-gui.csproj", "{B2D5265A-0E01-4D08-B009-926D46F7432A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2632E98-2C34-4E26-85EB-DDAB2A7F8893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2632E98-2C34-4E26-85EB-DDAB2A7F8893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2632E98-2C34-4E26-85EB-DDAB2A7F8893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2632E98-2C34-4E26-85EB-DDAB2A7F8893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D5265A-0E01-4D08-B009-926D46F7432A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D5265A-0E01-4D08-B009-926D46F7432A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D5265A-0E01-4D08-B009-926D46F7432A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D5265A-0E01-4D08-B009-926D46F7432A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
