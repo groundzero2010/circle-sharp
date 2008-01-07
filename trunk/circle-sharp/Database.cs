@@ -21,6 +21,10 @@ namespace CircleSharp
 		private Dictionary<int, IndexData> _objectIndex = new Dictionary<int, IndexData>();
 		private int _topOfObjectTable = 0;
 
+		private Dictionary<int, CharacterData> _mobiles = new Dictionary<int, CharacterData>();
+		private Dictionary<int, IndexData> _mobileIndex = new Dictionary<int, IndexData>();
+		private int _topOfMobileTable = 0;
+
         private List<CharacterData> _characters = new List<CharacterData>();
         private List<CharacterData> _combatters = new List<CharacterData>();
 
@@ -601,13 +605,13 @@ namespace CircleSharp
 
 			foreach (XmlNode node in list)
 			{
-				ObjectData obj = new ObjectData();
+				CharacterData mobile = new CharacterData();
 				int virtualNumber = 0;
 
 				try
 				{
 					virtualNumber = Int32.Parse(node.Attributes["Number"].Value);
-					obj.ItemNumber = _topOfObjectTable;
+					mobile.ItemNumber = _topOfMobileTable;
 
 					foreach (XmlNode child in node.ChildNodes)
 					{
@@ -697,9 +701,9 @@ namespace CircleSharp
 				IndexData index = new IndexData();
 				index.VirtualNumber = virtualNumber;
 				index.Count = 0;
-				_objectIndex.Add(_topOfObjectTable, index);
+				_mobileIndex.Add(_topOfMobileTable, index);
 
-				_objects.Add(_topOfObjectTable++, obj);
+				_mobiles.Add(_topOfMobileTable++, mobile);
 			}
 
 			return true;
