@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CircleSharp.Enumerations
 {
-    internal enum ItemTypes
+    internal enum ObjectTypes
     {
         Light, Scroll, Wand, Staff, Weapon, FireWeapon, Missile, Treasure, Armor, Potion, Worn, Other, Trash,
         Trap, Container, Note, DrinkContainer, Key, Food, Money, Pen, Boat, Fountain

@@ -4,9 +4,10 @@ using System.Text;
 
 namespace CircleSharp.Enumerations
 {
-    internal enum ItemFlags
+	[Flags]
+    internal enum ObjectFlags
     {
-        Glow, Hum, NoRent, NoDonate, NoInvisible, Invisible, Magic, NoDrop, Bless, AntiGood, AntiEvil, AntiNeutral,
+        Glow = 0, Hum, NoRent, NoDonate, NoInvisible, Invisible, Magic, NoDrop, Bless, AntiGood, AntiEvil, AntiNeutral,
         AntiMagicUser, AntiCleric, AntiThief, AntiWarrior, NoSell
     }
 }

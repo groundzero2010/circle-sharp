@@ -54,9 +54,9 @@
     <Compile Include="Enumerations\DirectionFlags.cs" />
     <Compile Include="Enumerations\DirectionOptionFlags.cs" />
     <Compile Include="Enumerations\ApplyTypes.cs" />
-    <Compile Include="Enumerations\ItemFlags.cs" />
-    <Compile Include="Enumerations\ItemTypes.cs" />
-    <Compile Include="Enumerations\ItemWearFlags.cs" />
+    <Compile Include="Enumerations\ObjectFlags.cs" />
+    <Compile Include="Enumerations\ObjectTypes.cs" />
+    <Compile Include="Enumerations\ObjectWearFlags.cs" />
     <Compile Include="Enumerations\LiquidTypes.cs" />
     <Compile Include="Enumerations\MobileFlags.cs" />
     <Compile Include="Enumerations\PlayerConditions.cs" />
@@ -86,10 +86,10 @@
     <Compile Include="Structures\CommandListElement.cs" />
     <Compile Include="Structures\DescriptorData.cs" />
     <Compile Include="Structures\ExtraDescriptionData.cs" />
+    <Compile Include="Structures\IndexData.cs" />
     <Compile Include="Structures\MobileSpecialData.cs" />
     <Compile Include="Structures\ObjectAffectData.cs" />
     <Compile Include="Structures\ObjectData.cs" />
-    <Compile Include="Structures\ObjectFlagData.cs" />
     <Compile Include="Structures\PlayerSpecialData.cs" />
     <Compile Include="Structures\ResetCommand.cs" />
     <Compile Include="Structures\RoomData.cs" />

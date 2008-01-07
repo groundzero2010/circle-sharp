@@ -13,12 +13,14 @@ namespace CircleSharp
     {
 		private Dictionary<int, RoomData> _rooms = new Dictionary<int, RoomData> ();
 		private int _topOfRoomTable = 0;
-		private static int _loadRoomNumber = 0, _loadRoomZoneNumber = 0;
 
 		private Dictionary<int, ZoneData> _zones = new Dictionary<int, ZoneData> ();
 		private int _topOfZoneTable = 0;
-		private static int _loadZoneNumber = 0;
-		
+
+		private Dictionary<int, ObjectData> _objects = new Dictionary<int, ObjectData>();
+		private Dictionary<int, IndexData> _objectIndex = new Dictionary<int, IndexData>();
+		private int _topOfObjectTable = 0;
+
         private List<CharacterData> _characters = new List<CharacterData>();
         private List<CharacterData> _combatters = new List<CharacterData>();
 
@@ -283,7 +285,6 @@ namespace CircleSharp
 
 				try
 				{
-					Console.WriteLine ("Opening xml file: " + Path.Combine (prefix, filename));
 					xmlFile = new XmlDocument ();
 					xmlFile.Load(Path.Combine(prefix, filename));
 				}
@@ -301,11 +302,11 @@ namespace CircleSharp
 						break;
 
 					case GlobalConstants.DB_BOOT_OBJECT:
-						//LoadObjects (xmlFile, filename);
+						LoadObjects (xmlFile, filename);
 						break;
 
 					case GlobalConstants.DB_BOOT_MOBILE:
-						//LoadMobiles( xmlFile, filename);
+						LoadMobiles (xmlFile, filename);
 						break;
 
 					case GlobalConstants.DB_BOOT_TRIGGER:
@@ -479,6 +480,226 @@ namespace CircleSharp
 				}
 
 				_rooms.Add(_topOfRoomTable++, room);
+			}
+
+			return true;
+		}
+
+		private bool LoadObjects(XmlDocument file, string filename)
+		{
+			XmlNodeList list = file.GetElementsByTagName("ObjectData");
+
+			foreach (XmlNode node in list)
+			{
+				ObjectData obj = new ObjectData();
+				int virtualNumber = 0;
+
+				try
+				{
+					virtualNumber = Int32.Parse(node.Attributes["Number"].Value);
+					obj.ItemNumber = _topOfObjectTable;
+
+					foreach (XmlNode child in node.ChildNodes)
+					{
+						switch (child.Name)
+						{
+							case "Name":
+								obj.Name = child.InnerText;
+								break;
+
+							case "ShortDescription":
+								obj.ShortDescription = child.InnerText;
+								break;
+
+							case "Description":
+								obj.Description = child.InnerText;
+								break;
+
+							case "ActionDescription":
+								obj.ActionDescription = child.InnerText;
+								break;
+
+							case "ObjectType":
+								obj.Type = (ObjectTypes)int.Parse(child.InnerText);
+								break;
+
+							case "ObjectFlags":
+								obj.ObjectFlags = (ObjectFlags)long.Parse(child.InnerText);
+								break;
+
+							case "WearFlags":
+								obj.WearFlags = (ObjectWearFlags)long.Parse(child.InnerText);
+								break;
+
+							case "Bitvector":
+								obj.Bitvector = long.Parse(child.InnerText);
+								break;
+
+							case "Values":
+								obj.Values[0] = Int32.Parse(child.Attributes["One"].Value);
+								obj.Values[1] = Int32.Parse(child.Attributes["Two"].Value);
+								obj.Values[2] = Int32.Parse(child.Attributes["Three"].Value);
+								obj.Values[3] = Int32.Parse(child.Attributes["Four"].Value);
+								break;
+
+							case "Weight":
+								obj.Weight = Int32.Parse(child.InnerText);
+								break;
+
+							case "Cost":
+								obj.Cost = Int32.Parse(child.InnerText);
+								break;
+
+							case "CostPerDay":
+								obj.CostPerDay = Int32.Parse(child.InnerText);
+								break;
+
+							case "MinimumLevel":
+								obj.MinimumLevel = Int32.Parse(child.InnerText);
+								break;
+
+							case "Affect":
+								ObjectAffectData affect = new ObjectAffectData();
+								affect.Location = (ApplyTypes)Int32.Parse(child["Location"].InnerText);
+								affect.Modifier = Int32.Parse(child["Modifier"].InnerText);
+								obj.Affects.Add(affect);
+								break;
+							
+							case "ExtraDescription":
+								ExtraDescriptionData description = new ExtraDescriptionData();
+								description.Keyword = child["Keyword"].InnerText;
+								description.Description = child["Description"].InnerText;
+								obj.ExtraDescriptions.Add(description);
+								break;
+
+							case "Trigger":
+								// TODO: Add trigger stuff here.
+								break;
+						}
+					}
+				}
+				catch
+				{
+					GlobalUtilities.Log("SYSERR: Format error in XML for room in file: " + filename);
+					return false;
+				}
+
+				IndexData index = new IndexData();
+				index.VirtualNumber = virtualNumber;
+				index.Count = 0;
+				_objectIndex.Add(_topOfObjectTable, index);
+
+				_objects.Add(_topOfObjectTable++, obj);
+			}
+
+			return true;
+		}
+
+		private bool LoadMobiles(XmlDocument file, string filename)
+		{
+			XmlNodeList list = file.GetElementsByTagName("MobileData");
+
+			foreach (XmlNode node in list)
+			{
+				ObjectData obj = new ObjectData();
+				int virtualNumber = 0;
+
+				try
+				{
+					virtualNumber = Int32.Parse(node.Attributes["Number"].Value);
+					obj.ItemNumber = _topOfObjectTable;
+
+					foreach (XmlNode child in node.ChildNodes)
+					{
+						switch (child.Name)
+						{
+							case "Name":
+								obj.Name = child.InnerText;
+								break;
+
+							case "ShortDescription":
+								obj.ShortDescription = child.InnerText;
+								break;
+
+							case "Description":
+								obj.Description = child.InnerText;
+								break;
+
+							case "ActionDescription":
+								obj.ActionDescription = child.InnerText;
+								break;
+
+							case "ObjectType":
+								obj.Type = (ObjectTypes)int.Parse(child.InnerText);
+								break;
+
+							case "ObjectFlags":
+								obj.ObjectFlags = (ObjectFlags)long.Parse(child.InnerText);
+								break;
+
+							case "WearFlags":
+								obj.WearFlags = (ObjectWearFlags)long.Parse(child.InnerText);
+								break;
+
+							case "Bitvector":
+								obj.Bitvector = long.Parse(child.InnerText);
+								break;
+
+							case "Values":
+								obj.Values[0] = Int32.Parse(child.Attributes["One"].Value);
+								obj.Values[1] = Int32.Parse(child.Attributes["Two"].Value);
+								obj.Values[2] = Int32.Parse(child.Attributes["Three"].Value);
+								obj.Values[3] = Int32.Parse(child.Attributes["Four"].Value);
+								break;
+
+							case "Weight":
+								obj.Weight = Int32.Parse(child.InnerText);
+								break;
+
+							case "Cost":
+								obj.Cost = Int32.Parse(child.InnerText);
+								break;
+
+							case "CostPerDay":
+								obj.CostPerDay = Int32.Parse(child.InnerText);
+								break;
+
+							case "MinimumLevel":
+								obj.MinimumLevel = Int32.Parse(child.InnerText);
+								break;
+
+							case "Affect":
+								ObjectAffectData affect = new ObjectAffectData();
+								affect.Location = (ApplyTypes)Int32.Parse(child["Location"].InnerText);
+								affect.Modifier = Int32.Parse(child["Modifier"].InnerText);
+								obj.Affects.Add(affect);
+								break;
+
+							case "ExtraDescription":
+								ExtraDescriptionData description = new ExtraDescriptionData();
+								description.Keyword = child["Keyword"].InnerText;
+								description.Description = child["Description"].InnerText;
+								obj.ExtraDescriptions.Add(description);
+								break;
+
+							case "Trigger":
+								// TODO: Add trigger stuff here.
+								break;
+						}
+					}
+				}
+				catch
+				{
+					GlobalUtilities.Log("SYSERR: Format error in XML for room in file: " + filename);
+					return false;
+				}
+
+				IndexData index = new IndexData();
+				index.VirtualNumber = virtualNumber;
+				index.Count = 0;
+				_objectIndex.Add(_topOfObjectTable, index);
+
+				_objects.Add(_topOfObjectTable++, obj);
 			}
 
 			return true;
