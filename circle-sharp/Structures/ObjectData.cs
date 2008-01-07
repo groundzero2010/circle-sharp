@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+using CircleSharp.Enumerations;
+
 namespace CircleSharp.Structures
 {
     class ObjectData
@@ -13,8 +15,18 @@ namespace CircleSharp.Structures
 		public string ShortDescription;
 		public string ActionDescription;
 
+		public int[] Values = new int[4];
+		public ObjectTypes Type;
+		public ObjectWearFlags WearFlags;
+		public ObjectFlags ObjectFlags;
+		public int MinimumLevel;
+		public int Weight;
+		public int Cost;
+		public int CostPerDay;
+		public int Timer;
+		public long Bitvector;
+
 		public List<ExtraDescriptionData> ExtraDescriptions = new List<ExtraDescriptionData> ();
-		public ObjectFlagData ObjectFlags;
 		public List<ObjectAffectData> Affects = new List<ObjectAffectData> ();
 		
 		public CharacterData CarriedBy;
