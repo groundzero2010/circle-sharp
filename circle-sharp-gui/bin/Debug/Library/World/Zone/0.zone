@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ZoneData Number="0">
+  <Name>Limbo - Internal</Name>
+  <Bottom>0</Bottom>
+  <Top>99</Top>
+  <Lifespan>10</Lifespan>
+  <ResetMode>2</ResetMode>
+  <Command Type="M">
+    <Arg1>0</Arg1>
+    <Arg2>1</Arg2>
+    <Arg3>1</Arg3>
+    <Arg4>1</Arg4>
+  </Command>
+</ZoneData>

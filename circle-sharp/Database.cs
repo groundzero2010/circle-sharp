@@ -1,14 +1,24 @@
 using System;
+using System.IO;
+using System.Xml;
 using System.Collections.Generic;
 using System.Text;
 
-using SharpMUD.Structures;
-using SharpMUD.Enumerations;
+using CircleSharp.Structures;
+using CircleSharp.Enumerations;
 
-namespace SharpMUD
+namespace CircleSharp
 {
     public partial class SharpCore
     {
+		private Dictionary<int, RoomData> _rooms = new Dictionary<int, RoomData> ();
+		private int _topOfRoomTable = 0;
+		private static int _loadRoomNumber = 0, _loadRoomZoneNumber = 0;
+
+		private Dictionary<int, ZoneData> _zones = new Dictionary<int, ZoneData> ();
+		private int _topOfZoneTable = 0;
+		private static int _loadZoneNumber = 0;
+		
         private List<CharacterData> _characters = new List<CharacterData>();
         private List<CharacterData> _combatters = new List<CharacterData>();
 
@@ -22,6 +32,8 @@ namespace SharpMUD
 
         private TimeInfoData _timeInfo;
         private WeatherData _weatherInfo = new WeatherData ();
+
+		private string _baseDirectory = String.Empty;
 
         private void BootDatabase()
         {
@@ -168,11 +180,15 @@ namespace SharpMUD
 
         private void BootWorld()
         {
+			_baseDirectory = Path.Combine (Environment.CurrentDirectory, GlobalConstants.LIB_DIR);
+
+			GlobalUtilities.Log ("Using library directory: " + _baseDirectory);
+
             GlobalUtilities.Log("Loading zone table.");
             IndexBoot(GlobalConstants.DB_BOOT_ZONE);
 
             GlobalUtilities.Log("Loading rooms.");
-            IndexBoot(GlobalConstants.DB_BOOT_TRIGGER);
+            IndexBoot(GlobalConstants.DB_BOOT_ROOM);
 
             GlobalUtilities.Log("Renumbering rooms.");
             RenumWorld();
@@ -180,10 +196,10 @@ namespace SharpMUD
             GlobalUtilities.Log("Checking start rooms.");
             CheckStartRooms();
 
-            GlobalUtilities.Log("Loading mobs and generating index.");
+            GlobalUtilities.Log("Loading mobiles and generating index.");
             IndexBoot(GlobalConstants.DB_BOOT_MOBILE);
 
-            GlobalUtilities.Log("Loading objs and generating index.");
+            GlobalUtilities.Log("Loading objects and generating index.");
             IndexBoot(GlobalConstants.DB_BOOT_OBJECT);
 
             GlobalUtilities.Log("Renumbering zone table.");
@@ -196,39 +212,39 @@ namespace SharpMUD
             }
         }
 
-        private void IndexBoot(int mode)
+        private bool IndexBoot(int mode)
         {
             string indexFilename = String.Empty;
             string prefix = String.Empty;
 
             switch (mode)
             {
-                case GlobalConstants.DB_BOOT_WORLD:
-                    
+                case GlobalConstants.DB_BOOT_ROOM:
+					prefix = Path.Combine(GlobalConstants.LIB_WORLD, GlobalConstants.ROOM_PREFIX);
                     break;
 
                 case GlobalConstants.DB_BOOT_MOBILE:
-                    prefix = GlobalConstants.MOBILE_PREFIX;
+					prefix = Path.Combine (GlobalConstants.LIB_WORLD, GlobalConstants.MOBILE_PREFIX);
                     break;
                 
                 case GlobalConstants.DB_BOOT_OBJECT:
-                    prefix = GlobalConstants.OBJECT_PREFIX;
+					prefix = Path.Combine (GlobalConstants.LIB_WORLD, GlobalConstants.OBJECT_PREFIX);
                     break;
 
                 case GlobalConstants.DB_BOOT_ZONE:
-                    prefix = GlobalConstants.ZONE_PREFIX;
+					prefix = Path.Combine (GlobalConstants.LIB_WORLD, GlobalConstants.ZONE_PREFIX);
                     break;
 
                 case GlobalConstants.DB_BOOT_SHOP:
-                    prefix = GlobalConstants.MOBILE_PREFIX;
+					prefix = Path.Combine (GlobalConstants.LIB_WORLD, GlobalConstants.SHOP_PREFIX);
                     break;
 
                 case GlobalConstants.DB_BOOT_HELP:
-                    prefix = GlobalConstants.HELP_PREFIX;
+					prefix = Path.Combine (GlobalConstants.LIB_WORLD, GlobalConstants.HELP_PREFIX);
                     break;
 
                 case GlobalConstants.DB_BOOT_TRIGGER:
-                    prefix = GlobalConstants.TRIGGER_PREFIX;
+					prefix = Path.Combine (GlobalConstants.LIB_WORLD, GlobalConstants.TRIGGER_PREFIX);
                     break;
 
                 default:
@@ -236,13 +252,237 @@ namespace SharpMUD
                     throw new Exception();
             }
 
+			prefix = Path.Combine (_baseDirectory, prefix);
+
             if (_miniMud)
                 indexFilename = GlobalConstants.MINDEX_FILE;
             else
                 indexFilename = GlobalConstants.INDEX_FILE;
 
+			FileStream indexFile = null;
 
+			try
+			{
+				indexFile = File.OpenRead (Path.Combine(prefix, indexFilename));
+			}
+			catch
+			{
+				GlobalUtilities.Log ("SYSERR: Unable to open index file: " + Path.Combine (prefix, indexFilename));
+				return false;
+			}
+
+			TextReader indexReader = new StreamReader (indexFile);
+			string line = String.Empty;
+
+			line = indexReader.ReadLine();
+
+			while (line != "$")
+			{
+				string filename = line;
+				XmlDocument xmlFile = null;
+
+				try
+				{
+					Console.WriteLine ("Opening xml file: " + Path.Combine (prefix, filename));
+					xmlFile = new XmlDocument ();
+					xmlFile.Load(Path.Combine(prefix, filename));
+				}
+				catch (Exception e)
+				{
+					GlobalUtilities.Log ("SYSERR: Unable to open database file mentioned in index: " + filename);
+					GlobalUtilities.Log("SYSERR: Exception: " + e.Message);
+					return false;
+				}
+
+				switch (mode)
+				{
+					case GlobalConstants.DB_BOOT_ROOM:
+						LoadRooms (xmlFile, filename);
+						break;
+
+					case GlobalConstants.DB_BOOT_OBJECT:
+						//LoadObjects (xmlFile, filename);
+						break;
+
+					case GlobalConstants.DB_BOOT_MOBILE:
+						//LoadMobiles( xmlFile, filename);
+						break;
+
+					case GlobalConstants.DB_BOOT_TRIGGER:
+						//LoadTriggers (xmlFile, filename);
+						break;
+
+					case GlobalConstants.DB_BOOT_ZONE:
+						LoadZone (xmlFile, filename);
+						break;
+
+					case GlobalConstants.DB_BOOT_SHOP:
+						//LoadShop (dbFile, filename);
+						break;
+
+					case GlobalConstants.DB_BOOT_HELP:
+						//LoadHelp (dbFile, filename);
+						break;
+				}
+				
+				line = indexReader.ReadLine ();
+			}
+			
+			indexReader.Close();
+			indexFile.Close();
+
+			return true;
         }
+
+		private bool LoadZone (XmlDocument file, string filename)
+		{
+			// Note: There should only be one zone per file.
+
+			XmlNodeList list = file.GetElementsByTagName("ZoneData");
+
+			foreach (XmlNode node in list)
+			{
+				ZoneData zone = new ZoneData();
+
+				try
+				{
+					int commandCount = 0;
+
+					zone.Number = Int32.Parse(node.Attributes["Number"].Value);
+
+					foreach (XmlNode child in node.ChildNodes)
+					{
+						switch (child.Name)
+						{
+							case "Name":
+								zone.Name = child.InnerText;
+								break;
+
+							case "Bottom":
+								zone.Bottom = Int32.Parse(child.InnerText);
+								break;
+
+							case "Top":
+								zone.Top = Int32.Parse(child.InnerText);
+								break;
+
+							case "Lifespan":
+								zone.Lifespan = Int32.Parse(child.InnerText);
+								break;
+
+							case "ResetMode":
+								zone.ResetMode = Int32.Parse(child.InnerText);
+								break;
+
+							case "Command":
+								ResetCommand command = new ResetCommand();
+								command.Command = child.Attributes["Type"].Value[0];
+								command.Argument1 = Int32.Parse(child["Arg1"].InnerText);
+								command.Argument2 = Int32.Parse(child["Arg2"].InnerText);
+								command.Argument3 = Int32.Parse(child["Arg3"].InnerText);
+								//command.Argument4 = Int32.Parse(child["Arg4"].Value);
+								zone.Commands.Add(commandCount++, command);
+								break;
+						}
+					}
+				}
+				catch
+				{
+					GlobalUtilities.Log("SYSERR: Format error in XML for zone in file: " + filename);
+					return false;
+				}
+
+				_zones.Add(_topOfZoneTable++, zone);
+			}
+
+			return true;
+		}
+
+		private bool LoadRooms(XmlDocument file, string filename)
+		{
+			XmlNodeList list = file.GetElementsByTagName("RoomData");
+
+			foreach (XmlNode node in list)
+			{
+				RoomData room = new RoomData();
+
+				try
+				{
+					room.Number = Int32.Parse(node.Attributes["Number"].Value);
+
+					foreach (XmlNode child in node.ChildNodes)
+					{
+						switch (child.Name)
+						{
+							case "Name":
+								room.Name = child.InnerText;
+								break;
+
+							case "Description":
+								room.Description = child.InnerText;
+								break;
+
+							case "Zone":
+								room.Zone = Int32.Parse(child.InnerText);
+								break;
+
+							case "Flags":
+								room.Flags = (RoomFlags)long.Parse(child.InnerText);
+								break;
+
+							case "SectorType":
+								room.SectorType = (SectorTypes)int.Parse(child.InnerText);
+								break;
+
+							case "Direction":
+								int direction = Int32.Parse(child.Attributes["Direction"].Value);
+
+								if (room.DirectionOptions[direction] != null)
+								{
+									GlobalUtilities.Log("SYSERR: Direction [" + direction + "] already defined in XML file: " + filename);
+									continue;
+								}
+
+								room.DirectionOptions[direction] = new RoomDirectionData();
+								room.DirectionOptions[direction].Description = child["Description"].InnerText;
+								room.DirectionOptions[direction].Keyword = child["Keyword"].InnerText;
+								room.DirectionOptions[direction].Key = Int32.Parse(child["Key"].InnerText);
+								room.DirectionOptions[direction].ToRoom = Int32.Parse(child["ToRoom"].InnerText);
+
+								int exitinfo = Convert.ToInt32(child["Flags"].InnerText);
+
+								if (exitinfo == 1)
+									room.DirectionOptions[direction].ExitInfo = DirectionOptionFlags.IsDoor;
+								else if (exitinfo == 2)
+									room.DirectionOptions[direction].ExitInfo = DirectionOptionFlags.IsDoor | DirectionOptionFlags.PickProof;
+								else
+									room.DirectionOptions[direction].ExitInfo = DirectionOptionFlags.None;
+								break;
+
+							case "ExtraDescription":
+								ExtraDescriptionData description = new ExtraDescriptionData();
+								description.Keyword = child["Keyword"].InnerText;
+								description.Description = child["Description"].InnerText;
+								room.ExtraDescriptions.Add(description);
+								break;
+
+							case "Trigger":
+								// TODO: Add trigger stuff here.
+								break;
+						}
+					}
+				}
+				catch
+				{
+					GlobalUtilities.Log("SYSERR: Format error in XML for room in file: " + filename);
+					return false;
+				}
+
+				_rooms.Add(_topOfRoomTable++, room);
+			}
+
+			return true;
+		}
 
         private void CheckStartRooms()
         {

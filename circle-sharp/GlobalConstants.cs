@@ -1,12 +1,13 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharpMUD
+namespace CircleSharp
 {
     internal static class GlobalConstants
     {
-        public const string VERSION = "SharpMUD, v1.0";
+        public const string VERSION = "CircleSharp, v1.0";
 
         public const uint NOWHERE = 0;
         public const uint NOTHING = 0;
@@ -49,35 +50,38 @@ namespace SharpMUD
         public const int MAX_OBJ_AFFECT = 6;
         public const int MAX_PLAYERS = 150;
 
-        public const int DB_BOOT_WORLD = 0;
+        public const int DB_BOOT_ROOM = 0;
         public const int DB_BOOT_MOBILE = 1;
         public const int DB_BOOT_OBJECT = 2;
         public const int DB_BOOT_ZONE = 3;
         public const int DB_BOOT_SHOP = 4;
         public const int DB_BOOT_HELP = 5;
         public const int DB_BOOT_TRIGGER = 6;
-        
-        public const string LIB_WORLD = "world\\";
-        public const string LIB_TEXT = "text\\";
-        public const string LIB_TEXT_HELP = "text\\help\\";
-        public const string LIB_MISC = "misc\\";
-        public const string LIB_ETC = "etc\\";
-        public const string LIB_PLRTEXT = "plrtext\\";
-        public const string LIB_PLROBJS = "plrobjs\\";
-        public const string LIB_PLRVARS = "plrvars\\";
-        public const string LIB_PLRALIAS = "plralias\\";
-        public const string LIB_HOUSE = "house\\";
 
-        public const string INDEX_FILE = "index";
-        public const string MINDEX_FILE = "index.mini";
-        public const string TRIGGER_PREFIX = LIB_WORLD+"trg\\";
-        public const string MOBILE_PREFIX = LIB_WORLD+"mob\\";
-        public const string OBJECT_PREFIX = LIB_WORLD+"obj\\";
-        public const string ZONE_PREFIX = LIB_WORLD+"zon\\";
-        public const string SHOP_PREFIX = LIB_WORLD+"shp\\";
+		public const string LIB_DIR = "Library";
 
-        public const string HELP_PREFIX = LIB_TEXT+"help\\";
-        
+        public const string LIB_WORLD = "World";
+        public const string LIB_TEXT = "Text";
+        public const string LIB_TEXT_HELP = "Help";
+        public const string LIB_MISC = "Misc";
+        public const string LIB_ETC = "Etc";
+        public const string LIB_PLRTEXT = "PlayerText";
+        public const string LIB_PLROBJS = "PlayerObjects";
+        public const string LIB_PLRVARS = "PlayerVariables";
+        public const string LIB_PLRALIAS = "PlayerAlias";
+        public const string LIB_HOUSE = "House";
+
+        public const string INDEX_FILE = "Index";
+        public const string MINDEX_FILE = "Index.mini";
+
+        public const string TRIGGER_PREFIX = "Trigger";
+        public const string MOBILE_PREFIX = "Mobile";
+        public const string OBJECT_PREFIX = "Object";
+        public const string ZONE_PREFIX = "Zone";
+        public const string SHOP_PREFIX = "Shop";
+		public const string ROOM_PREFIX = "Room";
+        public const string HELP_PREFIX = "Help";
+		
         public const string GREETINGS = "Welcome to SharpMUD!\r\n";
         public const string MENU = "This is the menu: ";
     }

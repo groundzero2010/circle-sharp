@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using SharpMUD.Enumerations;
+using CircleSharp.Enumerations;
 
-namespace SharpMUD.Structures
+namespace CircleSharp.Structures
 {
     internal class CharacterData
     {
@@ -22,7 +22,7 @@ namespace SharpMUD.Structures
         private PlayerSpecialData _playerspecials;
         private MobileSpecialData _mobspecials;
 
-        private AffectedType _affected;
+        private List<AffectData> _affected;
         private ObjectData[] _equipment = new ObjectData[(int)WearTypes.Index];
         private List<ObjectData> _inventory = new List<ObjectData> ();
         private List<CharacterData> _followers = new List<CharacterData> ();

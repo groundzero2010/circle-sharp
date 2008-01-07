@@ -4,10 +4,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
 
-using SharpMUD.Structures;
-using SharpMUD.Enumerations;
+using CircleSharp.Structures;
+using CircleSharp.Enumerations;
 
-namespace SharpMUD
+namespace CircleSharp
 {
     public partial class SharpCore
     {

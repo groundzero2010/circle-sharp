@@ -90,13 +90,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\circle-sharp\circle-sharp.csproj">
-      <Project>{E2632E98-2C34-4E26-85EB-DDAB2A7F8893}</Project>
-      <Name>circle-sharp</Name>
-    </ProjectReference>
+    <None Include="App.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.ico" />
+    <ProjectReference Include="..\circle-sharp\CircleSharp.csproj">
+      <Project>{E2632E98-2C34-4E26-85EB-DDAB2A7F8893}</Project>
+      <Name>CircleSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

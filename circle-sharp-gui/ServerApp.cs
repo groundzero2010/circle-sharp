@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
-using SharpMUD;
+using CircleSharp;
 
 namespace circle_sharp_gui
 {

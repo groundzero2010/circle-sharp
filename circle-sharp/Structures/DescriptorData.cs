@@ -3,9 +3,9 @@ using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Text;
 
-using SharpMUD.Enumerations;
+using CircleSharp.Enumerations;
 
-namespace SharpMUD.Structures
+namespace CircleSharp.Structures
 {
     internal class DescriptorData
     {

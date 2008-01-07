@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharpMUD.Enumerations
+namespace CircleSharp.Enumerations
 {
+	[Flags]
     internal enum DirectionOptionFlags
     {
-        IsDoor, Closed, Locked, PickProof
+        None = 0, IsDoor, Closed, Locked, PickProof
     }
 }

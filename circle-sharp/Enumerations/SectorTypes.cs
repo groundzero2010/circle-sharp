@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharpMUD.Enumerations
+namespace CircleSharp.Enumerations
 {
-    internal enum SectorFlags
+    internal enum SectorTypes
     {
         Inside, City, Field, Forest, Hills, Mountain, WaterSwim, WaterNoSwim, Flying, Underwater
     }
