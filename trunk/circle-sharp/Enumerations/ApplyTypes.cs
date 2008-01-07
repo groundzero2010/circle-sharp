@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharpMUD.Enumerations
+namespace CircleSharp.Enumerations
 {
-    internal enum ItemAffectFlags
+    internal enum ApplyTypes
     {
         None, Strength, Dexterity, Intelligence, Wisdom, Constitution, Charisma, Class, Level, Age, Weight, Height,
         Mana, Hit, Move, Gold, Experience, ArmorClass, HitRoll, DamageRoll, SavingParalize, SavingRod, SavingPetrify,

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharpMUD.Enumerations
+namespace CircleSharp.Enumerations
 {
-    internal enum DirectionFlags
+    internal enum DirectionTypes
     {
         North, East, South, West, Up, Down, Index
     };

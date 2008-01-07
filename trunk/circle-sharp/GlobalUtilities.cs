@@ -1,8 +1,9 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharpMUD
+namespace CircleSharp
 {
     internal static class GlobalUtilities
     {
@@ -23,5 +24,22 @@ namespace SharpMUD
         {
             Console.WriteLine(text);
         }
+
+		public static string ReadString (TextReader reader)
+		{
+			string line = reader.ReadLine ();
+			string final = String.Empty;
+
+			while (line.IndexOf ('~') < 0)
+			{
+				final += line + "\n";
+				line = reader.ReadLine();
+			}
+
+			if (line.IndexOf('~') > 0)
+				final += line.Substring(0, line.IndexOf('~'));
+
+			return final;
+		}
     }
 }

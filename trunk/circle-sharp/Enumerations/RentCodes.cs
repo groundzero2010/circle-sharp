@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SharpMUD.Enumerations
+namespace CircleSharp.Enumerations
 {
     internal enum RentCodes
     {
