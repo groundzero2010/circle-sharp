@@ -8,10 +8,10 @@ namespace CircleSharp.Structures
 	class ShopData
 	{
 		public int Number;
-		public int Producing;
+		public List<int> Producing = new List<int>();
 		public float ProfitBuy;
 		public float ProfitSell;
-		public ShopBuyData Type;
+		public List<ShopBuyData> Type = new List<ShopBuyData>();
 		public string NoSuchItem1;
 		public string NoSuchItem2;
 		public string MissingCash1;
@@ -19,11 +19,11 @@ namespace CircleSharp.Structures
 		public string DoNotBuy;
 		public string MessageBuy;
 		public string MessageSell;
-		public int Temper1;
+		public int Temper;
 		public long Bitvector;
 		public int Keeper;
 		public int WithWho;
-		public int InRoom;
+		public List<int> InRoom = new List<int> ();
 		public int Open1;
 		public int Open2;
 		public int Close1;

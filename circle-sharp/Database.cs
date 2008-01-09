@@ -11,6 +11,9 @@ namespace CircleSharp
 {
 	public partial class SharpCore
 	{
+		private Dictionary<int, HelpData> _help = new Dictionary<int, HelpData> ();
+		private int _topOfHelpTable = 0;
+
 		private Dictionary<int, RoomData> _rooms = new Dictionary<int, RoomData> ();
 		private int _topOfRoomTable = 0;
 
@@ -50,6 +53,18 @@ namespace CircleSharp
 		private TimeInfoData _timeInfo;
 		private WeatherData _weatherInfo = new WeatherData ();
 
+		private string _textGreetings;
+		private string _textCredits;
+		private string _textMOTD;
+		private string _textIMOTD;
+		private string _textHelp;
+		private string _textInfo;
+		private string _textWizList;
+		private string _textImmList;
+		private string _textPolicies;
+		private string _textHandbook;
+		private string _textBackground;
+
 		private void BootDatabase ()
 		{
 			GlobalUtilities.Log ("Boot db -- BEGIN.");
@@ -58,10 +73,10 @@ namespace CircleSharp
 			ResetTime ();
 
 			GlobalUtilities.Log ("Reading news, credits, help, background, info & motds.");
-			// Load all the files that give us data. Use XML.
+			LoadTextFiles ();
 
-			GlobalUtilities.Log ("Loading spell defenitions.");
-			//MagicAssignSpells();
+			GlobalUtilities.Log ("Loading spell definitions.");
+			MagicAssignSpells();
 
 			BootWorld ();
 
@@ -69,7 +84,7 @@ namespace CircleSharp
 			IndexBoot (GlobalConstants.DB_BOOT_HELP);
 
 			GlobalUtilities.Log ("Generating player index.");
-			//BuildPlayerIndex();
+			BuildPlayerIndex();
 
 			if (_autoPWipe)
 			{
@@ -178,6 +193,48 @@ namespace CircleSharp
 				_weatherInfo.Sky = SkyState.Cloudless;
 		}
 
+		private string LoadText(string filename)
+		{
+			XmlDocument file = new XmlDocument ();
+			file.Load (filename);
+
+			try
+			{
+				XmlNodeList list = file.GetElementsByTagName ("TextData");
+
+				foreach (XmlNode node in list)
+				{
+					return (node.InnerText);
+				}
+			}
+			catch (Exception e)
+			{
+				GlobalUtilities.Log ("SYSERR: Format error in XML for text file: " + filename);
+				GlobalUtilities.Log ("Exception: " + e.Message);
+
+				return String.Empty;
+			}
+
+			return String.Empty;
+		}
+
+		private void LoadTextFiles()
+		{
+			string path = Path.Combine (_baseDirectory, GlobalConstants.LIB_TEXT);
+
+			_textGreetings = LoadText (Path.Combine (path, "greetings.xml"));
+			_textCredits = LoadText (Path.Combine (path, "credits.xml"));
+			_textMOTD = LoadText (Path.Combine (path, "motd.xml"));
+			_textIMOTD = LoadText (Path.Combine (path, "imotd.xml"));
+			_textHelp = LoadText (Path.Combine (path, "help.xml"));
+			_textInfo = LoadText (Path.Combine (path, "info.xml"));
+			_textWizList = LoadText (Path.Combine (path, "wizlist.xml"));
+			_textImmList = LoadText (Path.Combine (path, "immlist.xml"));
+			_textPolicies = LoadText (Path.Combine (path, "policies.xml"));
+			_textHandbook = LoadText (Path.Combine (path, "handbook.xml"));
+			_textBackground = LoadText (Path.Combine (path, "background.xml"));
+		}
+
 		private TimeInfoData MudTimePassed (DateTime t2, DateTime t1)
 		{
 			TimeSpan span = t2 - t1;
@@ -256,7 +313,7 @@ namespace CircleSharp
 					break;
 
 				case GlobalConstants.DB_BOOT_HELP:
-					prefix = Path.Combine (GlobalConstants.LIB_WORLD, GlobalConstants.HELP_PREFIX);
+					prefix = GlobalConstants.HELP_PREFIX;
 					break;
 
 				case GlobalConstants.DB_BOOT_TRIGGER:
@@ -332,11 +389,11 @@ namespace CircleSharp
 						break;
 
 					case GlobalConstants.DB_BOOT_SHOP:
-						LoadShop (dbFile, filename);
+						LoadShops (xmlFile, filename);
 						break;
 
 					case GlobalConstants.DB_BOOT_HELP:
-						//LoadHelp (dbFile, filename);
+						LoadHelp (xmlFile, filename);
 						break;
 				}
 
@@ -346,7 +403,43 @@ namespace CircleSharp
 			indexReader.Close ();
 			indexFile.Close ();
 
+			switch (mode)
+			{
+				case GlobalConstants.DB_BOOT_ROOM:
+					GlobalUtilities.Log ("  "+ _rooms.Count + " room record(s) loaded.");
+					break;
+
+				case GlobalConstants.DB_BOOT_MOBILE:
+					GlobalUtilities.Log ("  " + _mobileIndex.Count + " mobile record(s) loaded.");
+					break;
+
+				case GlobalConstants.DB_BOOT_OBJECT:
+					GlobalUtilities.Log ("  " + _objectIndex.Count + " object record(s) loaded.");
+					break;
+
+				case GlobalConstants.DB_BOOT_ZONE:
+					GlobalUtilities.Log ("  " + _zones.Count + " zone record(s) loaded.");
+					break;
+
+				case GlobalConstants.DB_BOOT_SHOP:
+					GlobalUtilities.Log ("  " + _rooms.Count + " shop record(s) loaded.");
+					break;
+
+				case GlobalConstants.DB_BOOT_HELP:
+					GlobalUtilities.Log ("  " + _help.Count + " help record(s) loaded.");
+					break;
+
+				case GlobalConstants.DB_BOOT_TRIGGER:
+					GlobalUtilities.Log ("  " + _triggerIndex.Count + " trigger record(s) loaded.");
+					break;
+			}
+
 			return true;
+		}
+
+		private void BuildPlayerIndex()
+		{
+			LoadPlayers (XmlDocument 
 		}
 
 		private bool LoadZone (XmlDocument file, string filename)
@@ -424,23 +517,99 @@ namespace CircleSharp
 
 				try
 				{
-					shop.Number = Int32.Parse (node.Attributes["Number"].Value);
+					shop.Number = Int32.Parse(node.Attributes["Number"].Value);
 
 					foreach (XmlNode child in node.ChildNodes)
 					{
 						switch (child.Name)
 						{
-							case "Name":
-								shop.Name = child.InnerText;
+							case "Product":
+								shop.Producing.Add (Int32.Parse(child.InnerText));
 								break;
-							
-							case "
+
+							case "ProfitBuy":
+								shop.ProfitBuy = float.Parse(child.InnerText);
+								break;
+
+							case "ProfitSell":
+								shop.ProfitSell = float.Parse(child.InnerText);
+								break;
+
+							case "Type":
+								ShopBuyData data = new ShopBuyData ();
+
+								shop.Type.Add(data);
+								break;
+
+							case "NoSuchItem1":
+								shop.NoSuchItem1 = child.InnerText;
+								break;
+
+							case "NoSuchItem2":
+								shop.NoSuchItem2 = child.InnerText;
+								break;
+
+							case "DoNotBuy":
+								shop.DoNotBuy = child.InnerText;
+								break;
+
+							case "MissingCash1":
+								shop.MissingCash1 = child.InnerText;
+								break;
+
+							case "MissingCash2":
+								shop.MissingCash2 = child.InnerText;
+								break;
+
+							case "MessageBuy":
+								shop.MessageBuy = child.InnerText;
+								break;
+
+							case "MessageSell":
+								shop.MessageSell = child.InnerText;
+								break;
+
+							case "Temper":
+								shop.Temper = Int32.Parse(child.InnerText);
+								break;
+
+							case "Bitvector":
+								shop.Bitvector = long.Parse(child.InnerText);
+								break;
+
+							case "Keeper":
+								shop.Keeper = Int32.Parse(child.InnerText);
+								break;
+
+							case "WithWho":
+								shop.WithWho = Int32.Parse(child.InnerText);
+								break;
+
+							case "InRoom":
+								shop.InRoom.Add (Int32.Parse(child.InnerText));
+								break;
+
+							case "Open1":
+								shop.Open1 = Int32.Parse(child.InnerText);
+								break;
+
+							case "Close1":
+								shop.Close1 = Int32.Parse(child.InnerText);
+								break;
+
+							case "Open2":
+								shop.Open2 = Int32.Parse(child.InnerText);
+								break;
+
+							case "Close2":
+								shop.Close2 = Int32.Parse(child.InnerText);
+								break;
 						}
 					}
 				}
 				catch
 				{
-					GlobalUtilities.Log ("SYSERR: Error pasing XML for shop [" + virtualNumber + "] in file: " + filename);
+					GlobalUtilities.Log ("SYSERR: Error pasing XML for shop [" + shop.Number + "] in file: " + filename);
 					return false;
 				}
 
@@ -869,6 +1038,32 @@ namespace CircleSharp
 				index.Count = 0;
 				index.Trigger = trigger;
 				_triggerIndex.Add (_topOfMobileTable, index);
+			}
+
+			return true;
+		}
+
+		private bool LoadHelp(XmlDocument file, string filename)
+		{
+			XmlNodeList list = file.GetElementsByTagName ("HelpData");
+
+			foreach (XmlNode node in list)
+			{
+				HelpData help = new HelpData ();
+				help.Keyword = "UNKNOWN";
+
+				try
+				{
+					help.Keyword = node.Attributes["Keyword"].Value;
+					help.Entry = node.InnerText;
+				}
+				catch
+				{
+					GlobalUtilities.Log ("SYSERR: Error pasing XML for help [" + help.Keyword + "] in file: " + filename);
+					return false;
+				}
+
+				_help.Add (_topOfHelpTable++, help);
 			}
 
 			return true;
