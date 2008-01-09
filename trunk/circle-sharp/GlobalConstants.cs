@@ -81,5 +81,8 @@ namespace CircleSharp
         public const string SHOP_PREFIX = "Shop";
 		public const string ROOM_PREFIX = "Room";
         public const string HELP_PREFIX = "Help";
+
+		public const int DEFAULT_STAFF_LEVEL = 12;
+		public const int DEFAULT_WAND_LEVEL = 12;
     }
 }
