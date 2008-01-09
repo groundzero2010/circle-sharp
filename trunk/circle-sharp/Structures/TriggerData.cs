@@ -13,16 +13,16 @@ namespace CircleSharp.Structures
 		public string Name;
 		public long Type;
 
-		public List<CommandListElement> _commands;
-		public CommandListElement _current;
+		public List<CommandListElement> Commands = new List<CommandListElement> ();
+		public CommandListElement Current;
 
 		public int NumericalArgument;
 		public string ArgumentList;
 		public int Depth;
 		public int Loops;
 
-		public TriggerEvent _waitEvent;
-		public bool _purged;
-		public List<TriggerVariableData> _variables;
+		public TriggerEvent WaitEvent;
+		public bool Purged;
+		public List<TriggerVariableData> Variables = new List<TriggerVariableData> ();
 	}
 }

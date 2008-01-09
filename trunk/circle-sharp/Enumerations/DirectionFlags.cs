@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CircleSharp.Enumerations
 {
-    internal enum DirectionTypes
+    internal enum DirectionTypes : int
     {
         North, East, South, West, Up, Down, Index
     };
