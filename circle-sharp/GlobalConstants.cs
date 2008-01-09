@@ -9,9 +9,9 @@ namespace CircleSharp
     {
         public const string VERSION = "CircleSharp, v1.0";
 
-        public const uint NOWHERE = 0;
-        public const uint NOTHING = 0;
-        public const uint NOBODY =  0;
+        public const int NOWHERE = -1;
+        public const int NOTHING = -1;
+        public const int NOBODY =  -1;
 
         public const int LVL_IMPL = 34;
         public const int LVL_GRGOD = 33;
@@ -81,8 +81,5 @@ namespace CircleSharp
         public const string SHOP_PREFIX = "Shop";
 		public const string ROOM_PREFIX = "Room";
         public const string HELP_PREFIX = "Help";
-		
-        public const string GREETINGS = "Welcome to SharpMUD!\r\n";
-        public const string MENU = "This is the menu: ";
     }
 }

@@ -8,62 +8,26 @@ namespace CircleSharp.Structures
 {
     class CharacterSpecialData
     {
-        private CharacterData _fighting;
-        private CharacterData _hunting;
+        public CharacterData Fighting;
+		public CharacterData Hunting;
 
-        private PositionTypes _position;
+		public PositionTypes Position;
 
-        private int _carryWeight;
-        private int _carryItems;
-        private int _timer;
+		public int CarryWeight;
+		public int CarryItems;
+		public int Timer;
 
-        private CharacterSpecialDataSaved _saved;
-
-        public CharacterData Fighting
-        {
-            get { return _fighting; }
-            set { _fighting = value; }
-        }
-
-        public CharacterData Hunting
-        {
-            get { return _hunting; }
-            set { _hunting = value; }
-        }
-
-        public PositionTypes Position
-        {
-            get { return _position; }
-            set { _position = value; }
-        }
-
-        public CharacterSpecialDataSaved Saved
-        {
-            get { return _saved; }
-            set { _saved = value; }
-        }
+		public CharacterSpecialDataSaved Saved = new CharacterSpecialDataSaved ();
     }
 
     class CharacterSpecialDataSaved
     {
-        private int _alignment;
-        private long _idnum;
+        public int Alignment;
+		public long IDNumber;
 
-        private long _flags;
-        private long _affectedby;
+		public long Flags;
+		public long AffectedBy;
 
-        private short[] _applysavingthrow = new short[5];
-
-        public long Flags
-        {
-            get { return _flags; }
-            set { _flags = value; }
-        }
-
-        public long IDNumber
-        {
-            get { return _idnum; }
-            set { _idnum = value; }
-        }
+		public short[] ApplySavingThrow = new short[5];
     }
 }

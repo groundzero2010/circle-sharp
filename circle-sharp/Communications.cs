@@ -286,7 +286,7 @@ namespace CircleSharp
 
             _descriptors.Add(descriptor);
 
-            WriteToOutput(descriptor, GlobalConstants.GREETINGS);
+            WriteToOutput(descriptor, GlobalSettings.GreetingText);
         }
 
         private int ProcessInput(DescriptorData descriptor)

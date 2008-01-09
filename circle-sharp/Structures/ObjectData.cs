@@ -8,7 +8,7 @@ namespace CircleSharp.Structures
 {
     class ObjectData
     {
-		public int ItemNumber;
+		public int Number;
 		public int InRoom;
 		public string Name;
 		public string Description;

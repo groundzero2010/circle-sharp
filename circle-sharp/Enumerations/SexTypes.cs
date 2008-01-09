@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CircleSharp.Enumerations
 {
-    internal enum SexFlags
+    internal enum SexTypes
     {
         Neutral, Male, Female
     }
