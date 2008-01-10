@@ -3,15 +3,7 @@
   <MortalStartRoom>0</MortalStartRoom>
   <ImmortalStartRoom>0</ImmortalStartRoom>
   <FrozenStartRoom>0</FrozenStartRoom>
-  
   <AutoPlayerWipe>false</AutoPlayerWipe>
-  
-  <Greeting>Welcome to CircleSharp!
-
-Enter username:</Greeting>
-
-<Menu>This is the menu:
-1 - Option
-> </Menu>
-
+  <ListenAddress>10.9.4.73</ListenAddress>
+  <ListenPort>4000</ListenPort>
 </GlobalSettings>

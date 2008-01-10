@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Act.Social.cs" />
     <Compile Include="Communications.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Enumerations\AffectFlags.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Interpreter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharpCore.cs" />
+    <Compile Include="SpecialAssignment.cs" />
     <Compile Include="SpellParser.cs" />
     <Compile Include="Structures\AffectData.cs" />
     <Compile Include="Structures\AliasData.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="Structures\ScriptData.cs" />
     <Compile Include="Structures\ShopBuyData.cs" />
     <Compile Include="Structures\ShopData.cs" />
+    <Compile Include="Structures\SocialMessageListElement.cs" />
     <Compile Include="Structures\SpellData.cs" />
     <Compile Include="Structures\TimeInfoData.cs" />
     <Compile Include="Structures\TriggerData.cs" />

@@ -66,80 +66,83 @@ namespace CircleSharp
 		private string _textPolicies;
 		private string _textHandbook;
 		private string _textBackground;
+		private string _textMenu;
 
 		private void BootDatabase ()
 		{
-			GlobalUtilities.Log ("Boot db -- BEGIN.");
+			Log ("Boot db -- BEGIN.");
 
-			GlobalUtilities.Log ("Resetting the game time.");
+			Log ("Resetting the game time.");
 			ResetTime ();
 
-			GlobalUtilities.Log ("Reading news, credits, help, background, info & motds.");
+			Log ("Reading news, credits, help, background, info & motds.");
 			LoadTextFiles ();
 
-			GlobalUtilities.Log ("Loading spell definitions.");
+			Log ("Loading spell definitions.");
 			MagicAssignSpells ();
 
 			BootWorld ();
 
-			GlobalUtilities.Log ("Loading help entries.");
+			Log ("Loading help entries.");
 			IndexBoot (GlobalConstants.DB_BOOT_HELP);
 
-			GlobalUtilities.Log ("Generating player index.");
+			Log ("Generating player index.");
 			BuildPlayerIndex ();
 
 			if (GlobalSettings.AutoPlayerWipe)
 			{
-				GlobalUtilities.Log ("Cleaning up the player index.");
+				Log ("Cleaning up the player index.");
 				CleanPlayerIndex ();
 			}
 
-			GlobalUtilities.Log ("Loading fight messages.");
+			Log ("Loading fight messages.");
 			LoadFightMessages ();
 
-			GlobalUtilities.Log ("Loading social messages.");
-			//BootSocialMessages ();
+			Log ("Loading social messages.");
+			BootSocialMessages ();
+
+			Log ("Assigning function pointers:");
 
 			if (!_noSpecials)
 			{
-				GlobalUtilities.Log ("  Mobiles.");
-				//AssignMobiles ();
-				GlobalUtilities.Log ("  Shopkeepers.");
-				//AssignShopkeepers ();
-				GlobalUtilities.Log ("  Objects.");
-				//AssignObjects ();
-				GlobalUtilities.Log ("  Rooms.");
-				//AssignRooms ();
+				Log ("  Mobiles.");
+				AssignMobiles ();
+				Log ("  Shopkeepers.");
+				AssignShopkeepers ();
+				Log ("  Objects.");
+				AssignObjects ();
+				Log ("  Rooms.");
+				AssignRooms ();
 			}
 
-			GlobalUtilities.Log ("Assigning spell and skill levels.");
+			Log ("Assigning spell and skill levels.");
 			//InitSpellLevels ();
 
-			GlobalUtilities.Log ("Sorting command list and spells.");
+			Log ("Sorting command list and spells.");
 			//SortCommands ();
 			//SortSpells ();
 
-			GlobalUtilities.Log ("Booting mail system.");
+			Log ("Booting mail system.");
 			if (!_scanFile)
 			{
-				GlobalUtilities.Log ("  Mail boot failed! Mail system disabled!");
+				Log ("  Mail boot failed! Mail system disabled!");
 				_noMail = true;
 			}
 
-			GlobalUtilities.Log ("Reading banned site and invalid-name list.");
+			Log ("Reading banned site and invalid-name list.");
 			//LoadBanned ();
 			//ReadInvalidList ();
 
 			if (!_noRentCheck)
 			{
-				GlobalUtilities.Log ("Deleting timed-out crash and rent files.");
+				Log ("Deleting timed-out crash and rent files.");
 				//UpdateObjectFile ();
-				GlobalUtilities.Log ("  Done.");
+				Log ("  Done.");
 			}
 
 			if (!_miniMud)
 			{
-				GlobalUtilities.Log ("Booting houses.");
+				Log ("Booting houses.");
 				//HouseBoot ();
 			}
 
@@ -149,7 +152,7 @@ namespace CircleSharp
 
 			_bootTime = DateTime.Now;
 
-			GlobalUtilities.Log ("Boot db -- DONE.");
+			Log ("Boot db -- DONE.");
 		}
 
 		private void ResetTime ()
@@ -174,7 +177,7 @@ namespace CircleSharp
 			else
 				_weatherInfo.Sun = SunState.Dark;
 
-			GlobalUtilities.Log ("  Current Game Time: " + _timeInfo.Hours + "H " + _timeInfo.Day + "D " + _timeInfo.Month + "M " + _timeInfo.Year + "Y.");
+			Log ("  Current Game Time: " + _timeInfo.Hours + "H " + _timeInfo.Day + "D " + _timeInfo.Month + "M " + _timeInfo.Year + "Y.");
 
 			_weatherInfo.Pressure = 960;
 
@@ -211,8 +214,8 @@ namespace CircleSharp
 			}
 			catch (Exception e)
 			{
-				GlobalUtilities.Log ("SYSERR: Format error in XML for text file: " + filename);
-				GlobalUtilities.Log ("Exception: " + e.Message);
+				Log ("SYSERR: Format error in XML for text file: " + filename);
+				Log ("Exception: " + e.Message);
 
 				return String.Empty;
 			}
@@ -224,17 +227,18 @@ namespace CircleSharp
 		{
 			string path = Path.Combine (_baseDirectory, GlobalConstants.LIB_TEXT);
 
-			_textGreetings = LoadText (Path.Combine (path, "greetings.xml"));
-			_textCredits = LoadText (Path.Combine (path, "credits.xml"));
-			_textMOTD = LoadText (Path.Combine (path, "motd.xml"));
-			_textIMOTD = LoadText (Path.Combine (path, "imotd.xml"));
-			_textHelp = LoadText (Path.Combine (path, "help.xml"));
-			_textInfo = LoadText (Path.Combine (path, "info.xml"));
-			_textWizList = LoadText (Path.Combine (path, "wizlist.xml"));
-			_textImmList = LoadText (Path.Combine (path, "immlist.xml"));
-			_textPolicies = LoadText (Path.Combine (path, "policies.xml"));
-			_textHandbook = LoadText (Path.Combine (path, "handbook.xml"));
-			_textBackground = LoadText (Path.Combine (path, "background.xml"));
+			_textGreetings = LoadText (Path.Combine (path, "Greetings.xml"));
+			_textCredits = LoadText (Path.Combine (path, "Credits.xml"));
+			_textMOTD = LoadText (Path.Combine (path, "MOTD.xml"));
+			_textIMOTD = LoadText (Path.Combine (path, "IMOTD.xml"));
+			_textHelp = LoadText (Path.Combine (path, "Help.xml"));
+			_textInfo = LoadText (Path.Combine (path, "Info.xml"));
+			_textWizList = LoadText (Path.Combine (path, "Wizlist.xml"));
+			_textImmList = LoadText (Path.Combine (path, "Immlist.xml"));
+			_textPolicies = LoadText (Path.Combine (path, "Policies.xml"));
+			_textHandbook = LoadText (Path.Combine (path, "Handbook.xml"));
+			_textBackground = LoadText (Path.Combine (path, "Background.xml"));
+			_textMenu = LoadText (Path.Combine (path, "Menu.xml"));
 		}
 
 		private TimeInfoData MudTimePassed (DateTime t2, DateTime t1)
@@ -254,35 +258,35 @@ namespace CircleSharp
 
 		private void BootWorld ()
 		{
-			GlobalUtilities.Log ("Using library directory: " + _baseDirectory);
+			Log ("Using library directory: " + _baseDirectory);
 
-			GlobalUtilities.Log ("Loading zone table.");
+			Log ("Loading zone table.");
 			IndexBoot (GlobalConstants.DB_BOOT_ZONE);
 
-			GlobalUtilities.Log ("Loading triggers and generating index.");
+			Log ("Loading triggers and generating index.");
 			IndexBoot (GlobalConstants.DB_BOOT_TRIGGER);
 
-			GlobalUtilities.Log ("Loading rooms.");
+			Log ("Loading rooms.");
 			IndexBoot (GlobalConstants.DB_BOOT_ROOM);
 
-			GlobalUtilities.Log ("Renumbering rooms.");
+			Log ("Renumbering rooms.");
 			RenumWorld ();
 
-			GlobalUtilities.Log ("Checking start rooms.");
+			Log ("Checking start rooms.");
 			CheckStartRooms ();
 
-			GlobalUtilities.Log ("Loading mobiles and generating index.");
+			Log ("Loading mobiles and generating index.");
 			IndexBoot (GlobalConstants.DB_BOOT_MOBILE);
 
-			GlobalUtilities.Log ("Loading objects and generating index.");
+			Log ("Loading objects and generating index.");
 			IndexBoot (GlobalConstants.DB_BOOT_OBJECT);
 
-			GlobalUtilities.Log ("Renumbering zone table.");
+			Log ("Renumbering zone table.");
 			RenumZoneTable ();
 
 			if (!_noSpecials)
 			{
-				GlobalUtilities.Log ("Loading shops.");
+				Log ("Loading shops.");
 				IndexBoot (GlobalConstants.DB_BOOT_SHOP);
 			}
 		}
@@ -323,7 +327,7 @@ namespace CircleSharp
 					break;
 
 				default:
-					GlobalUtilities.Log ("SYSERR: Unknown subcommand " + mode + " to IndexBoot!");
+					Log ("SYSERR: Unknown subcommand " + mode + " to IndexBoot!");
 					throw new Exception ();
 			}
 
@@ -342,7 +346,7 @@ namespace CircleSharp
 			}
 			catch
 			{
-				GlobalUtilities.Log ("SYSERR: Unable to open index file: " + Path.Combine (prefix, indexFilename));
+				Log ("SYSERR: Unable to open index file: " + Path.Combine (prefix, indexFilename));
 				return false;
 			}
 
@@ -363,8 +367,8 @@ namespace CircleSharp
 				}
 				catch (Exception e)
 				{
-					GlobalUtilities.Log ("SYSERR: Unable to open database file mentioned in index: " + filename);
-					GlobalUtilities.Log ("SYSERR: Exception: " + e.Message);
+					Log ("SYSERR: Unable to open database file mentioned in index: " + filename);
+					Log ("SYSERR: Exception: " + e.Message);
 					return false;
 				}
 
@@ -408,31 +412,31 @@ namespace CircleSharp
 			switch (mode)
 			{
 				case GlobalConstants.DB_BOOT_ROOM:
-					GlobalUtilities.Log ("  " + _rooms.Count + " room record(s) loaded.");
+					Log ("  " + _rooms.Count + " room record(s) loaded.");
 					break;
 
 				case GlobalConstants.DB_BOOT_MOBILE:
-					GlobalUtilities.Log ("  " + _mobileIndex.Count + " mobile record(s) loaded.");
+					Log ("  " + _mobileIndex.Count + " mobile record(s) loaded.");
 					break;
 
 				case GlobalConstants.DB_BOOT_OBJECT:
-					GlobalUtilities.Log ("  " + _objectIndex.Count + " object record(s) loaded.");
+					Log ("  " + _objectIndex.Count + " object record(s) loaded.");
 					break;
 
 				case GlobalConstants.DB_BOOT_ZONE:
-					GlobalUtilities.Log ("  " + _zones.Count + " zone record(s) loaded.");
+					Log ("  " + _zones.Count + " zone record(s) loaded.");
 					break;
 
 				case GlobalConstants.DB_BOOT_SHOP:
-					GlobalUtilities.Log ("  " + _rooms.Count + " shop record(s) loaded.");
+					Log ("  " + _rooms.Count + " shop record(s) loaded.");
 					break;
 
 				case GlobalConstants.DB_BOOT_HELP:
-					GlobalUtilities.Log ("  " + _help.Count + " help record(s) loaded.");
+					Log ("  " + _help.Count + " help record(s) loaded.");
 					break;
 
 				case GlobalConstants.DB_BOOT_TRIGGER:
-					GlobalUtilities.Log ("  " + _triggerIndex.Count + " trigger record(s) loaded.");
+					Log ("  " + _triggerIndex.Count + " trigger record(s) loaded.");
 					break;
 			}
 
@@ -482,7 +486,7 @@ namespace CircleSharp
 				}
 				catch (Exception e)
 				{
-					GlobalUtilities.Log ("SYSERR: Error pasing XML for player [" + player.ID + "] in file: " + filename);
+					Log ("SYSERR: Error pasing XML for player [" + player.ID + "] in file: " + filename);
 					return;
 				}
 
@@ -562,7 +566,7 @@ namespace CircleSharp
 
 			foreach (int key in toRemove)
 			{
-				GlobalUtilities.Log ("WARNING: Removing player [" + _players[key].Name + "] from file.");
+				Log ("WARNING: Removing player [" + _players[key].Name + "] from file.");
 				_players.Remove (key);
 			}
 
@@ -624,7 +628,7 @@ namespace CircleSharp
 				}
 				catch
 				{
-					GlobalUtilities.Log ("SYSERR: Error pasing XML for zone [" + zone.Number + "] in file: " + filename);
+					Log ("SYSERR: Error pasing XML for zone [" + zone.Number + "] in file: " + filename);
 					return false;
 				}
 
@@ -736,7 +740,7 @@ namespace CircleSharp
 				}
 				catch
 				{
-					GlobalUtilities.Log ("SYSERR: Error pasing XML for shop [" + shop.Number + "] in file: " + filename);
+					Log ("SYSERR: Error pasing XML for shop [" + shop.Number + "] in file: " + filename);
 					return false;
 				}
 
@@ -788,7 +792,7 @@ namespace CircleSharp
 
 								if (room.DirectionOptions[direction] != null)
 								{
-									GlobalUtilities.Log ("SYSERR: Direction [" + direction + "] already defined in XML file: " + filename);
+									Log ("SYSERR: Direction [" + direction + "] already defined in XML file: " + filename);
 									continue;
 								}
 
@@ -823,7 +827,7 @@ namespace CircleSharp
 				}
 				catch
 				{
-					GlobalUtilities.Log ("SYSERR: Error pasing XML for room [" + room.Number + "] in file: " + filename);
+					Log ("SYSERR: Error pasing XML for room [" + room.Number + "] in file: " + filename);
 					return false;
 				}
 
@@ -928,7 +932,7 @@ namespace CircleSharp
 				}
 				catch
 				{
-					GlobalUtilities.Log ("SYSERR: Error pasing XML for object [" + virtualNumber + "] in file: " + filename);
+					Log ("SYSERR: Error pasing XML for object [" + virtualNumber + "] in file: " + filename);
 					return false;
 				}
 
@@ -1093,7 +1097,7 @@ namespace CircleSharp
 				}
 				catch
 				{
-					GlobalUtilities.Log ("SYSERR: Error pasing XML for mobile [" + virtualNumber + "] in file: " + filename);
+					Log ("SYSERR: Error pasing XML for mobile [" + virtualNumber + "] in file: " + filename);
 					return false;
 				}
 
@@ -1156,7 +1160,7 @@ namespace CircleSharp
 				}
 				catch
 				{
-					GlobalUtilities.Log ("SYSERR: Error pasing XML for trigger [" + virtualNumber + "] in file: " + filename);
+					Log ("SYSERR: Error pasing XML for trigger [" + virtualNumber + "] in file: " + filename);
 					return false;
 				}
 
@@ -1186,7 +1190,7 @@ namespace CircleSharp
 				}
 				catch
 				{
-					GlobalUtilities.Log ("SYSERR: Error pasing XML for help [" + help.Keyword + "] in file: " + filename);
+					Log ("SYSERR: Error pasing XML for help [" + help.Keyword + "] in file: " + filename);
 					return false;
 				}
 
@@ -1200,14 +1204,14 @@ namespace CircleSharp
 		{
 			if ((_realMortalStartRoom = RealRoom (GlobalSettings.MortalStartRoom)) == GlobalConstants.NOWHERE)
 			{
-				GlobalUtilities.Log ("SYSERR: Mortal start room does not exist! Change in GlobalSettings.cs.");
+				Log ("SYSERR: Mortal start room does not exist! Change in GlobalSettings.cs.");
 				return false;
 			}
 
 			if ((_realImmortalStartRoom = RealRoom (GlobalSettings.ImmortalStartRoom)) == GlobalConstants.NOWHERE)
 			{
 				if (!_miniMud)
-					GlobalUtilities.Log ("SYSERR: Immortal start room does not exist! Change in GlobalSettings.cs.");
+					Log ("SYSERR: Immortal start room does not exist! Change in GlobalSettings.cs.");
 
 				_realImmortalStartRoom = _realMortalStartRoom;
 			}
@@ -1215,7 +1219,7 @@ namespace CircleSharp
 			if ((_realFrozenStartRoom = RealRoom (GlobalSettings.FrozenStartRoom)) == GlobalConstants.NOWHERE)
 			{
 				if (!_miniMud)
-					GlobalUtilities.Log ("SYSERR: Frozen start room does not exist! Change in GlobalSettings.cs.");
+					Log ("SYSERR: Frozen start room does not exist! Change in GlobalSettings.cs.");
 
 				_realFrozenStartRoom = _realMortalStartRoom;
 			}
@@ -1296,7 +1300,7 @@ namespace CircleSharp
 					{
 						if (!_miniMud)
 						{
-							GlobalUtilities.Log ("Invalid virtual #" + (a == GlobalConstants.NOWHERE ? olda : b == GlobalConstants.NOWHERE ? oldb : oldc) + ", command disabled.");
+							Log ("Invalid virtual #" + (a == GlobalConstants.NOWHERE ? olda : b == GlobalConstants.NOWHERE ? oldb : oldc) + ", command disabled.");
 							//log_zone_error (zone, cmd_no, buf);
 						}
 
@@ -1311,7 +1315,7 @@ namespace CircleSharp
 			int room = RealRoom (virtualNumber);
 
 			if (room == GlobalConstants.NOWHERE)
-				GlobalUtilities.Log ("Room #" + virtualNumber + " does not exist in database! (References in room #" + reference + ")");
+				Log ("Room #" + virtualNumber + " does not exist in database! (References in room #" + reference + ")");
 
 			return room;
 		}

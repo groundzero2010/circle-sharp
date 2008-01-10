@@ -20,5 +20,10 @@ namespace CircleSharp
         {
             Console.WriteLine("Nanny");
         }
+
+		private int FindCommand(string command)
+		{
+			return 0;
+		}
     }
 }

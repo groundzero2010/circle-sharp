@@ -15,8 +15,8 @@ namespace CircleSharp
 
 		public bool AutoPlayerWipe = false;
 
-		public string GreetingText = String.Empty;
-		public string MenuText = String.Empty;
+		public string ListenAddress = "127.0.0.1";
+		public int ListenPort = 5000;
 		
 		private string _settingsFile = String.Empty;
 		private XmlDocument _settingsDocument = new XmlDocument ();
@@ -33,17 +33,14 @@ namespace CircleSharp
 
 			AutoPlayerWipe = bool.Parse (_settingsDocument.DocumentElement["AutoPlayerWipe"].InnerText);
 
-			GreetingText = _settingsDocument.DocumentElement["Greeting"].InnerText;
-			MenuText = _settingsDocument.DocumentElement["Menu"].InnerText;
+			ListenAddress = _settingsDocument.DocumentElement["ListenAddress"].InnerText;
+			ListenPort = Int32.Parse (_settingsDocument.DocumentElement["ListenPort"].InnerText);
 		}
 
 		public void Save ()
 		{
 			if (_settingsFile == String.Empty)
-			{
-				GlobalUtilities.Log ("Attempted to save global settings before initial load! Aborting.");
 				return;
-			}
 
 			_settingsDocument.DocumentElement["MortalStartRoom"].InnerText = MortalStartRoom.ToString ();
 			_settingsDocument.DocumentElement["ImmortalStartRoom"].InnerText = ImmortalStartRoom.ToString ();
@@ -51,8 +48,8 @@ namespace CircleSharp
 
 			_settingsDocument.DocumentElement["AutoPlayerWipe"].InnerText = AutoPlayerWipe.ToString ();
 
-			_settingsDocument.DocumentElement["Greeting"].InnerText = GreetingText;
-			_settingsDocument.DocumentElement["Menu"].InnerText = MenuText;
+			_settingsDocument.DocumentElement["ListenAddress"].InnerText = ListenAddress;
+			_settingsDocument.DocumentElement["ListenPort"].InnerText = ListenPort.ToString ();
 
 			_settingsDocument.Save (_settingsFile);
 		}

@@ -17,18 +17,19 @@ namespace CircleSharp
         private List<DescriptorData> _descriptors = new List<DescriptorData>();
         private Queue<TcpClient> _newClients = new Queue<TcpClient>();
 
+		private TcpListener _listener;
+
         private int _maxPlayers = 0;
 
         private void InitializeGame()
         {
             _running = true;
 
-            //LogUtility.Info("Finding player limit.");
+            Log ("Finding player limit.");
             _maxPlayers = GetMaxPlayers();
 
             BootDatabase();
 
-            //LogUtility.Info ("Entering game loop.");
             GameLoop();
 
             if (Stopped != null)
@@ -45,22 +46,38 @@ namespace CircleSharp
 
             int missedPulses = 0;
 
-            // Setup the tcp socket listener
-            TcpListener listener = new TcpListener(IPAddress.Loopback, 5000);
-            listener.Start();
+			Log ("Listening using " + GlobalSettings.ListenAddress + " on port " + GlobalSettings.ListenPort + ".");
 
+            // Setup the tcp socket listener
+			IPAddress ip = Dns.GetHostEntry (GlobalSettings.ListenAddress).AddressList[0];
+
+			_listener = new TcpListener (ip, GlobalSettings.ListenPort);
+            _listener.Start();
+			
             // Initialize the time values
             lastTime = DateTime.Now;
+
+			Log ("Entering game loop.");
 
             while (_running)
             {
                 if (_descriptors.Count < 1)
                 {
-                    Console.WriteLine("No connections. Going to sleep.");
+                    Log ("No connections. Going to sleep.");
 
-                    _newClients.Enqueue(listener.AcceptTcpClient());
+					try
+					{
+						_newClients.Enqueue (_listener.AcceptTcpClient ());
+					}
+					catch (SocketException e)
+					{
+						if (e.SocketErrorCode != SocketError.Interrupted)
+							Log ("SYSERR: Socket Exception [" + e.SocketErrorCode + "]: " + e.Message);
 
-                    Console.WriteLine("New connection. Waking up.");
+						break;
+					}
+					
+                    Log ("New connection. Waking up.");
 
                     lastTime = DateTime.Now;
                 }
@@ -92,8 +109,18 @@ namespace CircleSharp
                 }
                 while (timeoutTime.Milliseconds > 0 || timeoutTime.Seconds > 0);
 
-                if (listener.Pending())
-                    _newClients.Enqueue(listener.AcceptTcpClient());
+				try
+				{
+					if (_listener.Pending ())
+						_newClients.Enqueue (_listener.AcceptTcpClient ());
+				}
+				catch (SocketException e)
+				{
+					if (e.SocketErrorCode != SocketError.Interrupted)
+						Log ("SYSERR: Socket Exception [" + e.SocketErrorCode + "]: " + e.Message);
+
+					break;
+				}
 
                 if (_newClients.Count > 0)
                     NewDescriptor(_newClients.Dequeue());
@@ -187,12 +214,15 @@ namespace CircleSharp
                 while (missedPulses-- > 0)
                     Heartbeat(++Pulse);
 
-                // execute heartbeat
-
                 // Check for signals
             }
 
-            listener.Stop();
+			Log ("Game loop ended.");
+
+			if (Stopped != null)
+				Stopped (this, new EventArgs ());
+
+			_listener.Stop ();
         }
 
         private void Heartbeat(long heartPulse)
@@ -286,7 +316,7 @@ namespace CircleSharp
 
             _descriptors.Add(descriptor);
 
-            WriteToOutput(descriptor, GlobalSettings.GreetingText);
+            WriteToOutput(descriptor, _textGreetings);
         }
 
         private int ProcessInput(DescriptorData descriptor)
