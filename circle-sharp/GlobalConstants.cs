@@ -65,6 +65,7 @@ namespace CircleSharp
         public const string LIB_TEXT_HELP = "Help";
         public const string LIB_MISC = "Misc";
         public const string LIB_ETC = "Etc";
+		public const string LIB_PLAYERS = "Players";
         public const string LIB_PLRTEXT = "PlayerText";
         public const string LIB_PLROBJS = "PlayerObjects";
         public const string LIB_PLRVARS = "PlayerVariables";

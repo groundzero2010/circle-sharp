@@ -11,6 +11,9 @@ namespace CircleSharp
 {
 	public partial class SharpCore
 	{
+		private Dictionary<int, PlayerData> _players = new Dictionary<int, PlayerData> ();
+		private int _topOfPlayerTable = 0;
+
 		private Dictionary<int, HelpData> _help = new Dictionary<int, HelpData> ();
 		private int _topOfHelpTable = 0;
 
@@ -39,9 +42,8 @@ namespace CircleSharp
 		private List<CharacterData> _combatters = new List<CharacterData> ();
 
 		private DateTime _bootTime;
-		private bool _autoPWipe = false;
-		private bool _noSpecials = false;
 		private bool _scanFile = false;
+		private bool _noSpecials = false;
 		private bool _noMail = false;
 		private bool _noRentCheck = false;
 		private bool _miniMud = false;
@@ -76,7 +78,7 @@ namespace CircleSharp
 			LoadTextFiles ();
 
 			GlobalUtilities.Log ("Loading spell definitions.");
-			MagicAssignSpells();
+			MagicAssignSpells ();
 
 			BootWorld ();
 
@@ -84,38 +86,38 @@ namespace CircleSharp
 			IndexBoot (GlobalConstants.DB_BOOT_HELP);
 
 			GlobalUtilities.Log ("Generating player index.");
-			BuildPlayerIndex();
+			BuildPlayerIndex ();
 
-			if (_autoPWipe)
+			if (GlobalSettings.AutoPlayerWipe)
 			{
-				GlobalUtilities.Log ("Cleaning out the pfiles.");
-				//CleanPFiles();
+				GlobalUtilities.Log ("Cleaning up the player index.");
+				CleanPlayerIndex ();
 			}
 
 			GlobalUtilities.Log ("Loading fight messages.");
-			//LoadMessages();
+			LoadFightMessages ();
 
 			GlobalUtilities.Log ("Loading social messages.");
-			//BootSocialMessages();
+			//BootSocialMessages ();
 
 			if (!_noSpecials)
 			{
 				GlobalUtilities.Log ("  Mobiles.");
-				//AssignMobiles();
+				//AssignMobiles ();
 				GlobalUtilities.Log ("  Shopkeepers.");
-				//AssignShopkeepers();
+				//AssignShopkeepers ();
 				GlobalUtilities.Log ("  Objects.");
-				//AssignObjects();
+				//AssignObjects ();
 				GlobalUtilities.Log ("  Rooms.");
-				//AssignRooms();
+				//AssignRooms ();
 			}
 
 			GlobalUtilities.Log ("Assigning spell and skill levels.");
-			//InitSpellLevels();
+			//InitSpellLevels ();
 
 			GlobalUtilities.Log ("Sorting command list and spells.");
-			//SortCommands();
-			//SortSpells();
+			//SortCommands ();
+			//SortSpells ();
 
 			GlobalUtilities.Log ("Booting mail system.");
 			if (!_scanFile)
@@ -125,20 +127,20 @@ namespace CircleSharp
 			}
 
 			GlobalUtilities.Log ("Reading banned site and invalid-name list.");
-			//LoadBanned();
-			//ReadInvalidList();
+			//LoadBanned ();
+			//ReadInvalidList ();
 
 			if (!_noRentCheck)
 			{
 				GlobalUtilities.Log ("Deleting timed-out crash and rent files.");
-				//UpdateObjectFile();
+				//UpdateObjectFile ();
 				GlobalUtilities.Log ("  Done.");
 			}
 
 			if (!_miniMud)
 			{
 				GlobalUtilities.Log ("Booting houses.");
-				//HouseBoot();
+				//HouseBoot ();
 			}
 
 			// Reset all zones.
@@ -193,7 +195,7 @@ namespace CircleSharp
 				_weatherInfo.Sky = SkyState.Cloudless;
 		}
 
-		private string LoadText(string filename)
+		private string LoadText (string filename)
 		{
 			XmlDocument file = new XmlDocument ();
 			file.Load (filename);
@@ -218,7 +220,7 @@ namespace CircleSharp
 			return String.Empty;
 		}
 
-		private void LoadTextFiles()
+		private void LoadTextFiles ()
 		{
 			string path = Path.Combine (_baseDirectory, GlobalConstants.LIB_TEXT);
 
@@ -259,7 +261,7 @@ namespace CircleSharp
 
 			GlobalUtilities.Log ("Loading triggers and generating index.");
 			IndexBoot (GlobalConstants.DB_BOOT_TRIGGER);
-			
+
 			GlobalUtilities.Log ("Loading rooms.");
 			IndexBoot (GlobalConstants.DB_BOOT_ROOM);
 
@@ -406,7 +408,7 @@ namespace CircleSharp
 			switch (mode)
 			{
 				case GlobalConstants.DB_BOOT_ROOM:
-					GlobalUtilities.Log ("  "+ _rooms.Count + " room record(s) loaded.");
+					GlobalUtilities.Log ("  " + _rooms.Count + " room record(s) loaded.");
 					break;
 
 				case GlobalConstants.DB_BOOT_MOBILE:
@@ -437,9 +439,134 @@ namespace CircleSharp
 			return true;
 		}
 
-		private void BuildPlayerIndex()
+		private void BuildPlayerIndex ()
 		{
-			LoadPlayers (XmlDocument 
+			XmlDocument file = new XmlDocument ();
+			string filename = Path.Combine (_baseDirectory, GlobalConstants.LIB_PLAYERS);
+			filename = Path.Combine (filename, "Players.xml");
+
+			file.Load (filename);
+
+			XmlNodeList list = file.GetElementsByTagName ("PlayerData");
+
+			foreach (XmlNode node in list)
+			{
+				PlayerData player = new PlayerData ();
+				player.ID = 0;
+
+				try
+				{
+					player.ID = Int32.Parse (node.Attributes["ID"].Value);
+
+					foreach (XmlNode child in node.ChildNodes)
+					{
+						switch (child.Name)
+						{
+							case "Name":
+								player.Name = child.InnerText;
+								break;
+
+							case "Level":
+								player.Level = Int32.Parse (child.InnerText);
+								break;
+
+							case "Flags":
+								player.Flags = long.Parse (child.InnerText);
+								break;
+
+							case "Last":
+								player.Last = DateTime.Parse (child.InnerText);
+								break;
+						}
+					}
+				}
+				catch (Exception e)
+				{
+					GlobalUtilities.Log ("SYSERR: Error pasing XML for player [" + player.ID + "] in file: " + filename);
+					return;
+				}
+
+				_players.Add (_topOfPlayerTable++, player);
+			}
+		}
+
+		private void AddPlayerValue (XmlDocument file, XmlNode node, string name, string value)
+		{
+			XmlElement element = file.CreateElement (name);
+			XmlText text = file.CreateTextNode (value);
+			element.AppendChild (text);
+			node.AppendChild (element);
+		}
+
+		private void SavePlayerIndex ()
+		{
+			XmlDocument file = new XmlDocument ();
+			XmlElement root;
+			string filename = Path.Combine (_baseDirectory, GlobalConstants.LIB_PLAYERS);
+
+			filename = Path.Combine (filename, "Players.xml");
+
+			file.AppendChild (file.CreateXmlDeclaration ("1.0", "UTF-8", "yes"));
+
+			root = file.CreateElement ("Players");
+
+			foreach (PlayerData player in _players.Values)
+			{
+				XmlNode playerNode = file.CreateElement ("PlayerData");
+
+				XmlAttribute idAttribute = file.CreateAttribute ("ID");
+				idAttribute.Value = player.ID.ToString ();
+				playerNode.Attributes.Append (idAttribute);
+
+				AddPlayerValue (file, playerNode, "Name", player.Name);
+				AddPlayerValue (file, playerNode, "Level", player.Level.ToString ());
+				AddPlayerValue (file, playerNode, "Flags", player.Flags.ToString ());
+				AddPlayerValue (file, playerNode, "Last", player.Last.ToString ("G"));
+
+				root.AppendChild (playerNode);
+			}
+
+			file.AppendChild (root);
+
+			file.Save (filename);
+		}
+
+		private void CleanPlayerIndex ()
+		{
+			List<int> toRemove = new List<int> ();
+
+			// FIXME: This will not do the same thing the CircleMUD code does, which is to remove
+			// the character based on level and time. For now this will suffice.
+			foreach (int key in _players.Keys)
+			{
+				PlayerData player = _players[key];
+
+				if (player.IsFlagged (PlayerIndexFlags.NoDelete))
+					continue;
+
+				if (player.IsFlagged (PlayerIndexFlags.Deleted))
+					toRemove.Add (key);
+				else
+				{
+					// Find out how many days have passed since the player last logged in.
+					TimeSpan span = DateTime.Now.Subtract (player.Last);
+
+					if (player.IsFlagged (PlayerIndexFlags.SelfDelete) && span.Days >= 10)
+						toRemove.Add (key);
+					else if (player.Level == 1 && span.Days >= 1)
+						toRemove.Add (key);
+					else if ((player.Level > 1 && player.Level < GlobalConstants.LVL_IMMORT) && span.Days >= 30)
+						toRemove.Add (key);
+				}
+			}
+
+			foreach (int key in toRemove)
+			{
+				GlobalUtilities.Log ("WARNING: Removing player [" + _players[key].Name + "] from file.");
+				_players.Remove (key);
+			}
+
+			SavePlayerIndex ();
 		}
 
 		private bool LoadZone (XmlDocument file, string filename)
@@ -517,28 +644,28 @@ namespace CircleSharp
 
 				try
 				{
-					shop.Number = Int32.Parse(node.Attributes["Number"].Value);
+					shop.Number = Int32.Parse (node.Attributes["Number"].Value);
 
 					foreach (XmlNode child in node.ChildNodes)
 					{
 						switch (child.Name)
 						{
 							case "Product":
-								shop.Producing.Add (Int32.Parse(child.InnerText));
+								shop.Producing.Add (Int32.Parse (child.InnerText));
 								break;
 
 							case "ProfitBuy":
-								shop.ProfitBuy = float.Parse(child.InnerText);
+								shop.ProfitBuy = float.Parse (child.InnerText);
 								break;
 
 							case "ProfitSell":
-								shop.ProfitSell = float.Parse(child.InnerText);
+								shop.ProfitSell = float.Parse (child.InnerText);
 								break;
 
 							case "Type":
 								ShopBuyData data = new ShopBuyData ();
 
-								shop.Type.Add(data);
+								shop.Type.Add (data);
 								break;
 
 							case "NoSuchItem1":
@@ -570,39 +697,39 @@ namespace CircleSharp
 								break;
 
 							case "Temper":
-								shop.Temper = Int32.Parse(child.InnerText);
+								shop.Temper = Int32.Parse (child.InnerText);
 								break;
 
 							case "Bitvector":
-								shop.Bitvector = long.Parse(child.InnerText);
+								shop.Bitvector = long.Parse (child.InnerText);
 								break;
 
 							case "Keeper":
-								shop.Keeper = Int32.Parse(child.InnerText);
+								shop.Keeper = Int32.Parse (child.InnerText);
 								break;
 
 							case "WithWho":
-								shop.WithWho = Int32.Parse(child.InnerText);
+								shop.WithWho = Int32.Parse (child.InnerText);
 								break;
 
 							case "InRoom":
-								shop.InRoom.Add (Int32.Parse(child.InnerText));
+								shop.InRoom.Add (Int32.Parse (child.InnerText));
 								break;
 
 							case "Open1":
-								shop.Open1 = Int32.Parse(child.InnerText);
+								shop.Open1 = Int32.Parse (child.InnerText);
 								break;
 
 							case "Close1":
-								shop.Close1 = Int32.Parse(child.InnerText);
+								shop.Close1 = Int32.Parse (child.InnerText);
 								break;
 
 							case "Open2":
-								shop.Open2 = Int32.Parse(child.InnerText);
+								shop.Open2 = Int32.Parse (child.InnerText);
 								break;
 
 							case "Close2":
-								shop.Close2 = Int32.Parse(child.InnerText);
+								shop.Close2 = Int32.Parse (child.InnerText);
 								break;
 						}
 					}
@@ -1029,7 +1156,7 @@ namespace CircleSharp
 				}
 				catch
 				{
-					GlobalUtilities.Log ("SYSERR: Error pasing XML for trigger ["+virtualNumber+"] in file: " + filename);
+					GlobalUtilities.Log ("SYSERR: Error pasing XML for trigger [" + virtualNumber + "] in file: " + filename);
 					return false;
 				}
 
@@ -1043,7 +1170,7 @@ namespace CircleSharp
 			return true;
 		}
 
-		private bool LoadHelp(XmlDocument file, string filename)
+		private bool LoadHelp (XmlDocument file, string filename)
 		{
 			XmlNodeList list = file.GetElementsByTagName ("HelpData");
 

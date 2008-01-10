@@ -64,6 +64,7 @@
     <Compile Include="Enumerations\MobileFlags.cs" />
     <Compile Include="Enumerations\PlayerConditions.cs" />
     <Compile Include="Enumerations\PlayerFlags.cs" />
+    <Compile Include="Enumerations\PlayerIndexFlags.cs" />
     <Compile Include="Enumerations\PositionTypes.cs" />
     <Compile Include="Enumerations\PreferenceFlags.cs" />
     <Compile Include="Enumerations\RentCodes.cs" />
@@ -76,8 +77,8 @@
     <Compile Include="Enumerations\SpellTypes.cs" />
     <Compile Include="Enumerations\SunState.cs" />
     <Compile Include="Enumerations\TriggerTypes.cs" />
-    <Compile Include="Enumerations\WeaponAttackTypes.cs" />
     <Compile Include="Enumerations\WearTypes.cs" />
+    <Compile Include="Fight.cs" />
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="GlobalSettings.cs" />
     <Compile Include="GlobalUtilities.cs" />
@@ -96,6 +97,9 @@
     <Compile Include="Structures\CommandListElement.cs" />
     <Compile Include="Structures\DescriptorData.cs" />
     <Compile Include="Structures\ExtraDescriptionData.cs" />
+    <Compile Include="Structures\FightMessage.cs" />
+    <Compile Include="Structures\FightMessageEntry.cs" />
+    <Compile Include="Structures\FightMessageListElement.cs" />
     <Compile Include="Structures\HelpData.cs" />
     <Compile Include="Structures\IndexData.cs" />
     <Compile Include="Structures\MobileSpecialData.cs" />
