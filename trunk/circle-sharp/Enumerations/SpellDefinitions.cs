@@ -84,6 +84,25 @@ namespace CircleSharp.Enumerations
 		SpellLightningBreath,
 		SpellAffect,
 
-		TopSpellIndex
+		TopSpellIndex,
+
+		AttackHit,
+		AttackString,
+		AttackWhip,
+		AttackSlash,
+		AttackBite,
+		AttackBludgeon,
+		AttackCrush,
+		AttackPound,
+		AttackClaw,
+		AttackMaul,
+		AttackThrash,
+		AttackPierce,
+		AttackAttackBlast,
+		AttackPunch,
+		AttackStab,
+		AttackSuffering,
+
+		AttackIndex
 	}
 }

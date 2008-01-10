@@ -12,7 +12,9 @@ namespace CircleSharp
 		public int MortalStartRoom = GlobalConstants.NOWHERE;
 		public int ImmortalStartRoom = GlobalConstants.NOWHERE;
 		public int FrozenStartRoom = GlobalConstants.NOWHERE;
-		
+
+		public bool AutoPlayerWipe = false;
+
 		public string GreetingText = String.Empty;
 		public string MenuText = String.Empty;
 		
@@ -29,6 +31,8 @@ namespace CircleSharp
 			ImmortalStartRoom = Int32.Parse (_settingsDocument.DocumentElement["ImmortalStartRoom"].InnerText);
 			FrozenStartRoom = Int32.Parse (_settingsDocument.DocumentElement["FrozenStartRoom"].InnerText);
 
+			AutoPlayerWipe = bool.Parse (_settingsDocument.DocumentElement["AutoPlayerWipe"].InnerText);
+
 			GreetingText = _settingsDocument.DocumentElement["Greeting"].InnerText;
 			MenuText = _settingsDocument.DocumentElement["Menu"].InnerText;
 		}
@@ -44,6 +48,8 @@ namespace CircleSharp
 			_settingsDocument.DocumentElement["MortalStartRoom"].InnerText = MortalStartRoom.ToString ();
 			_settingsDocument.DocumentElement["ImmortalStartRoom"].InnerText = ImmortalStartRoom.ToString ();
 			_settingsDocument.DocumentElement["FrozenStartRoom"].InnerText = FrozenStartRoom.ToString ();
+
+			_settingsDocument.DocumentElement["AutoPlayerWipe"].InnerText = AutoPlayerWipe.ToString ();
 
 			_settingsDocument.DocumentElement["Greeting"].InnerText = GreetingText;
 			_settingsDocument.DocumentElement["Menu"].InnerText = MenuText;
