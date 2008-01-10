@@ -337,545 +337,537 @@
     <GodRoom>$n pathetically tries to take a swing at $N - ha!</GodRoom>
   </FightMessage>
 
-  <!--  -->
-  <FightMessage ID="">
-    <DieAttacker></DieAttacker>
-    <DieVictim></DieVictim>
-    <DieRoom></DieRoom>
-    <MissAttacker></MissAttacker>
-    <MissVictim></MissVictim>
-    <MissRoom></MissRoom>
-    <HitAttacker></HitAttacker>
-    <HitVictim></HitVictim>
-    <HitRoom></HitRoom>
-    <GodAttacker></GodAttacker>
-    <GodVictim></GodVictim>
-    <GodRoom></GodRoom>
+  <!-- Sting -->
+  <FightMessage ID="301">
+    <DieAttacker>You drive a sting directly into the heart of $N, killing $M!</DieAttacker>
+    <DieVictim>With a powerful driving force, $n's sting tears right through your chest causing instant death!</DieVictim>
+    <DieRoom>$n drives $s sting through $N's chest, killing $M!</DieRoom>
+    <MissAttacker>You miss $N with your stinging blow!</MissAttacker>
+    <MissVictim>$n drives $s stinging blow at you, barely missing!</MissVictim>
+    <MissRoom>You watch in fright as $n stings at $N, missing by mere inches!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Sting -- God... What are you thinking?</GodAttacker>
+    <GodVictim>$n tries to sting you, somewhat comical to tell the truth.</GodVictim>
+    <GodRoom>$n stings at $N, then looks horrified as $N grins at $m!</GodRoom>
   </FightMessage>
   
+  <FightMessage ID="301">
+    <DieAttacker>You violently sting $N repeatedly, causing $S death!</DieAttacker>
+    <DieVictim>You die a horrid death as $n stings you repeatedly all over your body!</DieVictim>
+    <DieRoom>As $n stings $N all over the place, $N falls lifeless to the ground.</DieRoom>
+    <MissAttacker>You sting towards $N, but miss $M!</MissAttacker>
+    <MissVictim>$n misses you with $s sting!</MissVictim>
+    <MissRoom>You watch on as $n stings at $N, but misses!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>You sting at $N, and all that happens is that $E slaps himself as if a mosquito bit $M.</GodAttacker>
+    <GodVictim>Was that a bee you just felt?  Oh.. wait, it was just $n.</GodVictim>
+    <GodRoom>$N begins to slap at $Mself as $n tries to sting $M.</GodRoom>
+  </FightMessage>
+
+  <!-- Whip -->
+  <FightMessage ID="302">
+    <DieAttacker>You whip $N's head right off of $S body!</DieAttacker>
+    <DieVictim>$n whips your head right off of your body!</DieVictim>
+    <DieRoom>$n whips $N's head right off of $S body!</DieRoom>
+    <MissAttacker>You crack your whip at $N but it hits you in the face!</MissAttacker>
+    <MissVictim>$n cracks $s whip at you and it hits $m in the face!</MissVictim>
+    <MissRoom>$n cracks $s whip at $N but only hits $mself in the face!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>You'd better stop before $N whips your butt.</GodAttacker>
+    <GodVictim>Pathetic little $n is trying to whip you... how cute.</GodVictim>
+    <GodRoom>$n tries to whip $N - isn't he cute?</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="302">
+    <DieAttacker>Your dextrous whip messily tears $N's torso right off!</DieAttacker>
+    <DieVictim>$n's whip messily tears you right in half!</DieVictim>
+    <DieRoom>With an evil grin, $n messily whips $N in half!</DieRoom>
+    <MissAttacker>You try to whip $N but whip the ground instead!</MissAttacker>
+    <MissVictim>$n tries to whip you but whips the ground instead!</MissVictim>
+    <MissRoom>$n tries to whip $N but whips the ground instead!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Don't try to whip $N.</GodAttacker>
+    <GodVictim>$n is trying to whip you.  Yawn.</GodVictim>
+    <GodRoom>$n tries to whip $N - yawn.</GodRoom>
+  </FightMessage>
+
+  <!-- Slash -->
+  <FightMessage ID="303">
+    <DieAttacker>You beautifully slash $N into two parts -- both dead.</DieAttacker>
+    <DieVictim>Your upper body is disconnected from your legs as $n slashes at you -- R.I.P.!</DieVictim>
+    <DieRoom>$N is slashed in two by a masterful stroke of $n!</DieRoom>
+    <MissAttacker>Your desperate slash at $N is easily avoided by $M.</MissAttacker>
+    <MissVictim>You easily avoid a slash from $n.</MissVictim>
+    <MissRoom>$N nimbly avoids $n's slash.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Your cunning slash at $N is fruitless.</GodAttacker>
+    <GodVictim>You nimbly stop a slash from $n.</GodVictim>
+    <GodRoom>$N stops a cunning slash from $n who looks disappointed.</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="303">
+    <DieAttacker>Your slash at $N results in a pool of blood and $S immediate death!</DieAttacker>
+    <DieVictim>Blood spurts all over as $n slashes at you.  You die...</DieVictim>
+    <DieRoom>$n slashes at $N who colors everything red with blood from $S lethal wound.</DieRoom>
+    <MissAttacker>You miss $N by an inch, curse that brat!</MissAttacker>
+    <MissVictim>You manage to dodge $n's slash and laugh, HA!</MissVictim>
+    <MissRoom>$n's slash misses $N who laughs in sheer delight, HA!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Come on, what makes you think you can slash at a GOD?!</GodAttacker>
+    <GodVictim>You barely register the puny creature before you...</GodVictim>
+    <GodRoom>The great $N seems to ignore $n's slashes.</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="303">
+    <DieAttacker>$N cries out in agony as you slash $S ribcage open!</DieAttacker>
+    <DieVictim>Your ribcage is slashed open by $n -- R.I.P.!</DieVictim>
+    <DieRoom>$n nicely dissects $N's ribcage with a single slash!</DieRoom>
+    <MissAttacker>You try to slash $N but miss by a mile.</MissAttacker>
+    <MissVictim>$n's slash misses you by a mile.</MissVictim>
+    <MissRoom>$n's slash at $N misses $M by a mile.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>It's rude to try to slash a GOD, you know.</GodAttacker>
+    <GodVictim>$n tries to slash you -- how rude!</GodVictim>
+    <GodRoom>$n tries to slash $N -- how rude!</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="303">
+    <DieAttacker>Your powerful slash cleanly cuts off $N's head, which rolls away with a look of horror on it.</DieAttacker>
+    <DieVictim>You briefly feel the sensation of flight as $n slices your head cleanly off!</DieVictim>
+    <DieRoom>$n cleanly slices off $N's head which rolls away with a look of horror on it!</DieRoom>
+    <MissAttacker>$N is cooled by the breeze of your missed slash at $M.</MissAttacker>
+    <MissVictim>$n cools you with the breeze of $s missed slash at you.</MissVictim>
+    <MissRoom>$n cools $N with the breeze of $s missed slash.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Yeah, right.</GodAttacker>
+    <GodVictim>$n tries to slash you... yeah, right.</GodVictim>
+    <GodRoom>$n tries to slash $N... yeah, right.</GodRoom>
+  </FightMessage>
+
+  <!-- Bite -->
+  <FightMessage ID="304">
+    <DieAttacker>You sink your teeth deep into $N's neck -- blood sprays everywhere!</DieAttacker>
+    <DieVictim>$n sinks $s teeth deep into your neck, tearing your jugular vein to bits!</DieVictim>
+    <DieRoom>$n sinks $s teeth deep into $N's neck, tearing $S jugular vein to bits!</DieRoom>
+    <MissAttacker>You snap your teeth at $N but miss him.</MissAttacker>
+    <MissVictim>$n snaps $s teeth at you fiercly but misses.</MissVictim>
+    <MissRoom>$n fiercly snaps $s teeth at $N but misses the mark.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>You attempt to bite $N.  Ouch!  That hurt!</GodAttacker>
+    <GodVictim>$n tries to bite you, how funny.</GodVictim>
+    <GodRoom>$n tries to bite $N - funny, huh?</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="304">
+    <DieAttacker>You bite $N through $S ribcage and into $S heart -- $e falls to the ground in agony.</DieAttacker>
+    <DieVictim>$n bites you right through your ribcage and into your heart -- you fall to the ground writhing in agony...</DieVictim>
+    <DieRoom>$n's powerful jaw bites through $N's ribcage into $S heart -- $E falls to the ground writhing in agony!</DieRoom>
+    <MissAttacker>You try to bite $N but bite your tongue instead.</MissAttacker>
+    <MissVictim>$n tries to bite you but bites $s tongue instead!</MissVictim>
+    <MissRoom>$n tries to bite $N but bites $s own tongue instead!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Aren't you trying to bite off more than you can chew?</GodAttacker>
+    <GodVictim>$n snaps at you but realizes $e is biting off more than $e can chew.</GodVictim>
+    <GodRoom>$n stupidly tries to bite off more than $e can chew by snapping at $N.</GodRoom>
+  </FightMessage>
+
+  <!-- Bludgeon -->
+  <FightMessage ID="305">
+    <DieAttacker>You forcefully bludgeon $N whose head suddenly cracks open like a walnut!</DieAttacker>
+    <DieVictim>$n bludgeons your head which cracks open like a walnut!</DieVictim>
+    <DieRoom>$n ruthlessly bludgeons $N whose head cracks open like a walnut!</DieRoom>
+    <MissAttacker>You fruitlessly try to bludgeon $N.</MissAttacker>
+    <MissVictim>You easily dodge $n's attempt to bludgeon you.</MissVictim>
+    <MissRoom>$n tries to bludgeon $N who easily avoids the blow.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Your attempt to bludgeon $N fails, luckily for you $N has a good sense of humor!</GodAttacker>
+    <GodVictim>Your patience is tried when $n tries to clobber you.</GodVictim>
+    <GodRoom>$N restrains $Mself from zapping $n when $e attempts to bludgeon the mighty one.</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="305">
+    <DieAttacker>Your relentless bludgeoning of $N finally results in $S broken neck!</DieAttacker>
+    <DieVictim>$n's relentless bludgeoning of you finally results in your broken neck!</DieVictim>
+    <DieRoom>$n's relentless bludgeoning of $N finally results in $N's broken neck!</DieRoom>
+    <MissAttacker>You try to bludgeon $N who simply laughs at you.</MissAttacker>
+    <MissVictim>$n tries to bludgeon you, but you avoid $m and laugh.</MissVictim>
+    <MissRoom>$N laughs at $n's attempt to bludgeon $M.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Your attempt to bludgeon $N fails, luckily for you $N has a good sense of humor!</GodAttacker>
+    <GodVictim>Your patience is tried when $n tries to clobber you.</GodVictim>
+    <GodRoom>$N restrains $Mself from zapping $n when $e attempts to bludgeon the mighty one.</GodRoom>
+  </FightMessage>
+
+  <!-- Crush -->
+  <FightMessage ID="306">
+    <DieAttacker>You crush $N right out of existence!</DieAttacker>
+    <DieVictim>$n crushes you right out of existence!</DieVictim>
+    <DieRoom>$n crushes $N right out of existence!</DieRoom>
+    <MissAttacker>You try to crush $N who jumps out of the way!</MissAttacker>
+    <MissVictim>$n tries to crush you but you jump out of the way!</MissVictim>
+    <MissRoom>$n tries to crush $N who jumps out of the way!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>A pox on thee and thy pitiful crush on $N!</GodAttacker>
+    <GodVictim>$n seems to have a crush on you...</GodVictim>
+    <GodRoom>$n seems to have a crush on $N...</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="306">
+    <DieAttacker>You crush $N's entire body, making a terrible mess!</DieAttacker>
+    <DieVictim>$n crushes your entire body, making a terrible mess!</DieVictim>
+    <DieRoom>$n crushes $N's entire body, making a terrible mess!</DieRoom>
+    <MissAttacker>You hopelessly try to crush $N.</MissAttacker>
+    <MissVictim>$n hopelessly tries to crush you.</MissVictim>
+    <MissRoom>$n hopelessly tries to crush $N.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>A pox on thee and thy pitiful crush on $N!</GodAttacker>
+    <GodVictim>$n seems to have a crush on you...</GodVictim>
+    <GodRoom>$n seems to have a crush on $N...</GodRoom>
+  </FightMessage>
+
+  <!-- Pound -->
+  <FightMessage ID="307">
+    <DieAttacker>You pound $N right into the ground!</DieAttacker>
+    <DieVictim>$n pounds you six feet under.</DieVictim>
+    <DieRoom>$n pounds $N mightily on the head, crushing $S entire body!</DieRoom>
+    <MissAttacker>You pound at the air as $N nimbly steps out of the way!</MissAttacker>
+    <MissVictim>You jump out of the way in a panic as $n pounds at you!</MissVictim>
+    <MissRoom>$n looks perturbed as $s pound misses $N!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>You pound $N!  And $E thanks you for it?  *boggle*</GodAttacker>
+    <GodVictim>$n gives you a pound.  Wonder what the exchange rate is...</GodVictim>
+    <GodRoom>$n starts giving pounds to $N who begins to count the money.</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="307">
+    <DieAttacker>You pound on $N with reckless abandon when you realize that $E is dead.</DieAttacker>
+    <DieVictim>With $s reckless pounding attacks, you succomb to death.</DieVictim>
+    <DieRoom>$N falls under $n's pounding blows, yet $n continues $s attack!</DieRoom>
+    <MissAttacker>You hear the air whistle as you split the air with your pound!</MissAttacker>
+    <MissVictim>$n pounds in your direction, causing a whistling sound!</MissVictim>
+    <MissRoom>With a loud whistle through the air, $n misses $s pounding attack upon $N!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Who are you trying to kid?</GodAttacker>
+    <GodVictim>Hmmm... I think you missed the joke that $n was trying to tell you.</GodVictim>
+    <GodRoom>$N looks somewhat perplexed as $n tries to pound him!</GodRoom>
+  </FightMessage>
+
+  <!-- Claw -->
+  <FightMessage ID="308">
+    <DieAttacker>You claw $N's face right off!</DieAttacker>
+    <DieVictim>$n claws your face right off!</DieVictim>
+    <DieRoom>$n claws $N's face right off!</DieRoom>
+    <MissAttacker>You try to claw at $N but miss!</MissAttacker>
+    <MissVictim>$n tries to claw at you but misses by a hair!</MissVictim>
+    <MissRoom>$n tries to claw at $N, missing by a hair!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>You dummy!  Not the claw, the claw!</GodAttacker>
+    <GodVictim>$n must be crazy - trying to claw at you!</GodVictim>
+    <GodRoom>$n must be crazy - trying to claw at $N!</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="308">
+    <DieAttacker>Your razor-sharp claws rip $N wide open!</DieAttacker>
+    <DieVictim>$n's razor-sharp claws rip you wide open!</DieVictim>
+    <DieRoom>$n's razor-sharp claws rip $N wide open!</DieRoom>
+    <MissAttacker>You try to claw at $N but almost nick yourself instead!</MissAttacker>
+    <MissVictim>$n tries to claw at you but nearly nicks $mself instead!</MissVictim>
+    <MissRoom>$n tries to claw at $N but nearly nicks $mself instead!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>You dummy!  Not the claw, the claw!</GodAttacker>
+    <GodVictim>$n must be crazy - trying to claw at you!</GodVictim>
+    <GodRoom>$n must be crazy - trying to claw at $N!</GodRoom>
+  </FightMessage>
+
+  <!-- Maul -->
+  <FightMessage ID="309">
+    <DieAttacker>You maul $N across the chest and $E screams in pain as $E falls lifeless to the ground.</DieAttacker>
+    <DieVictim>As $n mauls you in the chest, you feel a searing pain... then nothing.</DieVictim>
+    <DieRoom>With a brutal maul to the chest, $n slaughters $N!</DieRoom>
+    <MissAttacker>You swing wildly with your maul, almost hitting yourself!</MissAttacker>
+    <MissVictim>Phew!  $n missed you with $s wild maul!</MissVictim>
+    <MissRoom>$n mauls at $N, missing wildly!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Mauling a God?  What would your poor mother think?  Of course, you probably wouldn't hesitate to maul her too.</GodAttacker>
+    <GodVictim>$n tries to maul you, and as $e fails, looks quite horrified.  How pleasant.</GodVictim>
+    <GodRoom>$N laughs as $n tries to maul $M.  How comical.</GodRoom>
+  </FightMessage>
+
+  <!-- Thrash -->
+  <FightMessage ID="310">
+    <DieAttacker>You bring $N within the thrashing of $S life, and then thrash $M one last time, killing $M.</DieAttacker>
+    <DieVictim>$n thrashes you violently, and you die.</DieVictim>
+    <DieRoom>With a horrible thrashing, $N falls lifeless under $n's blows!</DieRoom>
+    <MissAttacker>You miss your thrash against $N!</MissAttacker>
+    <MissVictim>What a stroke of luck, $n seems to have missed you with $s thrash!</MissVictim>
+    <MissRoom>$n thrashes madly at $N, missing $M!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Thrash a God?  More likely that $N would thrash you, don't you think?</GodAttacker>
+    <GodVictim>What a fool, $n tried to thrash you.  *sigh*</GodVictim>
+    <GodRoom>Looking rather silly, $n tries to thrash at $N.</GodRoom>
+  </FightMessage>
+
+  <!-- Pierce -->
+  <FightMessage ID="311">
+    <DieAttacker>You succesfully pierce $N and $S dead body falls to the ground in a lifeless heap.</DieAttacker>
+    <DieVictim>$n pierces you.  You are no longer a living member of this world -- R.I.P.!</DieVictim>
+    <DieRoom>$n pierces $N whose suddenly lifeless body falls to the ground!</DieRoom>
+    <MissAttacker>You try to pierce $N but pierce the air instead!</MissAttacker>
+    <MissVictim>$n pierces holes in the air.</MissVictim>
+    <MissRoom>$n tries to pierce air instead of fighting $N.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>The mighty $N begins to think you a nuisance!!!</GodAttacker>
+    <GodVictim>Your patience is almost gone when you stare back at $n.</GodVictim>
+    <GodRoom>The air is loaded when $N angrily wards off a piercing attack from $n.</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="311">
+    <DieAttacker>You pierce $N's heart, you heartbreaker you...</DieAttacker>
+    <DieVictim>$n breaks your heart, goodbye cruel world...</DieVictim>
+    <DieRoom>$n pierces the heart of $N who falls to the ground clutching at the wound!</DieRoom>
+    <MissAttacker>You lunge at $N without managing to pierce $M.</MissAttacker>
+    <MissVictim>$n tries to pierce you but fails miserably.</MissVictim>
+    <MissRoom>$n lunges at $N but can't pierce $M.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>The great $N sends you a piercing look, OOPS!</GodAttacker>
+    <GodVictim>You return $n's pierce with a piercing look, hmmm...</GodVictim>
+    <GodRoom>$N returns $n's pierce with a piercing look, hmmm...</GodRoom>
+  </FightMessage>
+  
+  <!-- Blast -->
+  <FightMessage ID="312">
+    <DieAttacker>You blast $N with all of your might, killing $M!</DieAttacker>
+    <DieVictim>With $s powerful blast, $n tears your life from your body!</DieVictim>
+    <DieRoom>$N falls lifeless as $n's blast rips $M apart!</DieRoom>
+    <MissAttacker>You blast wildly, missing $N by a mere inch or two!</MissAttacker>
+    <MissVictim>You skillfully avoid $n's wild blast!</MissVictim>
+    <MissRoom>$n misses $N with $s wild blast!  What luck $N seems to have!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Are you kidding?  What do you expect your feeble blast to do to $N?</GodAttacker>
+    <GodVictim>Heh.  $n tried to blast you.  Good thing you have blastproof armour.</GodVictim>
+    <GodRoom>$n looks afraid of the consequences as $e tries fruitlessly to blast $N.</GodRoom>
+  </FightMessage>
+
+  <!-- Punch -->
+  <FightMessage ID="313">
+    <DieAttacker>You punch at $N causing $S face to collapse under the blow, blood everywhere.  Doesn't look like $N will recover. Ever.</DieAttacker>
+    <DieVictim>$n's forceful punch causes you to see red, until you die shortly thereafter.</DieVictim>
+    <DieRoom>$n punches $N right in the face!  There is blood everywhere, and $N seems to be dead!</DieRoom>
+    <MissAttacker>You miss $N with your haymaker!</MissAttacker>
+    <MissVictim>$n throws a haymaker at you which whistles by your ear!</MissVictim>
+    <MissRoom>$n just misses $N with a strong punch!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Punch a God?  May be smarter to punch a wall for a bit.  You might do more damage to it.</GodAttacker>
+    <GodVictim>Is that a quiet whistling noise you hear as $n is swinging $s fist about?</GodVictim>
+    <GodRoom>$n looks like $e would prefer to have punched a wall rather than trying to punch $N.</GodRoom>
+  </FightMessage>
+
+  <!-- Stab -->
+  <FightMessage ID="314">
+    <DieAttacker>You stab $N through the heart!  Instant death!</DieAttacker>
+    <DieVictim>$n drives a stab at you, it pierces your heart!  RIP!</DieVictim>
+    <DieRoom>$n stabs brutally at $N, killing him as $N is impaled by $n!</DieRoom>
+    <MissAttacker>You stab at $N, missing!</MissAttacker>
+    <MissVictim>$n misses a particularily nasty stab in your direction!</MissVictim>
+    <MissRoom>$n stabs at $N!  $e misses!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>You stab at $N!  Too bad $E's a god, huh?</GodAttacker>
+    <GodVictim>$n stabs at you!  Lucky for you that you are immune to this kind of thing.</GodVictim>
+    <GodRoom>You watch in pity as $n stabs towards $N missing in the most futile way possible!</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="314">
+    <DieAttacker>You stab forth towards $N, hitting $M in the abdomen causing a messy but mortal wound!</DieAttacker>
+    <DieVictim>$n stabs you in the stomach, and you watch your insides fall out as you die.</DieVictim>
+    <DieRoom>Making a mess of $N, $n kills $M with a stab to the midsection.</DieRoom>
+    <MissAttacker>You stab at $N, barely missing $M!</MissAttacker>
+    <MissVictim>$n stabs at you, missing by a good mile or so!</MissVictim>
+    <MissRoom>$N grins at $n as the stab sent by $n goes wide!</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>#</HitVictim>
+    <HitRoom>#</HitRoom>
+    <GodAttacker>Gods can't be stabbed, did noone ever teach you that?  And $N just so happens to be one.</GodAttacker>
+    <GodVictim>It sure is nice being a god isn't it... especially since $n can't hit you with $s stabs.</GodVictim>
+    <GodRoom>$n stabs at $N only to discover $N's immunity to stabbing weapons.</GodRoom>
+  </FightMessage>
+
+  <!-- Suffering -->
+  <FightMessage ID="399">
+    <DieAttacker>#</DieAttacker>
+    <DieVictim>You feel wounded -- too wounded -- you die...</DieVictim>
+    <DieRoom>$N lies suffering on the ground until no blood is left in $S body.</DieRoom>
+    <MissAttacker>#</MissAttacker>
+    <MissVictim>suffer miss victim - should never see.</MissVictim>
+    <MissRoom>suffer miss room - should never see.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>You lie on the ground suffering from your terrible wounds...</HitVictim>
+    <HitRoom>$N lies helplessly on the ground and suffers...</HitRoom>
+    <GodAttacker>#</GodAttacker>
+    <GodVictim>Suffer god victim - should never see.</GodVictim>
+    <GodRoom>Suffer god room - should never see.</GodRoom>
+  </FightMessage>
+
+  <FightMessage ID="399">
+    <DieAttacker>#</DieAttacker>
+    <DieVictim>You can only lie still as your last heartbeat ebbs...</DieVictim>
+    <DieRoom>$N suffers from bloodlack, and the lack of a beating heart...</DieRoom>
+    <MissAttacker>#</MissAttacker>
+    <MissVictim>suffer miss victim - should never see.</MissVictim>
+    <MissRoom>suffer miss room - should never see.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>You lie on the ground suffering from bleeding wounds...</HitVictim>
+    <HitRoom>$N lies immobile on the ground, suffering...</HitRoom>
+    <GodAttacker>#</GodAttacker>
+    <GodVictim>Suffer god victim -- should never see.</GodVictim>
+    <GodRoom>Suffer god room -- should never see.</GodRoom>
+  </FightMessage>
+
+  <!-- Poison -->
+  <FightMessage ID="33">
+    <DieAttacker>#</DieAttacker>
+    <DieVictim>Poison burns intensely in your veins... you shiver... you die.</DieVictim>
+    <DieRoom>$N has a few cramps and dies, suffering.</DieRoom>
+    <MissAttacker>#</MissAttacker>
+    <MissVictim>poison miss victim - should never see.</MissVictim>
+    <MissRoom>poison miss room - should never see.</MissRoom>
+    <HitAttacker>#</HitAttacker>
+    <HitVictim>You feel burning poison in your blood, and suffer.</HitVictim>
+    <HitRoom>$N looks really sick and shivers uncomfortably.</HitRoom>
+    <GodAttacker>#</GodAttacker>
+    <GodVictim>You have become poisoned somehow.</GodVictim>
+    <GodRoom>$N has somehow become poisioned.</GodRoom>
+  </FightMessage>
+
+  <!-- NPC Attacks -->
+  
+  <!-- Fire Breath -->
+  <FightMessage ID="202">
+    <DieAttacker>$N is killed by fire breath.</DieAttacker>
+    <DieVictim>You are burned to ash, as $n breathes on you.</DieVictim>
+    <DieRoom>$n makes $N to ash.</DieRoom>
+    <MissAttacker>$N is missed by fire breath.</MissAttacker>
+    <MissVictim>$n breathes fire at you, but you avoids it.</MissVictim>
+    <MissRoom>$N avoids $n's firebreath.</MissRoom>
+    <HitAttacker>$N is hit by fire breath.</HitAttacker>
+    <HitVictim>$n burns you.</HitVictim>
+    <HitRoom>$N is partly made ash, as $n breaths fire.</HitRoom>
+    <GodAttacker>$N, being immortal, is just warmed.</GodAttacker>
+    <GodVictim>$n warms you.</GodVictim>
+    <GodRoom>$n warms $N.</GodRoom>
+  </FightMessage>
+
+  <!-- Gas Breath -->
+  <FightMessage ID="203">
+    <DieAttacker>$N is killed by gas breath.</DieAttacker>
+    <DieVictim>You die from the gas $n breathes on you.</DieVictim>
+    <DieRoom>$n kills $N with a gas breath.</DieRoom>
+    <MissAttacker>$N is missed by gas breath.</MissAttacker>
+    <MissVictim>$n breathes gas at you, but it has no effect.</MissVictim>
+    <MissRoom>$N avoids $n's gas.</MissRoom>
+    <HitAttacker>$N is hit by gas breath.</HitAttacker>
+    <HitVictim>$n gasses you.</HitVictim>
+    <HitRoom>$N is gassed by $n.</HitRoom>
+    <GodAttacker>$N is immortal, so can't be gassed.</GodAttacker>
+    <GodVictim>$n wants to gas you, but can't.</GodVictim>
+    <GodRoom>$n tries to gas $N, but can't.</GodRoom>
+  </FightMessage>
+
+  <!-- Frost Breath -->
+  <FightMessage ID="204">
+    <DieAttacker>$N is killed by frost breath.</DieAttacker>
+    <DieVictim>You are frozen to ice, as $n breathes on you.</DieVictim>
+    <DieRoom>$n makes $N to ice.</DieRoom>
+    <MissAttacker>$N is missed by frost breath.</MissAttacker>
+    <MissVictim>$n breathes frost at you, but you avoid it.</MissVictim>
+    <MissRoom>$N avoids $n's frost breath.</MissRoom>
+    <HitAttacker>$N is hit by frost breath.</HitAttacker>
+    <HitVictim>$n freezes you with $s breath.</HitVictim>
+    <HitRoom>$N is partly made ice, as $n breathes frost.</HitRoom>
+    <GodAttacker>$N is immortal, and thus avoids your frost breath.</GodAttacker>
+    <GodVictim>$n supplies you with air conditioning.</GodVictim>
+    <GodRoom>$n supplies $N with air conditioning.</GodRoom>
+  </FightMessage>
+
+  <!-- Acid Breath -->
+  <FightMessage ID="205">
+    <DieAttacker>$N is killed by your acid breath.</DieAttacker>
+    <DieVictim>You are corroded to nothing, as $n breathes on you.</DieVictim>
+    <DieRoom>$n corrodes $N to nothing.</DieRoom>
+    <MissAttacker>$N is missed by acid.</MissAttacker>
+    <MissVictim>$n breathes acid at you, but you avoids it.</MissVictim>
+    <MissRoom>$N avoids $n's acidbreath.</MissRoom>
+    <HitAttacker>$N is hit by acid.</HitAttacker>
+    <HitVictim>$n corrodes you.</HitVictim>
+    <HitRoom>$N is corroded as $n breaths acid.</HitRoom>
+    <GodAttacker>$N is immortal, and thus is immune to acid.</GodAttacker>
+    <GodVictim>$n helps you clean your hands with a little acid.</GodVictim>
+    <GodRoom>$n helps $N cleaning.</GodRoom>
+  </FightMessage>
+
+  <!-- Lightning Breath -->
+  <FightMessage ID="206">
+    <DieAttacker>$N is killed by your lightning breath.</DieAttacker>
+    <DieVictim>You are killed by $n's lightning breath.</DieVictim>
+    <DieRoom>$n killes $N with a lightning breath.</DieRoom>
+    <MissAttacker>$N is missed by your lightning breath.</MissAttacker>
+    <MissVictim>$n breathes lightning at you, but you avoids it.</MissVictim>
+    <MissRoom>$N avoids $n's lightning breath.</MissRoom>
+    <HitAttacker>$N is hit by your lightning breath.</HitAttacker>
+    <HitVictim>$n hits you with a lightning breath.</HitVictim>
+    <HitRoom>$N is hit by $n's lightning breath.</HitRoom>
+    <GodAttacker>$N is immortal and immune to lightning breath.</GodAttacker>
+    <GodVictim>$n tries to breath lightning upon you.</GodVictim>
+    <GodRoom>$n tries to breath lightning upon $N.</GodRoom>
+  </FightMessage>
+
 </Messages>
-
-* Sting
-M
- 301
-You drive a sting directly into the heart of $N, killing $M!
-With a powerful driving force, $n's sting tears right through your chest causing instant death!
-$n drives $s sting through $N's chest, killing $M!
-You miss $N with your stinging blow!
-$n drives $s stinging blow at you, barely missing!
-You watch in fright as $n stings at $N, missing by mere inches!
-#
-#
-#
-Sting -- God... What are you thinking?
-$n tries to sting you, somewhat comical to tell the truth.
-$n stings at $N, then looks horrified as $N grins at $m!
-M
- 301
-You violently sting $N repeatedly, causing $S death!
-You die a horrid death as $n stings you repeatedly all over your body!
-As $n stings $N all over the place, $N falls lifeless to the ground.
-You sting towards $N, but miss $M!
-$n misses you with $s sting!
-You watch on as $n stings at $N, but misses!
-#
-#
-#
-You sting at $N, and all that happens is that $E slaps himself as if a mosquito bit $M.
-Was that a bee you just felt?  Oh.. wait, it was just $n.
-$N begins to slap at $Mself as $n tries to sting $M.
-
-* Whip
-M
- 302
-You whip $N's head right off of $S body!
-$n whips your head right off of your body!
-$n whips $N's head right off of $S body!
-You crack your whip at $N but it hits you in the face!
-$n cracks $s whip at you and it hits $m in the face!
-$n cracks $s whip at $N but only hits $mself in the face!
-#
-#
-#
-You'd better stop before $N whips your butt.
-Pathetic little $n is trying to whip you... how cute.
-$n tries to whip $N - isn't he cute?
-M
- 302
-Your dextrous whip messily tears $N's torso right off!
-$n's whip messily tears you right in half!
-With an evil grin, $n messily whips $N in half!
-You try to whip $N but whip the ground instead!
-$n tries to whip you but whips the ground instead!
-$n tries to whip $N but whips the ground instead!
-#
-#
-#
-Don't try to whip $N.
-$n is trying to whip you.  Yawn.
-$n tries to whip $N - yawn.
-
-* Slash
-M
- 303
-You beautifully slash $N into two parts -- both dead.
-Your upper body is disconnected from your legs as $n slashes at you -- R.I.P.!
-$N is slashed in two by a masterful stroke of $n!
-Your desperate slash at $N is easily avoided by $M.
-You easily avoid a slash from $n.
-$N nimbly avoids $n's slash.
-#
-#
-#
-Your cunning slash at $N is fruitless.
-You nimbly stop a slash from $n.
-$N stops a cunning slash from $n who looks disappointed.
-M
- 303
-Your slash at $N results in a pool of blood and $S immediate death!
-Blood spurts all over as $n slashes at you.  You die...
-$n slashes at $N who colors everything red with blood from $S lethal wound.
-You miss $N by an inch, curse that brat!
-You manage to dodge $n's slash and laugh, HA!
-$n's slash misses $N who laughs in sheer delight, HA!
-#
-#
-#
-Come on, what makes you think you can slash at a GOD?!
-You barely register the puny creature before you...
-The great $N seems to ignore $n's slashes.
-M
- 303
-$N cries out in agony as you slash $S ribcage open!
-Your ribcage is slashed open by $n -- R.I.P.!
-$n nicely dissects $N's ribcage with a single slash!
-You try to slash $N but miss by a mile.
-$n's slash misses you by a mile.
-$n's slash at $N misses $M by a mile.
-#
-#
-#
-It's rude to try to slash a GOD, you know.
-$n tries to slash you -- how rude!
-$n tries to slash $N -- how rude!
-M
- 303
-Your powerful slash cleanly cuts off $N's head, which rolls away with a look of horror on it.
-You briefly feel the sensation of flight as $n slices your head cleanly off!
-$n cleanly slices off $N's head which rolls away with a look of horror on it!
-$N is cooled by the breeze of your missed slash at $M.
-$n cools you with the breeze of $s missed slash at you.
-$n cools $N with the breeze of $s missed slash.
-#
-#
-#
-Yeah, right.
-$n tries to slash you... yeah, right.
-$n tries to slash $N... yeah, right.
-
-* Bite
-M
- 304
-You sink your teeth deep into $N's neck -- blood sprays everywhere!
-$n sinks $s teeth deep into your neck, tearing your jugular vein to bits!
-$n sinks $s teeth deep into $N's neck, tearing $S jugular vein to bits!
-You snap your teeth at $N but miss him.
-$n snaps $s teeth at you fiercly but misses.
-$n fiercly snaps $s teeth at $N but misses the mark.
-#
-#
-#
-You attempt to bite $N.  Ouch!  That hurt!
-$n tries to bite you, how funny.
-$n tries to bite $N - funny, huh?
-M
- 304
-You bite $N through $S ribcage and into $S heart -- $e falls to the ground in agony.
-$n bites you right through your ribcage and into your heart -- you fall to the ground writhing in agony...
-$n's powerful jaw bites through $N's ribcage into $S heart -- $E falls to the ground writhing in agony!
-You try to bite $N but bite your tongue instead.
-$n tries to bite you but bites $s tongue instead!
-$n tries to bite $N but bites $s own tongue instead!
-#
-#
-#
-Aren't you trying to bite off more than you can chew?
-$n snaps at you but realizes $e is biting off more than $e can chew.
-$n stupidly tries to bite off more than $e can chew by snapping at $N.
-
-* Bludgeon
-M
- 305
-You forcefully bludgeon $N whose head suddenly cracks open like a walnut!
-$n bludgeons your head which cracks open like a walnut!
-$n ruthlessly bludgeons $N whose head cracks open like a walnut!
-You fruitlessly try to bludgeon $N.
-You easily dodge $n's attempt to bludgeon you.
-$n tries to bludgeon $N who easily avoids the blow.
-#
-#
-#
-Your attempt to bludgeon $N fails, luckily for you $N has a good sense of humor!
-Your patience is tried when $n tries to clobber you.
-$N restrains $Mself from zapping $n when $e attempts to bludgeon the mighty one.
-M
- 305
-Your relentless bludgeoning of $N finally results in $S broken neck!
-$n's relentless bludgeoning of you finally results in your broken neck!
-$n's relentless bludgeoning of $N finally results in $N's broken neck!
-You try to bludgeon $N who simply laughs at you.
-$n tries to bludgeon you, but you avoid $m and laugh.
-$N laughs at $n's attempt to bludgeon $M.
-#
-#
-#
-Your attempt to bludgeon $N fails, luckily for you $N has a good sense of humor!
-Your patience is tried when $n tries to clobber you.
-$N restrains $Mself from zapping $n when $e attempts to bludgeon the mighty one.
-
-* Crush
-M
- 306
-You crush $N right out of existence!
-$n crushes you right out of existence!
-$n crushes $N right out of existence!
-You try to crush $N who jumps out of the way!
-$n tries to crush you but you jump out of the way!
-$n tries to crush $N who jumps out of the way!
-#
-#
-#
-A pox on thee and thy pitiful crush on $N!
-$n seems to have a crush on you...
-$n seems to have a crush on $N...
-M
- 306
-You crush $N's entire body, making a terrible mess!
-$n crushes your entire body, making a terrible mess!
-$n crushes $N's entire body, making a terrible mess!
-You hopelessly try to crush $N.
-$n hopelessly tries to crush you.
-$n hopelessly tries to crush $N.
-#
-#
-#
-A pox on thee and thy pitiful crush on $N!
-$n seems to have a crush on you...
-$n seems to have a crush on $N...
-
-* Pound
-M
- 307
-You pound $N right into the ground!
-$n pounds you six feet under.
-$n pounds $N mightily on the head, crushing $S entire body!
-You pound at the air as $N nimbly steps out of the way!
-You jump out of the way in a panic as $n pounds at you!
-$n looks perturbed as $s pound misses $N!
-#
-#
-#
-You pound $N!  And $E thanks you for it?  *boggle*
-$n gives you a pound.  Wonder what the exchange rate is...
-$n starts giving pounds to $N who begins to count the money.
-M
- 307
-You pound on $N with reckless abandon when you realize that $E is dead.
-With $s reckless pounding attacks, you succomb to death.
-$N falls under $n's pounding blows, yet $n continues $s attack!
-You hear the air whistle as you split the air with your pound!
-$n pounds in your direction, causing a whistling sound!
-With a loud whistle through the air, $n misses $s pounding attack upon $N!
-#
-#
-#
-Who are you trying to kid?
-Hmmm... I think you missed the joke that $n was trying to tell you.
-$N looks somewhat perplexed as $n tries to pound him!
-
-* Claw
-M
- 308
-You claw $N's face right off!
-$n claws your face right off!
-$n claws $N's face right off!
-You try to claw at $N but miss!
-$n tries to claw at you but misses by a hair!
-$n tries to claw at $N, missing by a hair!
-#
-#
-#
-You dummy!  Not the claw, the claw!
-$n must be crazy - trying to claw at you!
-$n must be crazy - trying to claw at $N!
-M
- 308
-Your razor-sharp claws rip $N wide open!
-$n's razor-sharp claws rip you wide open!
-$n's razor-sharp claws rip $N wide open!
-You try to claw at $N but almost nick yourself instead!
-$n tries to claw at you but nearly nicks $mself instead!
-$n tries to claw at $N but nearly nicks $mself instead!
-#
-#
-#
-You dummy!  Not the claw, the claw!
-$n must be crazy - trying to claw at you!
-$n must be crazy - trying to claw at $N!
-
-* Maul
-M
- 309
-You maul $N across the chest and $E screams in pain as $E falls lifeless to the ground.
-As $n mauls you in the chest, you feel a searing pain... then nothing.
-With a brutal maul to the chest, $n slaughters $N!
-You swing wildly with your maul, almost hitting yourself!
-Phew!  $n missed you with $s wild maul!
-$n mauls at $N, missing wildly!
-#
-#
-#
-Mauling a God?  What would your poor mother think?  Of course, you probably wouldn't hesitate to maul her too.
-$n tries to maul you, and as $e fails, looks quite horrified.  How pleasant.
-$N laughs as $n tries to maul $M.  How comical.
-
-* Thrash
-M
- 310
-You bring $N within the thrashing of $S life, and then thrash $M one last time, killing $M.
-$n thrashes you violently, and you die.
-With a horrible thrashing, $N falls lifeless under $n's blows!
-You miss your thrash against $N!
-What a stroke of luck, $n seems to have missed you with $s thrash!
-$n thrashes madly at $N, missing $M!
-#
-#
-#
-Thrash a God?  More likely that $N would thrash you, don't you think?
-What a fool, $n tried to thrash you.  *sigh*
-Looking rather silly, $n tries to thrash at $N.
-
-* Pierce
-M
- 311
-You succesfully pierce $N and $S dead body falls to the ground in a lifeless heap.
-$n pierces you.  You are no longer a living member of this world -- R.I.P.!
-$n pierces $N whose suddenly lifeless body falls to the ground!
-You try to pierce $N but pierce the air instead!
-$n pierces holes in the air.
-$n tries to pierce air instead of fighting $N.
-#
-#
-#
-The mighty $N begins to think you a nuisance!!!
-Your patience is almost gone when you stare back at $n.
-The air is loaded when $N angrily wards off a piercing attack from $n.
-M
- 311
-You pierce $N's heart, you heartbreaker you...
-$n breaks your heart, goodbye cruel world...
-$n pierces the heart of $N who falls to the ground clutching at the wound!
-You lunge at $N without managing to pierce $M.
-$n tries to pierce you but fails miserably.
-$n lunges at $N but can't pierce $M.
-#
-#
-#
-The great $N sends you a piercing look, OOPS!
-You return $n's pierce with a piercing look, hmmm...
-$N returns $n's pierce with a piercing look, hmmm...
-
-* Blast
-M
- 312
-You blast $N with all of your might, killing $M!
-With $s powerful blast, $n tears your life from your body!
-$N falls lifeless as $n's blast rips $M apart!
-You blast wildly, missing $N by a mere inch or two!
-You skillfully avoid $n's wild blast!
-$n misses $N with $s wild blast!  What luck $N seems to have!
-#
-#
-#
-Are you kidding?  What do you expect your feeble blast to do to $N?
-Heh.  $n tried to blast you.  Good thing you have blastproof armour.
-$n looks afraid of the consequences as $e tries fruitlessly to blast $N.
-
-* Punch
-M
- 313
-You punch at $N causing $S face to collapse under the blow, blood everywhere.  Doesn't look like $N will recover.  Ever.
-$n's forceful punch causes you to see red, until you die shortly thereafter.
-$n punches $N right in the face!  There is blood everywhere, and $N seems to be dead!
-You miss $N with your haymaker!
-$n throws a haymaker at you which whistles by your ear!
-$n just misses $N with a strong punch!
-#
-#
-#
-Punch a God?  May be smarter to punch a wall for a bit.  You might do more damage to it.
-Is that a quiet whistling noise you hear as $n is swinging $s fist about?
-$n looks like $e would prefer to have punched a wall rather than trying to punch $N.
-
-* Stab
-M
- 314
-You stab $N through the heart!  Instant death!
-$n drives a stab at you, it pierces your heart!  RIP!
-$n stabs brutally at $N, killing him as $N is impaled by $n!
-You stab at $N, missing!
-$n misses a particularily nasty stab in your direction!
-$n stabs at $N!  $e misses!
-#
-#
-#
-You stab at $N!  Too bad $E's a god, huh?
-$n stabs at you!  Lucky for you that you are immune to this kind of thing.
-You watch in pity as $n stabs towards $N missing in the most futile way possible!
-M
- 314
-You stab forth towards $N, hitting $M in the abdomen causing a messy but mortal wound!
-$n stabs you in the stomach, and you watch your insides fall out as you die.
-Making a mess of $N, $n kills $M with a stab to the midsection.
-You stab at $N, barely missing $M!
-$n stabs at you, missing by a good mile or so!
-$N grins at $n as the stab sent by $n goes wide!
-#
-#
-#
-Gods can't be stabbed, did noone ever teach you that?  And $N just so happens to be one.
-It sure is nice being a god isn't it... especially since $n can't hit you with $s stabs.
-$n stabs at $N only to discover $N's immunity to stabbing weapons.
-
-* Suffering
-M
- 399
-#
-You feel wounded -- too wounded -- you die...
-$N lies suffering on the ground until no blood is left in $S body.
-#
-suffer miss victim - should never see.
-suffer miss room - should never see.
-#
-You lie on the ground suffering from your terrible wounds...
-$N lies helplessly on the ground and suffers...
-#
-Suffer god victim - should never see.
-Suffer god room - should never see.
-M
- 399
-#
-You can only lie still as your last heartbeat ebbs...
-$N suffers from bloodlack, and the lack of a beating heart...
-#
-suffer miss victim - should never see.
-suffer miss room - should never see.
-#
-You lie on the ground suffering from bleeding wounds...
-$N lies immobile on the ground, suffering...
-#
-Suffer god victim -- should never see.
-Suffer god room -- should never see.
-
-* Poison
-M
- 33
-#
-Poison burns intensely in your veins... you shiver... you die.
-$N has a few cramps and dies, suffering.
-#
-suffer miss victim - should never see.
-suffer miss room - should never see.
-#
-You feel burning poison in your blood, and suffer.
-$N looks really sick and shivers uncomfortably.
-#
-You have become poisoned somehow.
-$N has somehow become poisioned.
-
-
-***************************************************************************
-*                              NPC Attacks                                *
-***************************************************************************
-
-* Fire Breath
-M
- 202
-$N is killed by fire breath.
-You are burned to ash, as $n breathes on you.
-$n makes $N to ash.
-$N is missed by fire breath.
-$n breathes fire at you, but you avoids it.
-$N avoids $n's firebreath.
-$N is hit by fire breath.
-$n burns you.
-$N is partly made ash, as $n breaths fire.
-$N, being immortal, is just warmed.
-$n warms you.
-$n warms $N.
-
-* Gas Breath
-M
- 203
-$N is killed by gas breath.
-You die from the gas $n breathes on you.
-$n kills $N with a gas breath.
-$N is missed by gas breath.
-$n breathes gas at you, but it has no effect.
-$N avoids $n's gas.
-$N is hit by gas breath.
-$n gasses you.
-$N is gassed by $n.
-$N is immortal, so can't be gassed.
-$n wants to gas you, but can't.
-$n tries to gas $N, but can't.
-
-* Frost Breath
-M
- 204
-$N is killed by frost breath.
-You are frozen to ice, as $n breathes on you.
-$n makes $N to ice.
-$N is missed by frost breath.
-$n breathes frost at you, but you avoid it.
-$N avoids $n's frost breath.
-$N is hit by frost breath.
-$n freezes you with $s breath.
-$N is partly made ice, as $n breathes frost.
-$N is immortal, and thus avoids your frost breath.
-$n supplies you with air conditioning.
-$n supplies $N with air conditioning.
-
-* Acid Breath
-M
- 205
-$N is killed by your acid breath.
-You are corroded to nothing, as $n breathes on you.
-$n corrodes $N to nothing.
-$N is missed by acid.
-$n breathes acid at you, but you avoids it.
-$N avoids $n's acidbreath.
-$N is hit by acid.
-$n corrodes you.
-$N is corroded as $n breaths acid.
-$N is immortal, and thus is immune to acid.
-$n helps you clean your hands with a little acid.
-$n helps $N cleaning.
-
-* Lightning Breath
-M
- 206
-$N is killed by your lightning breath.
-You are killed by $n's lightning breath.
-$n killes $N with a lightning breath.
-$N is missed by your lightning breath.
-$n breathes lightning at you, but you avoids it.
-$N avoids $n's lightning breath.
-$N is hit by your lightning breath.
-$n hits you with a lightning breath.
-$N is hit by $n's lightning breath.
-$N is immortal and immune to lightning breath.
-$n tries to breath lightning upon you.
-$n tries to breath lightning upon $N.
-
-$

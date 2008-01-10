@@ -62,6 +62,7 @@ namespace circle_sharp_gui
             // Create the window that we will use to control the server.
 
             _serverWindow = new ServerWindow();
+			_serverWindow.Show ();
 
             // Now we want to create the server engine and attach the events required.
 
@@ -70,6 +71,7 @@ namespace circle_sharp_gui
             // Attach the events of the engine we will need.
             _serverEngine.Started += EngineStarted;
             _serverEngine.Stopped += EngineStopped;
+			_serverEngine.Logged += EngineLog;
 
             _engineThread = new Thread(new ThreadStart(_serverEngine.Start));
             _engineThread.Start();
@@ -92,14 +94,16 @@ namespace circle_sharp_gui
 
         private void menuAboutClick(object sender, EventArgs e)
         {
-            MessageBox.Show("About This Application");
+            MessageBox.Show("CircleSharp v1.0 - by Philippe Durand\nCircleMUD 3.1 by Jeremy Elson");
         }
 
         private void menuExitClick(object sender, EventArgs e)
         {
-            _serverEngine.Stop();
+			Console.WriteLine ("Shutting down.");
 
-            Application.Exit();
+			_serverWindow.Enabled = false;
+
+            _serverEngine.Stop();
         }
 
         private void IconDoubleClick(object sender, EventArgs e)
@@ -109,12 +113,17 @@ namespace circle_sharp_gui
 
         private void EngineStarted(object sender, EventArgs args)
         {
-            MessageBox.Show("Engine Started");
+            
         }
 
         private void EngineStopped(object sender, EventArgs args)
         {
-            MessageBox.Show("Engine Stopped");
+			Application.Exit ();
         }
+
+		private void EngineLog(object sender, string text)
+		{
+			_serverWindow.Log (text);
+		}
     }
 }

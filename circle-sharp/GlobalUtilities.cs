@@ -20,11 +20,6 @@ namespace CircleSharp
             return (sum);
         }
 
-        public static void Log(string text)
-        {
-            Console.WriteLine(text);
-        }
-
 		public static string ReadString (TextReader reader)
 		{
 			string line = reader.ReadLine ();

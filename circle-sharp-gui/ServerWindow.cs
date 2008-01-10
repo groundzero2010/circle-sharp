@@ -10,6 +10,12 @@ namespace circle_sharp_gui
 {
     public partial class ServerWindow : Form
     {
+		delegate void PrintText(string text);
+
+		private bool _enabled = false;
+
+		public bool Enabled { get { return _enabled; } set { _enabled = value; } }
+
         public ServerWindow()
         {
             InitializeComponent();
@@ -19,5 +25,30 @@ namespace circle_sharp_gui
 		{
 
 		}
+
+		public void Log(string text)
+		{
+			if (this.InvokeRequired)
+			{
+				PrintText d = new PrintText (Log);
+
+				this.Invoke (d, new object[] { text });
+			}
+			else
+			{
+				outputTextBox.Text += text + "\n";
+				outputTextBox.ScrollToCaret ();
+			}
+		}
+
+		private void ServerWindow_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (_enabled)
+			{
+				e.Cancel = true;
+				this.Hide ();
+			}
+		}
+
     }
 }

@@ -68,7 +68,7 @@ namespace CircleSharp
                     }
 
                     character.Descriptor.ConnectState = ConnectState.Menu;
-                    WriteToOutput(character.Descriptor, GlobalSettings.MenuText);
+                    WriteToOutput(character.Descriptor, _textMenu);
                 }
             }
 
