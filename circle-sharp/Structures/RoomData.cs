@@ -16,16 +16,21 @@ namespace CircleSharp.Structures
 		public string Description;
 		public List<ExtraDescriptionData> ExtraDescriptions = new List<ExtraDescriptionData> ();
 		public RoomDirectionData[] DirectionOptions = new RoomDirectionData[(int)DirectionTypes.Index];
-		public RoomFlags Flags;
+		public long Flags;
 
 		public List<int> Triggers;
 		public ScriptData Script;
 
 		public int Light;
 
-		// TODO: Special Function Pointer.
+		public SpecialFunctionHandler SpecialFunction;
 
 		public List<ObjectData> Contents;
 		public List<CharacterData> People;
+
+		public bool RoomFlagged (RoomFlags flag)
+		{
+			return ((Flags & (byte)flag) == (byte)flag);
+		}
 	}
 }

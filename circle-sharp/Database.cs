@@ -116,10 +116,10 @@ namespace CircleSharp
 			}
 
 			Log ("Assigning spell and skill levels.");
-			//InitSpellLevels ();
+			InitializeSpellLevels ();
 
 			Log ("Sorting command list and spells.");
-			//SortCommands ();
+			SortCommands ();
 			//SortSpells ();
 
 			Log ("Booting mail system.");
@@ -780,7 +780,7 @@ namespace CircleSharp
 								break;
 
 							case "Flags":
-								room.Flags = (RoomFlags)long.Parse (child.InnerText);
+								room.Flags = long.Parse (child.InnerText);
 								break;
 
 							case "SectorType":

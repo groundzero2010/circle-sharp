@@ -33,8 +33,6 @@ namespace CircleSharp
 
 		private void Log(string text)
 		{
-			Console.WriteLine (text);
-
 			if (Logged != null)
 				Logged (this, text);
 		}
