@@ -36,7 +36,9 @@ namespace circle_sharp_gui
 			}
 			else
 			{
-				outputTextBox.Text += text + "\n";
+				outputTextBox.SelectionStart = outputTextBox.Text.Length;
+				outputTextBox.AppendText (text + "\n");
+				outputTextBox.SelectionStart = outputTextBox.Text.Length;
 				outputTextBox.ScrollToCaret ();
 			}
 		}

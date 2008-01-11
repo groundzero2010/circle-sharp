@@ -134,6 +134,9 @@ namespace CircleSharp
 			SpellDefine (SpellDefinitions.SpellLocateObject, "locate object", 25, 20, 1, PositionTypes.Standing,
 				MagicTargetFlags.ObjectWorld, false, MagicFlags.Manual, String.Empty);
 
+			SpellDefine (SpellDefinitions.SpellMagicMissile, "magic missile", 25, 10, 3, PositionTypes.Fighting,
+				MagicTargetFlags.CharacterRoom | MagicTargetFlags.FightVictim, true, MagicFlags.Damage, String.Empty);
+			
 			SpellDefine (SpellDefinitions.SpellPoison, "poison", 50, 20, 3, PositionTypes.Standing,
 				MagicTargetFlags.CharacterRoom | MagicTargetFlags.NotSelf | MagicTargetFlags.ObjectInventory, true, MagicFlags.Affects | MagicFlags.AlterObjects,
 				"You feel less sick.");
@@ -247,6 +250,27 @@ namespace CircleSharp
 				spell.MinimumLevel[i] = GlobalConstants.LVL_IMMORT;
 
 			_spells.Add (def, spell);
+		}
+
+		private string SkillName (SpellDefinitions def)
+		{
+			return (_spells[def].Name);
+		}
+
+		private void SpellLevel (SpellDefinitions def, ClassTypes clas, int level)
+		{
+			bool bad = false;
+
+			if (level < 1 || level > GlobalConstants.LVL_IMPL)
+			{
+				Log ("SYSERR: Assigning '" + SkillName (def) + "' to illegal level " + level + "/" + GlobalConstants.LVL_IMPL + ".");
+				bad = true;
+			}
+
+			if (!bad)
+			{
+				_spells[def].MinimumLevel[(int)clas] = level;
+			}
 		}
 	}
 }

@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Act.Informative.cs" />
     <Compile Include="Act.Social.cs" />
+    <Compile Include="Class.cs" />
     <Compile Include="Communications.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Enumerations\AffectFlags.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="Enumerations\SkyState.cs" />
     <Compile Include="Enumerations\SpellDefinitions.cs" />
     <Compile Include="Enumerations\SpellTypes.cs" />
+    <Compile Include="Enumerations\SubCommands.cs" />
     <Compile Include="Enumerations\SunState.cs" />
     <Compile Include="Enumerations\TriggerTypes.cs" />
     <Compile Include="Enumerations\WearTypes.cs" />
@@ -88,6 +91,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharpCore.cs" />
     <Compile Include="SpecialAssignment.cs" />
+    <Compile Include="SpecialProcedures.cs" />
     <Compile Include="SpellParser.cs" />
     <Compile Include="Structures\AffectData.cs" />
     <Compile Include="Structures\AliasData.cs" />
@@ -96,6 +100,7 @@
     <Compile Include="Structures\CharacterPlayerData.cs" />
     <Compile Include="Structures\CharacterPointData.cs" />
     <Compile Include="Structures\CharacterSpecialData.cs" />
+    <Compile Include="Structures\CommandInfo.cs" />
     <Compile Include="Structures\CommandListElement.cs" />
     <Compile Include="Structures\DescriptorData.cs" />
     <Compile Include="Structures\ExtraDescriptionData.cs" />

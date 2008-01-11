@@ -4,6 +4,6 @@
   <ImmortalStartRoom>0</ImmortalStartRoom>
   <FrozenStartRoom>0</FrozenStartRoom>
   <AutoPlayerWipe>false</AutoPlayerWipe>
-  <ListenAddress>10.9.4.73</ListenAddress>
+  <DeathTrapsAreDumps>false</DeathTrapsAreDumps>
   <ListenPort>4000</ListenPort>
 </GlobalSettings>

@@ -25,6 +25,8 @@ namespace CircleSharp
         {
             _running = true;
 
+			Log ("Listening on port " + GlobalSettings.ListenPort + ".");
+
             Log ("Finding player limit.");
             _maxPlayers = GetMaxPlayers();
 
@@ -46,13 +48,10 @@ namespace CircleSharp
 
             int missedPulses = 0;
 
-			Log ("Listening using " + GlobalSettings.ListenAddress + " on port " + GlobalSettings.ListenPort + ".");
-
             // Setup the tcp socket listener
-			IPAddress ip = Dns.GetHostEntry (GlobalSettings.ListenAddress).AddressList[0];
-
-			_listener = new TcpListener (ip, GlobalSettings.ListenPort);
-            _listener.Start();
+			_listener = new TcpListener (IPAddress.Any, GlobalSettings.ListenPort);
+			
+            _listener.Start ();
 			
             // Initialize the time values
             lastTime = DateTime.Now;
@@ -111,6 +110,9 @@ namespace CircleSharp
 
 				try
 				{
+					if (!_running)
+						break;
+
 					if (_listener.Pending ())
 						_newClients.Enqueue (_listener.AcceptTcpClient ());
 				}
