@@ -16,6 +16,7 @@ namespace CircleSharp
         public const int LVL_IMPL = 34;
         public const int LVL_GRGOD = 33;
         public const int LVL_GOD = 32;
+		public const int LVL_BUILDER = LVL_GOD;
         public const int LVL_IMMORT = 31;
         public const int LVL_FREEZE = LVL_GRGOD;
 
