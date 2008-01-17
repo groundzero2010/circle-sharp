@@ -7,6 +7,8 @@ namespace CircleSharp.Enumerations
 {
 	internal enum SubCommands
 	{
+		None = 0,
+
 		// DoMove
 		North,
 		East,
