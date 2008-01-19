@@ -13,9 +13,9 @@ namespace CircleSharp.Structures
 		public PositionTypes MinimumPosition;
 		public event CommandHandler CommandPointer;
 		public int MinimumLevel;
-		public int SubCommand;
+		public SubCommands SubCommand;
 
-		public CommandInfo (string command, PositionTypes min_position, CommandHandler pointer, int min_level, int subcmd)
+		public CommandInfo (string command, PositionTypes min_position, CommandHandler pointer, int min_level, SubCommands subcmd)
 		{
 			Command = command;
 			MinimumPosition = min_position;

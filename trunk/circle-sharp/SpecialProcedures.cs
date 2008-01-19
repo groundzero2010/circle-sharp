@@ -11,14 +11,14 @@ namespace CircleSharp
 {
 	public partial class SharpCore
 	{
-		private int PuffSpecial (CharacterData character, object me, int command, string argument)
+		private bool PuffSpecial (CharacterData character, object me, int command, string argument)
 		{
-			return 0;
+			return false;
 		}
 
-		private int DumpSpecial (CharacterData character, object me, int command, string argument)
+		private bool DumpSpecial (CharacterData character, object me, int command, string argument)
 		{
-			return 0;
+			return false;
 		}
 	}
 }

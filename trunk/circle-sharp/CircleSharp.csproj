@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Act.Informative.cs" />
+    <Compile Include="Act.Item.cs" />
+    <Compile Include="Act.Movement.cs" />
     <Compile Include="Act.Social.cs" />
     <Compile Include="Class.cs" />
     <Compile Include="Communications.cs" />
@@ -55,9 +57,10 @@
     <Compile Include="Enumerations\ClassTypes.cs" />
     <Compile Include="Enumerations\ConnectState.cs" />
     <Compile Include="Enumerations\ContainerFlags.cs" />
-    <Compile Include="Enumerations\DirectionFlags.cs" />
+    <Compile Include="Enumerations\DirectionTypes.cs" />
     <Compile Include="Enumerations\DirectionOptionFlags.cs" />
     <Compile Include="Enumerations\ApplyTypes.cs" />
+    <Compile Include="Enumerations\HouseTypes.cs" />
     <Compile Include="Enumerations\MagicFlags.cs" />
     <Compile Include="Enumerations\MagicTargetFlags.cs" />
     <Compile Include="Enumerations\ObjectFlags.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="GlobalSettings.cs" />
     <Compile Include="GlobalUtilities.cs" />
     <Compile Include="Handler.cs" />
+    <Compile Include="House.cs" />
     <Compile Include="Interpreter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharpCore.cs" />
@@ -108,10 +112,12 @@
     <Compile Include="Structures\FightMessageEntry.cs" />
     <Compile Include="Structures\FightMessageListElement.cs" />
     <Compile Include="Structures\HelpData.cs" />
+    <Compile Include="Structures\HouseData.cs" />
     <Compile Include="Structures\IndexData.cs" />
     <Compile Include="Structures\MobileSpecialData.cs" />
     <Compile Include="Structures\ObjectAffectData.cs" />
     <Compile Include="Structures\ObjectData.cs" />
+    <Compile Include="Structures\ObjectFlagData.cs" />
     <Compile Include="Structures\PlayerData.cs" />
     <Compile Include="Structures\PlayerSpecialData.cs" />
     <Compile Include="Structures\PlayerSpecialDataSaved.cs" />
@@ -130,6 +136,7 @@
     <Compile Include="Structures\TriggerVariableData.cs" />
     <Compile Include="Structures\WeatherData.cs" />
     <Compile Include="Structures\ZoneData.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

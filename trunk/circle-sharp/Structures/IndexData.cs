@@ -9,7 +9,7 @@ namespace CircleSharp.Structures
 	{
 		public int VirtualNumber;
 		public int Count;
-		public event SpecialFunctionHandler SpecialFunction;
+		public SpecialFunctionHandler SpecialFunction;
 		public string SpecialArguments;
 		public TriggerData Trigger;
 	}
