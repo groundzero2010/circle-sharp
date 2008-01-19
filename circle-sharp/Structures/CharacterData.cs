@@ -45,6 +45,27 @@ namespace CircleSharp.Structures
             get { return CharacterSpecials.Saved.IDNumber; }
         }
 
+		public PositionTypes Position
+		{
+			get { return CharacterSpecials.Position; }
+		}
+
+		public bool HasFollowers
+		{
+			get
+			{
+				if (Followers != null && Followers.Count > 0)
+					return true;
+				else
+					return false;
+			}
+		}
+
+		public int Level
+		{
+			get { return Player.Level; }
+		}
+
         public CharacterData Fighting
         {
 			get
@@ -68,6 +89,21 @@ namespace CircleSharp.Structures
 				CharacterSpecials.Hunting = value;
 			}
         }
+
+		public bool AffectFlagged (AffectFlags flag)
+		{
+			return ((CharacterSpecials.Saved.AffectedBy & (byte)flag) == (byte)flag);
+		}
+
+		public void RemoveAffectFlag (AffectFlags flag)
+		{
+			CharacterSpecials.Saved.AffectedBy &= ~(byte)flag;
+		}
+
+		public void SetAffectFlag (AffectFlags flag)
+		{
+			CharacterSpecials.Saved.AffectedBy = CharacterSpecials.Saved.AffectedBy | (byte)flag;
+		}
 
         public bool PlayerFlagged(PlayerFlags flag)
         {

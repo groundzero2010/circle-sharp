@@ -805,11 +805,11 @@ namespace CircleSharp
 								int exitinfo = Convert.ToInt32 (child["Flags"].InnerText);
 
 								if (exitinfo == 1)
-									room.DirectionOptions[direction].ExitInfo = DirectionOptionFlags.IsDoor;
+									room.DirectionOptions[direction].ExitInfo = (long)DirectionOptionFlags.IsDoor;
 								else if (exitinfo == 2)
-									room.DirectionOptions[direction].ExitInfo = DirectionOptionFlags.IsDoor | DirectionOptionFlags.PickProof;
+									room.DirectionOptions[direction].ExitInfo = (long)DirectionOptionFlags.IsDoor | (long)DirectionOptionFlags.PickProof;
 								else
-									room.DirectionOptions[direction].ExitInfo = DirectionOptionFlags.None;
+									room.DirectionOptions[direction].ExitInfo = (long)DirectionOptionFlags.None;
 								break;
 
 							case "ExtraDescription":
@@ -876,38 +876,38 @@ namespace CircleSharp
 								break;
 
 							case "ObjectFlags":
-								obj.ObjectFlags = (ObjectFlags)long.Parse (child.InnerText);
+								obj.Flags.ObjectFlags = long.Parse (child.InnerText);
 								break;
 
 							case "WearFlags":
-								obj.WearFlags = (ObjectWearFlags)long.Parse (child.InnerText);
+								obj.Flags.WearFlags = long.Parse (child.InnerText);
 								break;
 
 							case "Bitvector":
-								obj.Bitvector = long.Parse (child.InnerText);
+								obj.Flags.Bitvector = long.Parse (child.InnerText);
 								break;
 
 							case "Values":
-								obj.Values[0] = Int32.Parse (child.Attributes["One"].Value);
-								obj.Values[1] = Int32.Parse (child.Attributes["Two"].Value);
-								obj.Values[2] = Int32.Parse (child.Attributes["Three"].Value);
-								obj.Values[3] = Int32.Parse (child.Attributes["Four"].Value);
+								obj.Flags.Values[0] = Int32.Parse (child.Attributes["One"].Value);
+								obj.Flags.Values[1] = Int32.Parse (child.Attributes["Two"].Value);
+								obj.Flags.Values[2] = Int32.Parse (child.Attributes["Three"].Value);
+								obj.Flags.Values[3] = Int32.Parse (child.Attributes["Four"].Value);
 								break;
 
 							case "Weight":
-								obj.Weight = Int32.Parse (child.InnerText);
+								obj.Flags.Weight = Int32.Parse (child.InnerText);
 								break;
 
 							case "Cost":
-								obj.Cost = Int32.Parse (child.InnerText);
+								obj.Flags.Cost = Int32.Parse (child.InnerText);
 								break;
 
 							case "CostPerDay":
-								obj.CostPerDay = Int32.Parse (child.InnerText);
+								obj.Flags.CostPerDay = Int32.Parse (child.InnerText);
 								break;
 
 							case "MinimumLevel":
-								obj.MinimumLevel = Int32.Parse (child.InnerText);
+								obj.Flags.MinimumLevel = Int32.Parse (child.InnerText);
 								break;
 
 							case "Affect":

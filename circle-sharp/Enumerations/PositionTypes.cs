@@ -6,6 +6,6 @@ namespace CircleSharp.Enumerations
 {
     internal enum PositionTypes
     {
-        Dead, MortallyWounded, Incapacitated, Stunned, Sleeping, Resting, Sitting, Fighting, Standing
+        None = -1, Dead = 0, MortallyWounded, Incapacitated, Stunned, Sleeping, Resting, Sitting, Fighting, Standing
     }
 }

@@ -9,7 +9,7 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-	internal delegate int SpecialFunctionHandler (CharacterData character, object me, int command, string argument);
+	internal delegate bool SpecialFunctionHandler (CharacterData character, object me, int command, string argument);
 	
 	public partial class SharpCore
 	{

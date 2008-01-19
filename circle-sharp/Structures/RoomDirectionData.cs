@@ -11,7 +11,7 @@ namespace CircleSharp.Structures
 	{
 		private string _description;
 		private string _keyword;
-		private DirectionOptionFlags _exitInfo;
+		private long _exitInfo;
 		private int _key;
 		private int _toRoom;
 
@@ -39,7 +39,7 @@ namespace CircleSharp.Structures
 			}
 		}
 
-		public DirectionOptionFlags ExitInfo
+		public long ExitInfo
 		{
 			get
 			{
@@ -74,5 +74,21 @@ namespace CircleSharp.Structures
 				_toRoom = value;
 			}
 		}
+
+		public bool ExitFlagged(DirectionOptionFlags flag)
+		{
+			return ((ExitInfo & (byte)flag) == (byte)flag);
+		}
+
+		public void RemoveExitFlag(DirectionOptionFlags flag)
+		{
+			ExitInfo &= ~(byte)flag;
+		}
+
+		public void SetExitFlag(DirectionOptionFlags flag)
+		{
+			ExitInfo = ExitInfo | (byte)flag;
+		}
+
 	}
 }

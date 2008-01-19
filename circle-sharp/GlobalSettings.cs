@@ -17,7 +17,9 @@ namespace CircleSharp
 		public bool DeathTrapsAreDumps = false;
 
 		public int ListenPort = 5000;
-		
+
+		public int TunnelSize = 2;
+
 		private string _settingsFile = String.Empty;
 		private XmlDocument _settingsDocument = new XmlDocument ();
 		
@@ -33,6 +35,8 @@ namespace CircleSharp
 
 			AutoPlayerWipe = bool.Parse (_settingsDocument.DocumentElement["AutoPlayerWipe"].InnerText);
 			DeathTrapsAreDumps = bool.Parse (_settingsDocument.DocumentElement["DeathTrapsAreDumps"].InnerText);
+
+			TunnelSize = int.Parse (_settingsDocument.DocumentElement["TunnelSize"].InnerText);
 
 			ListenPort = Int32.Parse (_settingsDocument.DocumentElement["ListenPort"].InnerText);
 		}
@@ -50,6 +54,8 @@ namespace CircleSharp
 			_settingsDocument.DocumentElement["DeathTrapsAreDumps"].InnerText = DeathTrapsAreDumps.ToString ();
 
 			_settingsDocument.DocumentElement["ListenPort"].InnerText = ListenPort.ToString ();
+
+			_settingsDocument.DocumentElement["TunnelSize"].InnerText = TunnelSize.ToString ();
 
 			_settingsDocument.Save (_settingsFile);
 		}

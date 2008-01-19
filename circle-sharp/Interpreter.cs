@@ -17,14 +17,14 @@ namespace CircleSharp
 		private CommandInfo[] _commandInfo = {
 			new CommandInfo ("RESERVED", PositionTypes.Dead, null, 0, 0),	/* this must be first -- for specprocs */
 
-			new CommandInfo ("north",		PositionTypes.Standing,	DoMove,		0,	SubCommands.North),
-			new CommandInfo ("east",		PositionTypes.Standing,	DoMove,		0,	SubCommands.East),
-			new CommandInfo ("south",		PositionTypes.Standing,	DoMove,		0,	SubCommands.South),
-			new CommandInfo ("west",		PositionTypes.Standing,	DoMove,		0,	SubCommands.West),
-			new CommandInfo ("up",			PositionTypes.Standing,	DoMove,		0,	SubCommands.Up),
-			new CommandInfo ("down",		PositionTypes.Standing,	DoMove,		0,	SubCommands.Down),
+			//new CommandInfo ("north",		PositionTypes.Standing,	DoMove,		0,	SubCommands.North),
+			//new CommandInfo ("east",		PositionTypes.Standing,	DoMove,		0,	SubCommands.East),
+			//new CommandInfo ("south",		PositionTypes.Standing,	DoMove,		0,	SubCommands.South),
+			//new CommandInfo ("west",		PositionTypes.Standing,	DoMove,		0,	SubCommands.West),
+			//new CommandInfo ("up",			PositionTypes.Standing,	DoMove,		0,	SubCommands.Up),
+			//new CommandInfo ("down",		PositionTypes.Standing,	DoMove,		0,	SubCommands.Down),
 
-			new CommandInfo ("at",			PositionTypes.Dead,		DoAt,		GlobalConstants.LVL_IMMORT,	SubCommands.None),
+			/*new CommandInfo ("at",			PositionTypes.Dead,		DoAt,		GlobalConstants.LVL_IMMORT,	SubCommands.None),
 			new CommandInfo ("advance",		PositionTypes.Dead,		DoAdvance,	GlobalConstants.LVL_IMPL,	SubCommands.None),
 			new CommandInfo ("alias",		PositionTypes.Dead,		DoAlias,	0,	SubCommands.None),
 			new CommandInfo ("accuse",		PositionTypes.Sitting,	DoAction,	0,	SubCommands.None),
@@ -361,57 +361,32 @@ namespace CircleSharp
   			new CommandInfo ("zedit",		PositionTypes.Dead,		DoOLC,		GlobalConstants.LVL_BUILDER, SubCommands.ZEdit),
 			new CommandInfo ("zreset",		PositionTypes.Dead,		DoZReset,	GlobalConstants.LVL_GRGOD, SubCommands.None),
 
-  /* DG trigger commands */
-  { "attach"   , POS_DEAD    , do_attach   , LVL_IMPL, 0 },
-  { "detach"   , POS_DEAD    , do_detach   , LVL_IMPL, 0 },
-  { "tlist"    , POS_DEAD    , do_tlist    , LVL_GOD, 0 },
-  { "tstat"    , POS_DEAD    , do_tstat    , LVL_GOD, 0 },
-  { "masound"  , POS_DEAD    , do_masound  , -1, 0 },
-  { "mkill"    , POS_STANDING, do_mkill    , -1, 0 },
-  { "mjunk"    , POS_SITTING , do_mjunk    , -1, 0 },
-  { "mdamage"  , POS_DEAD    , do_mdamage  , -1, 0 },
-  { "mdoor"    , POS_DEAD    , do_mdoor    , -1, 0 },
-  { "mecho"    , POS_DEAD    , do_mecho    , -1, 0 },
-  { "mechoaround" , POS_DEAD , do_mechoaround, -1, 0 },
-  { "msend"    , POS_DEAD    , do_msend    , -1, 0 },
-  { "mload"    , POS_DEAD    , do_mload    , -1, 0 },
-  { "mpurge"   , POS_DEAD    , do_mpurge   , -1, 0 },
-  { "mgoto"    , POS_DEAD    , do_mgoto    , -1, 0 },
-  { "mat"      , POS_DEAD    , do_mat      , -1, 0 },
-  { "mteleport", POS_DEAD    , do_mteleport, -1, 0 },
-  { "mforce"   , POS_DEAD    , do_mforce   , -1, 0 },
-  { "mhunt"    , POS_DEAD    , do_mhunt    , -1, 0 },
-  { "mremember", POS_DEAD    , do_mremember, -1, 0 },
-  { "mforget"  , POS_DEAD    , do_mforget  , -1, 0 },
-  { "mtransform",POS_DEAD    , do_mtransform,-1, 0 },
-  { "mzoneecho", POS_DEAD    , do_mzoneecho, -1, 0 },
-  { "vdelete"  , POS_DEAD    , do_vdelete  , LVL_IMPL, 0 },
-
-  			new CommandInfo ("attach", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("detach", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("tlist", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("tstat", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-			new CommandInfo ("", PositionTypes, Do, 0, SubCommands),
-
+			// Trigger Commands
+  			new CommandInfo ("attach",		PositionTypes.Dead,		DoAttach,		GlobalConstants.LVL_IMPL, SubCommands.None),
+			new CommandInfo ("detach",		PositionTypes.Dead,		DoDetach,		GlobalConstants.LVL_IMPL, SubCommands.None),
+			new CommandInfo ("tlist",		PositionTypes.Dead,		DoTList,		GlobalConstants.LVL_GOD, SubCommands.None),
+			new CommandInfo ("tstat",		PositionTypes.Dead,		DoTStat,		GlobalConstants.LVL_GOD, SubCommands.None),
+			new CommandInfo ("masound",		PositionTypes.Dead,		DoMASound,		-1,	SubCommands.None),
+			new CommandInfo ("mkill",		PositionTypes.Standing,	DoMKill,		-1, SubCommands.None),
+			new CommandInfo ("mjunk",		PositionTypes.Sitting,	DoMJunk,		-1, SubCommands.None),
+			new CommandInfo ("mdamage",		PositionTypes.Dead,		DoMDamage,		-1, SubCommands.None),
+			new CommandInfo ("mdoor",		PositionTypes.Dead,		DoMDoor,		-1, SubCommands.None),
+			new CommandInfo ("mecho",		PositionTypes.Dead,		DoMEcho,		-1, SubCommands.None),
+			new CommandInfo ("mechoaround",	PositionTypes.Dead,		DoMEchoAround,	-1, SubCommands.None),
+			new CommandInfo ("msend",		PositionTypes.Dead,		DoMSend,		-1, SubCommands.None),
+			new CommandInfo ("mload",		PositionTypes.Dead,		DoMLoad,		-1, SubCommands.None),
+			new CommandInfo ("mpurge",		PositionTypes.Dead,		DoMPurge,		-1, SubCommands.None),
+			new CommandInfo ("mgoto",		PositionTypes.Dead,		DoMGoto,		-1, SubCommands.None),
+			new CommandInfo ("mat",			PositionTypes.Dead,		DoMAt,			-1, SubCommands.None),
+			new CommandInfo ("mteleport",	PositionTypes.Dead,		DoMTeleport,	-1, SubCommands.None),
+			new CommandInfo ("mforce",		PositionTypes.Dead,		DoMForce,		-1, SubCommands.None),
+			new CommandInfo ("mhunt",		PositionTypes.Dead,		DoMHunt,		-1, SubCommands.None),
+			new CommandInfo ("mremember",	PositionTypes.Dead,		DoMRemember,	-1, SubCommands.None),
+			new CommandInfo ("mforget",		PositionTypes.Dead,		DoMForget,		-1, SubCommands.None),
+			new CommandInfo ("mtransform",	PositionTypes.Dead,		DoMTransform,	-1, SubCommands.None),
+			new CommandInfo ("mzoneecho",	PositionTypes.Dead,		DoMZoneEcho,	-1, SubCommands.None),
+			new CommandInfo ("vdelete",		PositionTypes.Dead,		DoVDelete,		GlobalConstants.LVL_IMPL, SubCommands.None),
+			*/
   			new CommandInfo ("\n", PositionTypes.Dead, null, 0, SubCommands.None), // This must be the last
 		};
 
@@ -428,6 +403,36 @@ namespace CircleSharp
 		private int FindCommand(string command)
 		{
 			return 0;
+		}
+
+		private bool Special (CharacterData character, int command, string arg)
+		{
+			if (GetRoomSpecial(character.InRoom) != null)
+				if (GetRoomSpecial (character.InRoom) (character, _rooms[character.InRoom], command, arg))
+					return true;
+
+			for (int j = 0; j < (int)WearTypes.Index; j++)
+				if (character.Equipment[j] != null && GetObjectSpecial (character.Equipment[j]) != null)
+					if (GetObjectSpecial(character.Equipment[j]) (character, character.Equipment[j], command, arg))
+						return true;
+
+			foreach (ObjectData obj in character.Inventory)
+				if (GetObjectSpecial(obj) != null)
+					if (GetObjectSpecial (obj) (character, obj, command, arg))
+						return true;
+
+			foreach (CharacterData person in _rooms[character.InRoom].People)
+				if (!person.MobileFlagged (MobileFlags.NotDeadYet))
+					if (GetMobileSpecial (person) != null)
+						if (GetMobileSpecial (person) (character, person, command, arg))
+							return true;
+
+			foreach (ObjectData obj in _rooms[character.InRoom].Contents)
+				if (GetObjectSpecial (obj) != null)
+					if (GetObjectSpecial (obj) (character, obj, command, arg))
+						return true;
+
+			return false;
 		}
     }
 }

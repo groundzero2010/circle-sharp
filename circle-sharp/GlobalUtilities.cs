@@ -20,6 +20,14 @@ namespace CircleSharp
             return (sum);
         }
 
+		public static string FirstName (string text)
+		{
+			if (String.IsNullOrEmpty (text))
+				return String.Empty;
+
+			return (text.Substring (0, text.IndexOf (' ')));
+		}
+
 		public static string ReadString (TextReader reader)
 		{
 			string line = reader.ReadLine ();
@@ -35,6 +43,11 @@ namespace CircleSharp
 				final += line.Substring(0, line.IndexOf('~'));
 
 			return final;
+		}
+
+		public static int SearchBlock (string arg, string[] list, bool exact)
+		{
+			return 0;
 		}
     }
 }

@@ -20,6 +20,7 @@ namespace CircleSharp
 		private TcpListener _listener;
 
         private int _maxPlayers = 0;
+		private int _actCheck;
 
         private void InitializeGame()
         {
@@ -449,9 +450,79 @@ namespace CircleSharp
             descriptor.Output += text;
         }
 
+		private bool SendToCharacter (CharacterData character, string message, params object[] vars)
+		{
+			if (character.Descriptor != null && !String.IsNullOrEmpty(message))
+			{
+				string text = String.Format(message, vars);
+
+				WriteToOutput(character.Descriptor, text);
+
+				return true;
+			}
+
+			return false;
+		}
+
         private string MakePrompt(DescriptorData descriptor)
         {
             return ">";
         }
+		
+		private void Act (string text, bool hideInvisible, CharacterData character, ObjectData obj, object victimObject, int type)
+		{
+			int toSleeping;
+
+			if (String.IsNullOrEmpty (text))
+				return;
+
+			if (toSleeping = (type & GlobalConstants.TO_SLEEP))
+				type &= ~GlobalConstants.TO_SLEEP;
+
+			if (_actCheck = (type & GlobalConstants.DG_NO_TRIG))
+				type &= ~GlobalConstants.DG_NO_TRIG;
+
+			if (type == GlobalConstants.TO_CHAR)
+			{
+				if (character != null && 
+			}
+
+  /* this is a hack as well - DG_NO_TRIG is 256 -- Welcor */
+  if ((dg_act_check = (type & DG_NO_TRIG)))
+    type &= ~DG_NO_TRIG;
+
+  if (type == TO_CHAR) {
+    if (ch && SENDOK(ch))
+      perform_act(str, ch, obj, vict_obj, ch);
+    return;
+  }
+
+  if (type == TO_VICT) {
+    if ((to = (const struct char_data *) vict_obj) != NULL && SENDOK(to))
+      perform_act(str, ch, obj, vict_obj, to);
+    return;
+  }
+  /* ASSUMPTION: at this point we know type must be TO_NOTVICT or TO_ROOM */
+
+  if (ch && IN_ROOM(ch) != NOWHERE)
+    to = world[IN_ROOM(ch)].people;
+  else if (obj && IN_ROOM(obj) != NOWHERE)
+    to = world[IN_ROOM(obj)].people;
+  else {
+    log("SYSERR: no valid target to act()!");
+    return;
+  }
+
+  for (; to; to = to->next_in_room) {
+    if (!SENDOK(to) || (to == ch))
+      continue;
+    if (hide_invisible && ch && !CAN_SEE(to, ch))
+      continue;
+    if (type != TO_ROOM && to == vict_obj)
+      continue;
+    perform_act(str, ch, obj, vict_obj, to);
+  }
+}
+
     }
 }

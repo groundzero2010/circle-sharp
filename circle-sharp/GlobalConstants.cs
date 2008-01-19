@@ -86,5 +86,25 @@ namespace CircleSharp
 
 		public const int DEFAULT_STAFF_LEVEL = 12;
 		public const int DEFAULT_WAND_LEVEL = 12;
+
+		public const int TO_ROOM = 1;
+		public const int TO_VICT = 2;
+		public const int TO_NOTVICT = 3;
+		public const int TO_CHAR = 4;
+		public const int TO_SLEEP = 128;
+		public const int DG_NO_TRIG = 256;
+
+		public const int MAX_HOUSES = 100;
+		public const int MAX_GUESTS = 10;
+		
+		public static string[] Directions = new string[] {
+		   "north",
+		   "east",
+		   "south",
+		   "west",
+		   "up",
+		   "down",
+		   "\n"
+		};
     }
 }
