@@ -4,7 +4,8 @@
     <Name>Puff dragon fractal</Name>
     <ShortDescription>Puff</ShortDescription>
     <LongDescription>Puff the Fractal Dragon is here, contemplating a higher reality.</LongDescription>
-    <Description>Is that some type of differential curve involving some strange, and\nunknown calculus that she seems to be made out of?</Description>
+    <Description>Is that some type of differential curve involving some strange, and
+unknown calculus that she seems to be made out of?</Description>
     <MobileFlags>1</MobileFlags>
     <AffectFlags>1</AffectFlags>
     <Alignment>1000</Alignment>

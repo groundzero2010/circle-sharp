@@ -29,8 +29,8 @@ namespace CircleSharp.Structures
 
 		public long ID;
 
+		public ScriptData Script;
 //   struct trig_proto_list *proto_script; /* list of default triggers      */
-//   struct script_data *script;         /* script info for the object      */
 //   struct script_memory *memory;       /* for mob memory triggers         */
 
         public CharacterData Master;
@@ -61,9 +61,30 @@ namespace CircleSharp.Structures
 			}
 		}
 
+		public bool Awake
+		{
+			get { return (this.Position > PositionTypes.Sleeping); }
+		}
+
 		public int Level
 		{
 			get { return Player.Level; }
+		}
+
+		public int RealLevel
+		{
+			get
+			{
+				return (Descriptor != null && Descriptor.Original != null ? Descriptor.Original.Level : Level);
+			}
+		}
+
+		public int InvisLevel
+		{
+			get
+			{
+				return (this.PlayerSpecials.Saved.InvisibleLevel);
+			}
 		}
 
         public CharacterData Fighting
@@ -134,5 +155,20 @@ namespace CircleSharp.Structures
         {
 			CharacterSpecials.Saved.Flags = CharacterSpecials.Saved.Flags | (byte)flag;
         }
+
+		public bool PreferenceFlagged (PreferenceFlags flag)
+		{
+			return ((PlayerSpecials.Saved.Preferences & (byte)flag) == (byte)flag);
+		}
+
+		public void RemovePreferenceFlag (PreferenceFlags flag)
+		{
+			PlayerSpecials.Saved.Preferences &= ~(byte)flag;
+		}
+
+		public void SetPreferenceFlag (PreferenceFlags flag)
+		{
+			PlayerSpecials.Saved.Preferences = PlayerSpecials.Saved.Preferences | (byte)flag;
+		}
     }
 }

@@ -142,14 +142,18 @@ namespace CircleSharp
 
 			if (!_miniMud)
 			{
-				Log ("Booting houses.");
+				//Log ("Booting houses.");
 				//HouseBoot ();
 			}
 
-			// Reset all zones.
+			for (int i = 0; i < _topOfZoneTable; i++)
+			{
+				Log ("Resetting zone #" + _zones[i].Number + ": " + _zones[i].Name + " (Rooms " + _zones[i].Bottom + "-" + _zones[i].Top + ").");
+				ResetZone (i);
+			}
 
-			// Reset Queue setup
-
+			// Reset the Zone Reset Queue or something.
+			
 			_bootTime = DateTime.Now;
 
 			Log ("Boot db -- DONE.");
@@ -197,6 +201,277 @@ namespace CircleSharp
 			else
 				_weatherInfo.Sky = SkyState.Cloudless;
 		}
+
+		private void ResetZone (int number)
+		{
+			for (int command = 0; command < _zones[number].Commands.Count; command++)
+			{
+				if (ZCMD.if_flag && !last_cmd)
+					continue;
+				
+				switch (_zones[number].Commands[command].Command)
+				{
+					case '*':
+						break;
+					
+					case 'M':
+						if (mob_index[ZCMD.arg1].number < ZCMD.arg2)
+						{
+							mob = read_mobile(ZCMD.arg1, REAL);
+							char_to_room(mob, ZCMD.arg3);
+							load_mtrigger(mob);
+							tmob = mob;
+							last_cmd = 1;
+						}
+						else
+							last_cmd = 0;
+
+						tobj = NULL;
+						break;
+
+					case 'O':
+						if (obj_index[ZCMD.arg1].number < ZCMD.arg2)
+						{
+							if (ZCMD.arg3 != NOWHERE)
+							{
+								obj = read_object(ZCMD.arg1, REAL);
+								obj_to_room(obj, ZCMD.arg3);
+								last_cmd = 1;
+								load_otrigger(obj);
+								tobj = obj;
+							}
+							else
+							{
+								obj = read_object(ZCMD.arg1, REAL);
+								IN_ROOM(obj) = NOWHERE;
+								last_cmd = 1;
+								tobj = obj;
+							}
+						}
+						else
+							last_cmd = 0;
+
+						tmob = NULL;
+						break;
+					
+					case 'P':
+						if (obj_index[ZCMD.arg1].number < ZCMD.arg2)
+						{
+							obj = read_object(ZCMD.arg1, REAL);
+
+							if (!(obj_to = get_obj_num(ZCMD.arg3)))
+							{
+								ZONE_ERROR("target obj not found, command disabled");
+								ZCMD.command = '*';
+								break;
+							}
+							
+							obj_to_obj(obj, obj_to);
+							last_cmd = 1;
+							load_otrigger(obj);
+							tobj = obj;
+						}
+						else
+							last_cmd = 0;
+
+						tmob = NULL;
+						break;
+
+					case 'G':
+						if (!mob)
+						{
+							ZONE_ERROR("attempt to give obj to non-existant mob, command disabled");
+							ZCMD.command = '*';
+							break;
+						}
+
+						if (obj_index[ZCMD.arg1].number < ZCMD.arg2)
+						{
+							obj = read_object(ZCMD.arg1, REAL);
+							obj_to_char(obj, mob);
+							load_otrigger(obj);
+							tobj = obj;
+							last_cmd = 1;
+						}
+						else
+							last_cmd = 0;
+						
+						tmob = NULL;
+						break;
+					
+					case 'E':
+						if (!mob)
+						{
+							ZONE_ERROR("trying to equip non-existant mob, command disabled");
+							ZCMD.command = '*';
+							break;
+						}
+						
+						if (obj_index[ZCMD.arg1].number < ZCMD.arg2)
+						{
+							if (ZCMD.arg3 < 0 || ZCMD.arg3 >= NUM_WEARS)
+							{
+								ZONE_ERROR("invalid equipment pos number");
+							}
+							else
+							{
+								obj = read_object(ZCMD.arg1, REAL);
+								IN_ROOM(obj) = IN_ROOM(mob);
+								load_otrigger(obj);
+
+								if (wear_otrigger(obj, mob, ZCMD.arg3))
+								{
+									IN_ROOM(obj) = NOWHERE;
+									equip_char(mob, obj, ZCMD.arg3);
+								}
+								else
+									obj_to_char(obj, mob);
+
+								tobj = obj;
+								last_cmd = 1;
+							}
+						}
+						else
+							last_cmd = 0;
+
+						tmob = NULL;
+						break;
+
+					case 'R':
+						if ((obj = get_obj_in_list_num(ZCMD.arg2, world[ZCMD.arg1].contents)) != NULL)
+							extract_obj(obj);
+
+						last_cmd = 1;
+						tmob = NULL;
+						tobj = NULL;
+						break;
+
+					case 'D':
+						if (ZCMD.arg2 < 0 || ZCMD.arg2 >= NUM_OF_DIRS || (world[ZCMD.arg1].dir_option[ZCMD.arg2] == NULL))
+						{
+							ZONE_ERROR("door does not exist, command disabled");
+							ZCMD.command = '*';
+						}
+						else
+							switch (ZCMD.arg3)
+							{
+								case 0:
+								  REMOVE_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
+										 EX_LOCKED);
+								  REMOVE_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
+										 EX_CLOSED);
+								  break;
+								case 1:
+								  SET_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
+									  EX_CLOSED);
+								  REMOVE_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
+										 EX_LOCKED);
+								  break;
+								case 2:
+								  SET_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
+									  EX_LOCKED);
+								  SET_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
+									  EX_CLOSED);
+								  break;
+							}
+						
+						last_cmd = 1;
+						tmob = NULL;
+						tobj = NULL;
+						break;
+
+					case 'T':
+						if (ZCMD.arg1==MOB_TRIGGER && tmob)
+						{
+							if (!SCRIPT(tmob))
+								CREATE(SCRIPT(tmob), struct script_data, 1);
+
+							add_trigger(SCRIPT(tmob), read_trigger(real_trigger(ZCMD.arg2)), -1);
+							last_cmd = 1;
+						}
+						else if (ZCMD.arg1==OBJ_TRIGGER && tobj)
+						{
+							if (!SCRIPT(tobj))
+								CREATE(SCRIPT(tobj), struct script_data, 1);
+
+							add_trigger(SCRIPT(tobj), read_trigger(real_trigger(ZCMD.arg2)), -1);
+							last_cmd = 1;
+						}
+						else if (ZCMD.arg1==WLD_TRIGGER)
+						{
+							if (ZCMD.arg3 == NOWHERE || ZCMD.arg3>top_of_world)
+							{
+								ZONE_ERROR("Invalid room number in trigger assignment");
+							}
+							
+							if (!world[ZCMD.arg3].script)
+								CREATE(world[ZCMD.arg3].script, struct script_data, 1);
+
+							add_trigger(world[ZCMD.arg3].script, read_trigger(real_trigger(ZCMD.arg2)), -1);
+							last_cmd = 1;
+						}
+						break;
+					
+					case 'V':
+						if (ZCMD.arg1==MOB_TRIGGER && tmob)
+						{
+							if (!SCRIPT(tmob))
+							{
+								ZONE_ERROR("Attempt to give variable to scriptless mobile");
+							}
+							else
+								add_var(&(SCRIPT(tmob)->global_vars), ZCMD.sarg1, ZCMD.sarg2, ZCMD.arg3);
+							
+							last_cmd = 1;
+						}
+						else if (ZCMD.arg1==OBJ_TRIGGER && tobj)
+						{
+							if (!SCRIPT(tobj))
+							{
+								ZONE_ERROR("Attempt to give variable to scriptless object");
+							}
+							else
+								add_var(&(SCRIPT(tobj)->global_vars), ZCMD.sarg1, ZCMD.sarg2, ZCMD.arg3);
+							
+							last_cmd = 1;
+						}
+						else if (ZCMD.arg1==WLD_TRIGGER)
+						{
+							if (ZCMD.arg3 == NOWHERE || ZCMD.arg3>top_of_world)
+							{
+								ZONE_ERROR("Invalid room number in variable assignment");
+							}
+							else
+							{
+								if (!(world[ZCMD.arg3].script))
+								{
+									ZONE_ERROR("Attempt to give variable to scriptless object");
+								}
+								else
+									add_var(&(world[ZCMD.arg3].script->global_vars), ZCMD.sarg1, ZCMD.sarg2, ZCMD.arg2);
+								
+								last_cmd = 1;
+							}
+						}
+						break;
+					default:
+						ZONE_ERROR("unknown cmd in reset table; cmd disabled");
+						ZCMD.command = '*';
+						break;
+				}
+			}
+			
+			_zones[number].Age = 0;
+			
+			rvnum = zone_table[zone].bot;
+			while (rvnum <= zone_table[zone].top) {
+				rrnum = real_room(rvnum);
+				
+				if (rrnum != NOWHERE) reset_wtrigger(&world[rrnum]);
+					rvnum++;
+			}
+		}
+
 
 		private string LoadText (string filename)
 		{
