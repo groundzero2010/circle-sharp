@@ -6,4 +6,5 @@
   <AutoPlayerWipe>false</AutoPlayerWipe>
   <DeathTrapsAreDumps>false</DeathTrapsAreDumps>
   <ListenPort>4000</ListenPort>
+  <TunnelSize>2</TunnelSize>
 </GlobalSettings>

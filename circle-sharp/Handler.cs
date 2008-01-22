@@ -123,5 +123,48 @@ namespace CircleSharp
             //if (character.IsNPC || character.Descriptor != null)
                 //FreeCharacter(character);
         }
+
+		private void CharacterFromRoom (CharacterData character)
+		{
+			if (character == null || character.InRoom == GlobalConstants.NOWHERE)
+			{
+				Log ("SYSERR: Null character or NOWHERE in CharacterFromRoom()");
+				return;
+			}
+
+			//if (character.Fighting != null)
+				//StopFighting (character);
+
+			if (character.Equipment[(int)WearTypes.Light] != null)
+				if (character.Equipment[(int)WearTypes.Light].Type == ObjectTypes.Light)
+					if (character.Equipment[(int)WearTypes.Light].Flags.Values[2] > 0)
+						_rooms[character.InRoom].Light--;
+
+			_rooms[character.InRoom].People.Remove (character);
+			character.InRoom = GlobalConstants.NOWHERE;
+		}
+
+		private void CharacterToRoom (CharacterData character, int number)
+		{
+			if (character == null || number == GlobalConstants.NOWHERE || number > _topOfRoomTable)
+			{
+				Log ("SYSERR: Illegal values passed to CharacterToRoom.");
+				return;
+			}
+
+			_rooms[number].People.Add(character);
+			character.InRoom = number;
+
+			if (character.Equipment[(int)WearTypes.Light] != null)
+				if (character.Equipment[(int)WearTypes.Light].Type == ObjectTypes.Light)
+					if (character.Equipment[(int)WearTypes.Light].Flags.Values[2] > 0)
+						_rooms[number].Light++;
+
+			if (character.Fighting != null && character.InRoom != character.Fighting.InRoom)
+			{
+				//StopFighting (character.Fighting);
+				//StopFighting (character);
+			}
+		}
     }
 }

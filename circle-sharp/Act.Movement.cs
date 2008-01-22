@@ -108,7 +108,7 @@ namespace CircleSharp
 				{
 					if ((follower.InRoom == wasInRoom) && follower.Position >= PositionTypes.Standing)
 					{
-						//Act("You follow $N.\r\n", false, follower, 0, character, GlobalConstants.TO_CHAR);
+						Act("You follow $N.\r\n", false, follower, null, character, GlobalConstants.TO_CHAR);
 						PerformMove (follower, direction, true);
 					}
 				}
@@ -136,7 +136,7 @@ namespace CircleSharp
 				character.InRoom == character.Master.InRoom)
 			{
 				SendToCharacter (character, "The thought of leaving your master makes you weep.\r\n");
-				//Act("$n bursts into tears.", false, character, 0, 0, GlobalConstants.TO_ROOM);
+				Act("$n bursts into tears.", false, character, null, null, GlobalConstants.TO_ROOM);
 				return false;
 			}
 
@@ -195,12 +195,12 @@ namespace CircleSharp
 
 			if (!character.AffectFlagged (AffectFlags.Sneak))
 			{
-				//Act("$n leaves "+Directions[(int)direction], true, character, 0, 0, GlobalConstants.TO_ROOM);
+				Act("$n leaves "+GlobalConstants.Directions[(int)direction], true, character, null, null, GlobalConstants.TO_ROOM);
 			}
 
 			int wasInRoom = character.InRoom;
-			//CharacterFromRoom (character);
-			//CharacterToRoom (character, _rooms[wasInRoom].DirectionOptions[(int)direction].ToRoom);
+			CharacterFromRoom (character);
+			CharacterToRoom (character, _rooms[wasInRoom].DirectionOptions[(int)direction].ToRoom);
 
 			// Trigger Stuff
 			/* move them first, then move them back if they aren't allowed to go. */
@@ -213,7 +213,7 @@ namespace CircleSharp
 			//}
 
 			if (!character.AffectFlagged (AffectFlags.Sneak))
-				//Act ("$n has arrived.", true, character, 0, 0, GlobalConstants.TO_ROOM);
+				Act ("$n has arrived.", true, character, null, null, GlobalConstants.TO_ROOM);
 
 			if (character.Descriptor != null)
 				//LookAtRoom (character, 0);

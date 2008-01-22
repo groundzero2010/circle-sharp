@@ -152,16 +152,16 @@ namespace CircleSharp
 
                     if (descriptor.Character != null)
                     {
-                        //descriptor.Character.CharacterSpecials.Timer = 0;
+                        descriptor.Character.CharacterSpecials.Timer = 0;
 
                         if (descriptor.ConnectState == ConnectState.Playing && descriptor.Character.WasInRoom != GlobalConstants.NOWHERE)
                         {
-                            //if (descriptor.Character.InRoom != NOWHERE)
-                            //CharacterFromRoom(descriptor.Character);
+                            if (descriptor.Character.InRoom != GlobalConstants.NOWHERE)
+								CharacterFromRoom(descriptor.Character);
 
-                            //CharacterToRoom(descriptor.Character, descriptor.Character.WasInRoom);
+                            CharacterToRoom(descriptor.Character, descriptor.Character.WasInRoom);
                             descriptor.Character.WasInRoom = GlobalConstants.NOWHERE;
-                            //act("$n has returned.", TRUE, d->character, 0, 0, TO_ROOM);
+                            Act("$n has returned.", true, descriptor.Character, null, null, GlobalConstants.TO_ROOM);
                         }
 
                         descriptor.Character.Wait = 1;
@@ -469,60 +469,216 @@ namespace CircleSharp
             return ">";
         }
 		
-		private void Act (string text, bool hideInvisible, CharacterData character, ObjectData obj, object victimObject, int type)
+		private void PerformAct (string original, CharacterData character, ObjectData obj, object victim, CharacterData to)
 		{
+			CharacterData triggerVictim = null;
+			ObjectData triggerTarget = null;
+			string triggerArg = String.Empty;
+
+			//const char *i = NULL;
+			//char lbuf[MAX_STRING_LENGTH], *buf, *j;
+			//bool uppercasenext = FALSE;
+			//buf = lbuf;
+
+			if (original.IndexOf ("$n") >= 0)
+			{
+				original = original.Replace ("$n", PersonName (character, to));
+			}
+
+			if (original.IndexOf ("$N") >= 0)
+			{
+				if (victim == null)
+					original = original.Replace ("$N", "<NULL>");
+				else
+					original = original.Replace ("$N", PersonName (victim as CharacterData, to));
+
+				triggerVictim = victim as CharacterData;
+			}
+
+			if (original.IndexOf ("$m") >= 0)
+			{
+				original = original.Replace ("$m", HimHer (character));
+			}
+
+			if (original.IndexOf ("$M") >= 0)
+			{
+				if (victim == null)
+					original = original.Replace ("$M", "<NULL>");
+				else
+					original = original.Replace ("$M", HimHer (victim as CharacterData));
+
+				triggerVictim = victim as CharacterData;
+			}
+
+			if (original.IndexOf ("$s") >= 0)
+			{
+				original = original.Replace ("$s", HisHer (character));
+			}
+
+			if (original.IndexOf ("$S") >= 0)
+			{
+				if (victim == null)
+					original = original.Replace ("$M", "<NULL>");
+				else
+					original = original.Replace ("$M", HisHer (victim as CharacterData));
+
+				triggerVictim = victim as CharacterData;
+			}
+
+			if (original.IndexOf ("$e") >= 0)
+			{
+				original = original.Replace ("$e", HeShe(character));
+			}
+
+			if (original.IndexOf ("$E") >= 0)
+			{
+				if (victim == null)
+					original = original.Replace ("$M", "<NULL>");
+				else
+					original = original.Replace ("$M", HeShe (victim as CharacterData));
+
+				triggerVictim = victim as CharacterData;
+			}
+
+			if (original.IndexOf ("$o") >= 0)
+			{
+				if (obj == null)
+					original = original.Replace ("$o", "<NULL>");
+				else
+					original = original.Replace ("$o", ObjectName (obj, to));
+			}
+
+			if (original.IndexOf ("$O") >= 0)
+			{
+				if (victim == null)
+					original = original.Replace ("$O", "<NULL>");
+				else
+					original = original.Replace ("$O", ObjectName (victim as ObjectData, to));
+
+				triggerTarget = victim as ObjectData;
+			}
+
+			if (original.IndexOf ("$p") >= 0)
+			{
+				if (obj == null)
+					original = original.Replace ("$p", "<NULL>");
+				else
+					original = original.Replace ("$p", ObjectDescription (obj, to));
+			}
+
+			if (original.IndexOf ("$P") >= 0)
+			{
+				if (victim == null)
+					original = original.Replace ("$P", "<NULL>");
+				else
+					original = original.Replace ("$P", ObjectDescription (victim as ObjectData, to));
+
+				triggerTarget = victim as ObjectData;
+			}
+
+			if (original.IndexOf ("$a") >= 0)
+			{
+				if (obj == null)
+					original = original.Replace ("$a", "<NULL>");
+				else
+					original = original.Replace ("$a", SAnA(obj));
+			}
+
+			if (original.IndexOf ("$A") >= 0)
+			{
+				if (victim == null)
+					original = original.Replace ("$A", "<NULL>");
+				else
+					original = original.Replace ("$A", SAnA(victim as ObjectData));
+
+				triggerTarget = victim as ObjectData;
+			}
+
+			if (original.IndexOf ("$T") >= 0)
+			{
+				if (victim == null)
+					original = original.Replace ("$T", "<NULL>");
+				else
+					original = original.Replace ("$T", victim as string);
+
+				triggerArg = victim as string;
+			}
+
+			if (original.IndexOf ("$F") >= 0)
+			{
+				if (victim == null)
+					original = original.Replace ("$F", "<NULL>");
+				else
+					original = original.Replace ("$F", GlobalUtilities.FirstName (victim as string));
+			}
+
+			if (original.IndexOf ("$$") >= 0)
+				original = original.Replace ("$$", "$");
+
+			if (to.Descriptor != null)
+				WriteToOutput (to.Descriptor, original);
+
+			//if ((to.IsNPC && triggerActCheck) && (to != character))
+			//	ActMobileTrigger (to, original, character, triggerVictim, obj, triggerTarget, triggerArg);
+		}
+
+		private void Act (string text, bool hideInvisible, CharacterData character, ObjectData obj, object victim, int type)
+		{
+			CharacterData to;
 			int toSleeping;
 
 			if (String.IsNullOrEmpty (text))
 				return;
 
-			if (toSleeping = (type & GlobalConstants.TO_SLEEP))
+			if ((toSleeping = (type & GlobalConstants.TO_SLEEP)) > 0)
 				type &= ~GlobalConstants.TO_SLEEP;
 
-			if (_actCheck = (type & GlobalConstants.DG_NO_TRIG))
+			if ((_actCheck = (type & GlobalConstants.DG_NO_TRIG)) > 0)
 				type &= ~GlobalConstants.DG_NO_TRIG;
 
 			if (type == GlobalConstants.TO_CHAR)
 			{
-				if (character != null && 
+				if (character != null && SendOK (character, toSleeping))
+					PerformAct (text, character, obj, victim, character);
+
+				return;
 			}
 
-  /* this is a hack as well - DG_NO_TRIG is 256 -- Welcor */
-  if ((dg_act_check = (type & DG_NO_TRIG)))
-    type &= ~DG_NO_TRIG;
+			if (type == GlobalConstants.TO_VICT)
+			{
+				to = victim as CharacterData;
 
-  if (type == TO_CHAR) {
-    if (ch && SENDOK(ch))
-      perform_act(str, ch, obj, vict_obj, ch);
-    return;
-  }
+				if (to != null && SendOK (to, toSleeping))
+					PerformAct (text, character, obj, victim, to);
 
-  if (type == TO_VICT) {
-    if ((to = (const struct char_data *) vict_obj) != NULL && SENDOK(to))
-      perform_act(str, ch, obj, vict_obj, to);
-    return;
-  }
-  /* ASSUMPTION: at this point we know type must be TO_NOTVICT or TO_ROOM */
+				return;
+			}
 
-  if (ch && IN_ROOM(ch) != NOWHERE)
-    to = world[IN_ROOM(ch)].people;
-  else if (obj && IN_ROOM(obj) != NOWHERE)
-    to = world[IN_ROOM(obj)].people;
-  else {
-    log("SYSERR: no valid target to act()!");
-    return;
-  }
+			List<CharacterData> people;
 
-  for (; to; to = to->next_in_room) {
-    if (!SENDOK(to) || (to == ch))
-      continue;
-    if (hide_invisible && ch && !CAN_SEE(to, ch))
-      continue;
-    if (type != TO_ROOM && to == vict_obj)
-      continue;
-    perform_act(str, ch, obj, vict_obj, to);
-  }
-}
+			if (character != null && character.InRoom != GlobalConstants.NOWHERE)
+				people = _rooms[character.InRoom].People;
+			else if (obj != null && obj.InRoom != GlobalConstants.NOWHERE)
+				people = _rooms[obj.InRoom].People;
+			else
+			{
+				Log ("SYSERR: No valid target to Act()!");
+				return;
+			}
 
+			foreach (CharacterData person in people)
+			{
+				if (!SendOK (person, toSleeping) || (person == character))
+					continue;
+
+				if (hideInvisible && character != null && !CanSee (person, character))
+					continue;
+
+				if (type != GlobalConstants.TO_ROOM && person == victim)
+					continue;
+
+				PerformAct (text, character, obj, victim, person);
+			}
+		}
     }
 }

@@ -63,6 +63,7 @@
     <Compile Include="Enumerations\HouseTypes.cs" />
     <Compile Include="Enumerations\MagicFlags.cs" />
     <Compile Include="Enumerations\MagicTargetFlags.cs" />
+    <Compile Include="Enumerations\MobileTriggerFlags.cs" />
     <Compile Include="Enumerations\ObjectFlags.cs" />
     <Compile Include="Enumerations\ObjectTypes.cs" />
     <Compile Include="Enumerations\ObjectWearFlags.cs" />
