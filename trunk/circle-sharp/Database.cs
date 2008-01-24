@@ -11,6 +11,10 @@ namespace CircleSharp
 {
 	public partial class SharpCore
 	{
+		private int MaxMobileID = GlobalConstants.MobileIDBase;
+		private int MaxObjectID = GlobalConstants.ObjectIDBase;
+		private int MaxRoomID = GlobalConstants.RoomIDBase;
+
 		private Dictionary<int, PlayerData> _players = new Dictionary<int, PlayerData> ();
 		private int _topOfPlayerTable = 0;
 
@@ -204,57 +208,64 @@ namespace CircleSharp
 
 		private void ResetZone (int number)
 		{
+			int lastCommand = 0;
+			CharacterData mobile = null;
+			ObjectData obj = null;
+
 			for (int command = 0; command < _zones[number].Commands.Count; command++)
 			{
-				if (ZCMD.if_flag && !last_cmd)
+				ResetCommand zoneCommand = _zones[number].Commands[command];
+
+				if (zoneCommand.IfFlag && !(lastCommand > 0))
 					continue;
 				
-				switch (_zones[number].Commands[command].Command)
+				switch (zoneCommand.Command)
 				{
 					case '*':
 						break;
 					
 					case 'M':
-						if (mob_index[ZCMD.arg1].number < ZCMD.arg2)
+						if (_mobileIndex[zoneCommand.Argument1].VirtualNumber < zoneCommand.Argument2)
 						{
-							mob = read_mobile(ZCMD.arg1, REAL);
-							char_to_room(mob, ZCMD.arg3);
-							load_mtrigger(mob);
-							tmob = mob;
-							last_cmd = 1;
+							mobile = ReadMobile (zoneCommand.Argument1, true);
+							CharacterToRoom (mobile, zoneCommand.Argument3);
+							//load_mtrigger(mob);
+							//tmob = mob;
+							lastCommand = 1;
 						}
 						else
-							last_cmd = 0;
+							lastCommand = 0;
 
-						tobj = NULL;
+						//tobj = null;
 						break;
 
 					case 'O':
-						if (obj_index[ZCMD.arg1].number < ZCMD.arg2)
+						if (_objectIndex[zoneCommand.Argument1].VirtualNumber < zoneCommand.Argument2)
 						{
-							if (ZCMD.arg3 != NOWHERE)
+							if (zoneCommand.Argument3 != GlobalConstants.NOWHERE)
 							{
-								obj = read_object(ZCMD.arg1, REAL);
-								obj_to_room(obj, ZCMD.arg3);
-								last_cmd = 1;
-								load_otrigger(obj);
-								tobj = obj;
+								obj = ReadObject (zoneCommand.Argument1, true);
+								ObjectToRoom (obj, zoneCommand.Argument3);
+								lastCommand = 1;
+								//load_otrigger(obj);
+								//tobj = obj;
 							}
 							else
 							{
-								obj = read_object(ZCMD.arg1, REAL);
-								IN_ROOM(obj) = NOWHERE;
-								last_cmd = 1;
-								tobj = obj;
+								obj = ReadObject (zoneCommand.Argument1, true);
+								obj.InRoom = GlobalConstants.NOWHERE;
+								lastCommand = 1;
+								//tobj = obj;
 							}
 						}
 						else
-							last_cmd = 0;
+							lastCommand = 0;
 
-						tmob = NULL;
+						//tmob = null;
 						break;
 					
 					case 'P':
+						/*
 						if (obj_index[ZCMD.arg1].number < ZCMD.arg2)
 						{
 							obj = read_object(ZCMD.arg1, REAL);
@@ -274,10 +285,11 @@ namespace CircleSharp
 						else
 							last_cmd = 0;
 
-						tmob = NULL;
+						tmob = NULL;*/
 						break;
 
 					case 'G':
+						/*
 						if (!mob)
 						{
 							ZONE_ERROR("attempt to give obj to non-existant mob, command disabled");
@@ -296,10 +308,11 @@ namespace CircleSharp
 						else
 							last_cmd = 0;
 						
-						tmob = NULL;
+						tmob = NULL;*/
 						break;
 					
 					case 'E':
+						/*
 						if (!mob)
 						{
 							ZONE_ERROR("trying to equip non-existant mob, command disabled");
@@ -334,19 +347,21 @@ namespace CircleSharp
 						else
 							last_cmd = 0;
 
-						tmob = NULL;
+						tmob = NULL;*/
 						break;
 
 					case 'R':
+						/*
 						if ((obj = get_obj_in_list_num(ZCMD.arg2, world[ZCMD.arg1].contents)) != NULL)
 							extract_obj(obj);
 
 						last_cmd = 1;
 						tmob = NULL;
-						tobj = NULL;
+						tobj = NULL;*/
 						break;
 
 					case 'D':
+						/*
 						if (ZCMD.arg2 < 0 || ZCMD.arg2 >= NUM_OF_DIRS || (world[ZCMD.arg1].dir_option[ZCMD.arg2] == NULL))
 						{
 							ZONE_ERROR("door does not exist, command disabled");
@@ -377,10 +392,11 @@ namespace CircleSharp
 						
 						last_cmd = 1;
 						tmob = NULL;
-						tobj = NULL;
+						tobj = NULL;*/
 						break;
 
 					case 'T':
+						/*
 						if (ZCMD.arg1==MOB_TRIGGER && tmob)
 						{
 							if (!SCRIPT(tmob))
@@ -409,10 +425,11 @@ namespace CircleSharp
 
 							add_trigger(world[ZCMD.arg3].script, read_trigger(real_trigger(ZCMD.arg2)), -1);
 							last_cmd = 1;
-						}
+						}*/
 						break;
 					
 					case 'V':
+						/*
 						if (ZCMD.arg1==MOB_TRIGGER && tmob)
 						{
 							if (!SCRIPT(tmob))
@@ -452,26 +469,30 @@ namespace CircleSharp
 								
 								last_cmd = 1;
 							}
-						}
+						}*/
 						break;
+
 					default:
-						ZONE_ERROR("unknown cmd in reset table; cmd disabled");
-						ZCMD.command = '*';
+						//ZONE_ERROR("unknown cmd in reset table; cmd disabled");
+						zoneCommand.Command = '*';
 						break;
 				}
 			}
-			
+
 			_zones[number].Age = 0;
-			
-			rvnum = zone_table[zone].bot;
-			while (rvnum <= zone_table[zone].top) {
-				rrnum = real_room(rvnum);
-				
-				if (rrnum != NOWHERE) reset_wtrigger(&world[rrnum]);
-					rvnum++;
+
+			int roomnum = _zones[number].Bottom;
+
+			while (roomnum <= _zones[number].Top)
+			{
+				int realroomnumber = RealRoom (roomnum);
+
+				//if (realroomnumber != GlobalConstants.NOWHERE)
+					//reset_wtrigger(&world[rrnum]);
+
+				roomnum++;
 			}
 		}
-
 
 		private string LoadText (string filename)
 		{
@@ -1385,6 +1406,48 @@ namespace CircleSharp
 			}
 
 			return true;
+		}
+
+		private CharacterData ReadMobile (int virtualNumber, bool real)
+		{
+			int rnum = 0;
+
+			if (!real)
+			{
+				rnum = RealMobile (virtualNumber);
+
+				if (rnum == GlobalConstants.NOBODY)
+				{
+					Log ("WARNING: Mobile virtual number "+virtualNumber+" does not exist in database.");
+					return (null);
+				}
+			}
+			else
+				rnum = virtualNumber;
+
+			CharacterData mob = new CharacterData ();
+			mob.Clear();
+			_mobiles.Add (mob);
+			_characters.Add (mob);
+
+			if (mob.Points.MaxHit == 0)
+				mob.Points.MaxHit = GlobalUtilities.Dice (mob.Points.Hit, mob.Points.Mana) + mob.Points.Move;
+			else
+				mob.Points.MaxHit = new Random().Next(mob.Points.Hit, mob.Points.Mana);
+
+			mob.Points.Hit = mob.Points.MaxHit;
+			mob.Points.Mana = mob.Points.MaxMana;
+			mob.Points.Move = mob.Points.MaxMove;
+
+			mob.Player.Time.Birth = DateTime.Now;
+			mob.Player.Time.Played = 0;
+			mob.Player.Time.Logon = DateTime.Now;
+
+			_mobileIndex[rnum].Count++;
+			mob.ID = MaxMobileID++;
+			//assign_triggers(mob, MOB_TRIGGER);
+
+			return mob;
 		}
 
 		private bool LoadTriggers (XmlDocument file, string filename)
