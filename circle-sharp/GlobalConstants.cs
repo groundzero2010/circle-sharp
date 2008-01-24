@@ -94,6 +94,10 @@ namespace CircleSharp
 		public const int TO_SLEEP = 128;
 		public const int DG_NO_TRIG = 256;
 
+		public const int RoomIDBase = 50000;
+		public const int MobileIDBase = 100000;
+		public const int ObjectIDBase = 200000;
+		
 		public const int MAX_HOUSES = 100;
 		public const int MAX_GUESTS = 10;
 		

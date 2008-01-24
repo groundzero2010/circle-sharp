@@ -170,5 +170,19 @@ namespace CircleSharp.Structures
 		{
 			PlayerSpecials.Saved.Preferences = PlayerSpecials.Saved.Preferences | (byte)flag;
 		}
+
+		public void Clear()
+		{
+			InRoom = GlobalConstants.NOWHERE;
+			Number = GlobalConstants.NOBODY;
+			WasInRoom = GlobalConstants.NOWHERE;
+			Position = PositionTypes.Standing;
+			MobileSpecials.DefaultPosition = PositionTypes.Standing;
+
+			Points.ArmorClass = 100;
+
+			if (Points.MaxMana < 100)
+				Points.MaxMana = 100;
+		}
     }
 }
