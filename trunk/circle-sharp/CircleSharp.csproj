@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,6 +12,25 @@
     <AssemblyName>circle-sharp</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,10 +68,12 @@
     <Compile Include="Act.Item.cs" />
     <Compile Include="Act.Movement.cs" />
     <Compile Include="Act.Social.cs" />
-    <Compile Include="Class.cs" />
+    <Compile Include="Ban.cs" />
+    <Compile Include="RaceClass.cs" />
     <Compile Include="Communications.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Enumerations\AffectFlags.cs" />
+    <Compile Include="Enumerations\BanTypes.cs" />
     <Compile Include="Enumerations\CastTypes.cs" />
     <Compile Include="Enumerations\ClassTypes.cs" />
     <Compile Include="Enumerations\ConnectState.cs" />
@@ -63,7 +84,8 @@
     <Compile Include="Enumerations\HouseTypes.cs" />
     <Compile Include="Enumerations\MagicFlags.cs" />
     <Compile Include="Enumerations\MagicTargetFlags.cs" />
-    <Compile Include="Enumerations\MobileTriggerFlags.cs" />
+    <Compile Include="Enumerations\RaceTypes.cs" />
+    <Compile Include="Enumerations\ScriptTypes.cs" />
     <Compile Include="Enumerations\ObjectFlags.cs" />
     <Compile Include="Enumerations\ObjectTypes.cs" />
     <Compile Include="Enumerations\ObjectWearFlags.cs" />
@@ -84,7 +106,6 @@
     <Compile Include="Enumerations\SpellTypes.cs" />
     <Compile Include="Enumerations\SubCommands.cs" />
     <Compile Include="Enumerations\SunState.cs" />
-    <Compile Include="Enumerations\TriggerTypes.cs" />
     <Compile Include="Enumerations\WearTypes.cs" />
     <Compile Include="Fight.cs" />
     <Compile Include="GlobalConstants.cs" />
@@ -93,13 +114,18 @@
     <Compile Include="Handler.cs" />
     <Compile Include="House.cs" />
     <Compile Include="Interpreter.cs" />
+    <Compile Include="Mail.cs" />
+    <Compile Include="Players.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharpCore.cs" />
+    <Compile Include="Script.cs" />
+    <Compile Include="CircleCore.cs" />
     <Compile Include="SpecialAssignment.cs" />
     <Compile Include="SpecialProcedures.cs" />
     <Compile Include="SpellParser.cs" />
+    <Compile Include="Act.Wizard.cs" />
     <Compile Include="Structures\AffectData.cs" />
     <Compile Include="Structures\AliasData.cs" />
+    <Compile Include="Structures\BanListElement.cs" />
     <Compile Include="Structures\CharacterAbilityData.cs" />
     <Compile Include="Structures\CharacterData.cs" />
     <Compile Include="Structures\CharacterPlayerData.cs" />
@@ -115,6 +141,7 @@
     <Compile Include="Structures\HelpData.cs" />
     <Compile Include="Structures\HouseData.cs" />
     <Compile Include="Structures\IndexData.cs" />
+    <Compile Include="Structures\MailData.cs" />
     <Compile Include="Structures\MobileSpecialData.cs" />
     <Compile Include="Structures\ObjectAffectData.cs" />
     <Compile Include="Structures\ObjectData.cs" />
@@ -130,6 +157,7 @@
     <Compile Include="Structures\ShopData.cs" />
     <Compile Include="Structures\SocialMessageListElement.cs" />
     <Compile Include="Structures\SpellData.cs" />
+    <Compile Include="Structures\TimeData.cs" />
     <Compile Include="Structures\TimeInfoData.cs" />
     <Compile Include="Structures\TriggerData.cs" />
     <Compile Include="Structures\TriggerEvent.cs" />
@@ -138,6 +166,23 @@
     <Compile Include="Structures\WeatherData.cs" />
     <Compile Include="Structures\ZoneData.cs" />
     <Compile Include="Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

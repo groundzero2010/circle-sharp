@@ -9,7 +9,7 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-	public partial class SharpCore
+	public partial class CircleCore
 	{
 		private WearTypes FindEquipmentPosition (CharacterData character, ObjectData obj, string arg)
 		{

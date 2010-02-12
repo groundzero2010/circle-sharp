@@ -9,7 +9,7 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-	public partial class SharpCore
+	public partial class CircleCore
 	{
 		private Dictionary<SpellDefinitions, SpellData> _spells = new Dictionary<SpellDefinitions, SpellData> ();
 

@@ -9,15 +9,8 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-	public partial class SharpCore
+	public partial class CircleCore
 	{
-		private int MaxMobileID = GlobalConstants.MobileIDBase;
-		private int MaxObjectID = GlobalConstants.ObjectIDBase;
-		private int MaxRoomID = GlobalConstants.RoomIDBase;
-
-		private Dictionary<int, PlayerData> _players = new Dictionary<int, PlayerData> ();
-		private int _topOfPlayerTable = 0;
-
 		private Dictionary<int, HelpData> _help = new Dictionary<int, HelpData> ();
 		private int _topOfHelpTable = 0;
 
@@ -46,7 +39,6 @@ namespace CircleSharp
 		private List<CharacterData> _combatters = new List<CharacterData> ();
 
 		private DateTime _bootTime;
-		private bool _scanFile = false;
 		private bool _noSpecials = false;
 		private bool _noMail = false;
 		private bool _noRentCheck = false;
@@ -127,15 +119,15 @@ namespace CircleSharp
 			//SortSpells ();
 
 			Log ("Booting mail system.");
-			if (!_scanFile)
+			if (!LoadMail())
 			{
 				Log ("  Mail boot failed! Mail system disabled!");
 				_noMail = true;
 			}
 
 			Log ("Reading banned site and invalid-name list.");
-			//LoadBanned ();
-			//ReadInvalidList ();
+			LoadBanned ();
+			ReadInvalidList ();
 
 			if (!_noRentCheck)
 			{
@@ -146,18 +138,14 @@ namespace CircleSharp
 
 			if (!_miniMud)
 			{
-				//Log ("Booting houses.");
+				Log ("Booting houses.");
 				//HouseBoot ();
 			}
 
-			for (int i = 0; i < _topOfZoneTable; i++)
-			{
-				Log ("Resetting zone #" + _zones[i].Number + ": " + _zones[i].Name + " (Rooms " + _zones[i].Bottom + "-" + _zones[i].Top + ").");
-				ResetZone (i);
-			}
+			// Reset all zones.
 
-			// Reset the Zone Reset Queue or something.
-			
+			// Reset Queue setup
+
 			_bootTime = DateTime.Now;
 
 			Log ("Boot db -- DONE.");
@@ -204,294 +192,6 @@ namespace CircleSharp
 				_weatherInfo.Sky = SkyState.Cloudy;
 			else
 				_weatherInfo.Sky = SkyState.Cloudless;
-		}
-
-		private void ResetZone (int number)
-		{
-			int lastCommand = 0;
-			CharacterData mobile = null;
-			ObjectData obj = null;
-
-			for (int command = 0; command < _zones[number].Commands.Count; command++)
-			{
-				ResetCommand zoneCommand = _zones[number].Commands[command];
-
-				if (zoneCommand.IfFlag && !(lastCommand > 0))
-					continue;
-				
-				switch (zoneCommand.Command)
-				{
-					case '*':
-						break;
-					
-					case 'M':
-						if (_mobileIndex[zoneCommand.Argument1].VirtualNumber < zoneCommand.Argument2)
-						{
-							mobile = ReadMobile (zoneCommand.Argument1, true);
-							CharacterToRoom (mobile, zoneCommand.Argument3);
-							//load_mtrigger(mob);
-							//tmob = mob;
-							lastCommand = 1;
-						}
-						else
-							lastCommand = 0;
-
-						//tobj = null;
-						break;
-
-					case 'O':
-						if (_objectIndex[zoneCommand.Argument1].VirtualNumber < zoneCommand.Argument2)
-						{
-							if (zoneCommand.Argument3 != GlobalConstants.NOWHERE)
-							{
-								obj = ReadObject (zoneCommand.Argument1, true);
-								ObjectToRoom (obj, zoneCommand.Argument3);
-								lastCommand = 1;
-								//load_otrigger(obj);
-								//tobj = obj;
-							}
-							else
-							{
-								obj = ReadObject (zoneCommand.Argument1, true);
-								obj.InRoom = GlobalConstants.NOWHERE;
-								lastCommand = 1;
-								//tobj = obj;
-							}
-						}
-						else
-							lastCommand = 0;
-
-						//tmob = null;
-						break;
-					
-					case 'P':
-						/*
-						if (obj_index[ZCMD.arg1].number < ZCMD.arg2)
-						{
-							obj = read_object(ZCMD.arg1, REAL);
-
-							if (!(obj_to = get_obj_num(ZCMD.arg3)))
-							{
-								ZONE_ERROR("target obj not found, command disabled");
-								ZCMD.command = '*';
-								break;
-							}
-							
-							obj_to_obj(obj, obj_to);
-							last_cmd = 1;
-							load_otrigger(obj);
-							tobj = obj;
-						}
-						else
-							last_cmd = 0;
-
-						tmob = NULL;*/
-						break;
-
-					case 'G':
-						/*
-						if (!mob)
-						{
-							ZONE_ERROR("attempt to give obj to non-existant mob, command disabled");
-							ZCMD.command = '*';
-							break;
-						}
-
-						if (obj_index[ZCMD.arg1].number < ZCMD.arg2)
-						{
-							obj = read_object(ZCMD.arg1, REAL);
-							obj_to_char(obj, mob);
-							load_otrigger(obj);
-							tobj = obj;
-							last_cmd = 1;
-						}
-						else
-							last_cmd = 0;
-						
-						tmob = NULL;*/
-						break;
-					
-					case 'E':
-						/*
-						if (!mob)
-						{
-							ZONE_ERROR("trying to equip non-existant mob, command disabled");
-							ZCMD.command = '*';
-							break;
-						}
-						
-						if (obj_index[ZCMD.arg1].number < ZCMD.arg2)
-						{
-							if (ZCMD.arg3 < 0 || ZCMD.arg3 >= NUM_WEARS)
-							{
-								ZONE_ERROR("invalid equipment pos number");
-							}
-							else
-							{
-								obj = read_object(ZCMD.arg1, REAL);
-								IN_ROOM(obj) = IN_ROOM(mob);
-								load_otrigger(obj);
-
-								if (wear_otrigger(obj, mob, ZCMD.arg3))
-								{
-									IN_ROOM(obj) = NOWHERE;
-									equip_char(mob, obj, ZCMD.arg3);
-								}
-								else
-									obj_to_char(obj, mob);
-
-								tobj = obj;
-								last_cmd = 1;
-							}
-						}
-						else
-							last_cmd = 0;
-
-						tmob = NULL;*/
-						break;
-
-					case 'R':
-						/*
-						if ((obj = get_obj_in_list_num(ZCMD.arg2, world[ZCMD.arg1].contents)) != NULL)
-							extract_obj(obj);
-
-						last_cmd = 1;
-						tmob = NULL;
-						tobj = NULL;*/
-						break;
-
-					case 'D':
-						/*
-						if (ZCMD.arg2 < 0 || ZCMD.arg2 >= NUM_OF_DIRS || (world[ZCMD.arg1].dir_option[ZCMD.arg2] == NULL))
-						{
-							ZONE_ERROR("door does not exist, command disabled");
-							ZCMD.command = '*';
-						}
-						else
-							switch (ZCMD.arg3)
-							{
-								case 0:
-								  REMOVE_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
-										 EX_LOCKED);
-								  REMOVE_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
-										 EX_CLOSED);
-								  break;
-								case 1:
-								  SET_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
-									  EX_CLOSED);
-								  REMOVE_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
-										 EX_LOCKED);
-								  break;
-								case 2:
-								  SET_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
-									  EX_LOCKED);
-								  SET_BIT(world[ZCMD.arg1].dir_option[ZCMD.arg2]->exit_info,
-									  EX_CLOSED);
-								  break;
-							}
-						
-						last_cmd = 1;
-						tmob = NULL;
-						tobj = NULL;*/
-						break;
-
-					case 'T':
-						/*
-						if (ZCMD.arg1==MOB_TRIGGER && tmob)
-						{
-							if (!SCRIPT(tmob))
-								CREATE(SCRIPT(tmob), struct script_data, 1);
-
-							add_trigger(SCRIPT(tmob), read_trigger(real_trigger(ZCMD.arg2)), -1);
-							last_cmd = 1;
-						}
-						else if (ZCMD.arg1==OBJ_TRIGGER && tobj)
-						{
-							if (!SCRIPT(tobj))
-								CREATE(SCRIPT(tobj), struct script_data, 1);
-
-							add_trigger(SCRIPT(tobj), read_trigger(real_trigger(ZCMD.arg2)), -1);
-							last_cmd = 1;
-						}
-						else if (ZCMD.arg1==WLD_TRIGGER)
-						{
-							if (ZCMD.arg3 == NOWHERE || ZCMD.arg3>top_of_world)
-							{
-								ZONE_ERROR("Invalid room number in trigger assignment");
-							}
-							
-							if (!world[ZCMD.arg3].script)
-								CREATE(world[ZCMD.arg3].script, struct script_data, 1);
-
-							add_trigger(world[ZCMD.arg3].script, read_trigger(real_trigger(ZCMD.arg2)), -1);
-							last_cmd = 1;
-						}*/
-						break;
-					
-					case 'V':
-						/*
-						if (ZCMD.arg1==MOB_TRIGGER && tmob)
-						{
-							if (!SCRIPT(tmob))
-							{
-								ZONE_ERROR("Attempt to give variable to scriptless mobile");
-							}
-							else
-								add_var(&(SCRIPT(tmob)->global_vars), ZCMD.sarg1, ZCMD.sarg2, ZCMD.arg3);
-							
-							last_cmd = 1;
-						}
-						else if (ZCMD.arg1==OBJ_TRIGGER && tobj)
-						{
-							if (!SCRIPT(tobj))
-							{
-								ZONE_ERROR("Attempt to give variable to scriptless object");
-							}
-							else
-								add_var(&(SCRIPT(tobj)->global_vars), ZCMD.sarg1, ZCMD.sarg2, ZCMD.arg3);
-							
-							last_cmd = 1;
-						}
-						else if (ZCMD.arg1==WLD_TRIGGER)
-						{
-							if (ZCMD.arg3 == NOWHERE || ZCMD.arg3>top_of_world)
-							{
-								ZONE_ERROR("Invalid room number in variable assignment");
-							}
-							else
-							{
-								if (!(world[ZCMD.arg3].script))
-								{
-									ZONE_ERROR("Attempt to give variable to scriptless object");
-								}
-								else
-									add_var(&(world[ZCMD.arg3].script->global_vars), ZCMD.sarg1, ZCMD.sarg2, ZCMD.arg2);
-								
-								last_cmd = 1;
-							}
-						}*/
-						break;
-
-					default:
-						//ZONE_ERROR("unknown cmd in reset table; cmd disabled");
-						zoneCommand.Command = '*';
-						break;
-				}
-			}
-
-			_zones[number].Age = 0;
-
-			int roomnum = _zones[number].Bottom;
-
-			while (roomnum <= _zones[number].Top)
-			{
-				int realroomnumber = RealRoom (roomnum);
-
-				//if (realroomnumber != GlobalConstants.NOWHERE)
-					//reset_wtrigger(&world[rrnum]);
-
-				roomnum++;
-			}
 		}
 
 		private string LoadText (string filename)
@@ -737,136 +437,6 @@ namespace CircleSharp
 			}
 
 			return true;
-		}
-
-		private void BuildPlayerIndex ()
-		{
-			XmlDocument file = new XmlDocument ();
-			string filename = Path.Combine (_baseDirectory, GlobalConstants.LIB_PLAYERS);
-			filename = Path.Combine (filename, "Players.xml");
-
-			file.Load (filename);
-
-			XmlNodeList list = file.GetElementsByTagName ("PlayerData");
-
-			foreach (XmlNode node in list)
-			{
-				PlayerData player = new PlayerData ();
-				player.ID = 0;
-
-				try
-				{
-					player.ID = Int32.Parse (node.Attributes["ID"].Value);
-
-					foreach (XmlNode child in node.ChildNodes)
-					{
-						switch (child.Name)
-						{
-							case "Name":
-								player.Name = child.InnerText;
-								break;
-
-							case "Level":
-								player.Level = Int32.Parse (child.InnerText);
-								break;
-
-							case "Flags":
-								player.Flags = long.Parse (child.InnerText);
-								break;
-
-							case "Last":
-								player.Last = DateTime.Parse (child.InnerText);
-								break;
-						}
-					}
-				}
-				catch (Exception e)
-				{
-					Log ("SYSERR: Error pasing XML for player [" + player.ID + "] in file: " + filename);
-					return;
-				}
-
-				_players.Add (_topOfPlayerTable++, player);
-			}
-		}
-
-		private void AddPlayerValue (XmlDocument file, XmlNode node, string name, string value)
-		{
-			XmlElement element = file.CreateElement (name);
-			XmlText text = file.CreateTextNode (value);
-			element.AppendChild (text);
-			node.AppendChild (element);
-		}
-
-		private void SavePlayerIndex ()
-		{
-			XmlDocument file = new XmlDocument ();
-			XmlElement root;
-			string filename = Path.Combine (_baseDirectory, GlobalConstants.LIB_PLAYERS);
-
-			filename = Path.Combine (filename, "Players.xml");
-
-			file.AppendChild (file.CreateXmlDeclaration ("1.0", "UTF-8", "yes"));
-
-			root = file.CreateElement ("Players");
-
-			foreach (PlayerData player in _players.Values)
-			{
-				XmlNode playerNode = file.CreateElement ("PlayerData");
-
-				XmlAttribute idAttribute = file.CreateAttribute ("ID");
-				idAttribute.Value = player.ID.ToString ();
-				playerNode.Attributes.Append (idAttribute);
-
-				AddPlayerValue (file, playerNode, "Name", player.Name);
-				AddPlayerValue (file, playerNode, "Level", player.Level.ToString ());
-				AddPlayerValue (file, playerNode, "Flags", player.Flags.ToString ());
-				AddPlayerValue (file, playerNode, "Last", player.Last.ToString ("G"));
-
-				root.AppendChild (playerNode);
-			}
-
-			file.AppendChild (root);
-
-			file.Save (filename);
-		}
-
-		private void CleanPlayerIndex ()
-		{
-			List<int> toRemove = new List<int> ();
-
-			// FIXME: This will not do the same thing the CircleMUD code does, which is to remove
-			// the character based on level and time. For now this will suffice.
-			foreach (int key in _players.Keys)
-			{
-				PlayerData player = _players[key];
-
-				if (player.IsFlagged (PlayerIndexFlags.NoDelete))
-					continue;
-
-				if (player.IsFlagged (PlayerIndexFlags.Deleted))
-					toRemove.Add (key);
-				else
-				{
-					// Find out how many days have passed since the player last logged in.
-					TimeSpan span = DateTime.Now.Subtract (player.Last);
-
-					if (player.IsFlagged (PlayerIndexFlags.SelfDelete) && span.Days >= 10)
-						toRemove.Add (key);
-					else if (player.Level == 1 && span.Days >= 1)
-						toRemove.Add (key);
-					else if ((player.Level > 1 && player.Level < GlobalConstants.LVL_IMMORT) && span.Days >= 30)
-						toRemove.Add (key);
-				}
-			}
-
-			foreach (int key in toRemove)
-			{
-				Log ("WARNING: Removing player [" + _players[key].Name + "] from file.");
-				_players.Remove (key);
-			}
-
-			SavePlayerIndex ();
 		}
 
 		private bool LoadZone (XmlDocument file, string filename)
@@ -1406,48 +976,6 @@ namespace CircleSharp
 			}
 
 			return true;
-		}
-
-		private CharacterData ReadMobile (int virtualNumber, bool real)
-		{
-			int rnum = 0;
-
-			if (!real)
-			{
-				rnum = RealMobile (virtualNumber);
-
-				if (rnum == GlobalConstants.NOBODY)
-				{
-					Log ("WARNING: Mobile virtual number "+virtualNumber+" does not exist in database.");
-					return (null);
-				}
-			}
-			else
-				rnum = virtualNumber;
-
-			CharacterData mob = new CharacterData ();
-			mob.Clear();
-			_mobiles.Add (mob);
-			_characters.Add (mob);
-
-			if (mob.Points.MaxHit == 0)
-				mob.Points.MaxHit = GlobalUtilities.Dice (mob.Points.Hit, mob.Points.Mana) + mob.Points.Move;
-			else
-				mob.Points.MaxHit = new Random().Next(mob.Points.Hit, mob.Points.Mana);
-
-			mob.Points.Hit = mob.Points.MaxHit;
-			mob.Points.Mana = mob.Points.MaxMana;
-			mob.Points.Move = mob.Points.MaxMove;
-
-			mob.Player.Time.Birth = DateTime.Now;
-			mob.Player.Time.Played = 0;
-			mob.Player.Time.Logon = DateTime.Now;
-
-			_mobileIndex[rnum].Count++;
-			mob.ID = MaxMobileID++;
-			//assign_triggers(mob, MOB_TRIGGER);
-
-			return mob;
 		}
 
 		private bool LoadTriggers (XmlDocument file, string filename)

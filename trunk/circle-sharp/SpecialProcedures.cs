@@ -9,7 +9,7 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-	public partial class SharpCore
+	public partial class CircleCore
 	{
 		private bool PuffSpecial (CharacterData character, object me, int command, string argument)
 		{

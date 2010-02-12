@@ -11,7 +11,7 @@ namespace CircleSharp
 {
 	internal delegate bool SpecialFunctionHandler (CharacterData character, object me, int command, string argument);
 	
-	public partial class SharpCore
+	public partial class CircleCore
 	{
 		private void AssignMobile (int virtualNumber, SpecialFunctionHandler special)
 		{

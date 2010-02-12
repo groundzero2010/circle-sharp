@@ -29,7 +29,8 @@ namespace CircleSharp.Structures
 
 		public long ID;
 
-		public ScriptData Script;
+        public ScriptData Script;
+
 //   struct trig_proto_list *proto_script; /* list of default triggers      */
 //   struct script_memory *memory;       /* for mob memory triggers         */
 
@@ -48,6 +49,7 @@ namespace CircleSharp.Structures
 		public PositionTypes Position
 		{
 			get { return CharacterSpecials.Position; }
+			set { CharacterSpecials.Position = value; }
 		}
 
 		public bool HasFollowers
@@ -70,6 +72,56 @@ namespace CircleSharp.Structures
 		{
 			get { return Player.Level; }
 		}
+
+        public static int ColorLevel (CharacterData data)
+        {
+            return !data.IsNPC ? (data.PreferenceFlagged(PreferenceFlags.Color1) ? 1 : 0) + (data.PreferenceFlagged(PreferenceFlags.Color2) ? 2 : 0) : 0;
+        }
+
+        public static bool Color(CharacterData data, int level)
+        {
+            return ColorLevel(data) >= level;
+        }
+
+        public static string ColorNormal(CharacterData data, int level)
+        {
+            return Color(data, level) ? GlobalConstants.KNRM : GlobalConstants.KNUL;
+        }
+
+        public static string ColorRed(CharacterData data, int level)
+        {
+            return Color(data, level) ? GlobalConstants.KRED : GlobalConstants.KNUL;
+        }
+
+        public static string ColorGreen(CharacterData data, int level)
+        {
+            return Color(data, level) ? GlobalConstants.KGRN : GlobalConstants.KNUL;
+        }
+
+        public static string ColorYellow(CharacterData data, int level)
+        {
+            return Color(data, level) ? GlobalConstants.KYEL : GlobalConstants.KNUL;
+        }
+
+        public static string ColorBlue(CharacterData data, int level)
+        {
+            return Color(data, level) ? GlobalConstants.KBLU : GlobalConstants.KNUL;
+        }
+
+        public static string ColorMagenta(CharacterData data, int level)
+        {
+            return Color(data, level) ? GlobalConstants.KMAG : GlobalConstants.KNUL;
+        }
+
+        public static string ColorCyan(CharacterData data, int level)
+        {
+            return Color(data, level) ? GlobalConstants.KCYN : GlobalConstants.KNUL;
+        }
+
+        public static string ColorWhite(CharacterData data, int level)
+        {
+            return Color(data, level) ? GlobalConstants.KWHT : GlobalConstants.KNUL;
+        }
 
 		public int RealLevel
 		{
@@ -111,6 +163,16 @@ namespace CircleSharp.Structures
 			}
         }
 
+        public bool IsPlaying
+        {
+            get { if (Descriptor == null) return false;
+                else return (Descriptor.ConnectState == ConnectState.TEdit || Descriptor.ConnectState == ConnectState.REdit ||
+                Descriptor.ConnectState == ConnectState.MEdit || Descriptor.ConnectState == ConnectState.OEdit ||
+                Descriptor.ConnectState == ConnectState.ZEdit || Descriptor.ConnectState == ConnectState.SEdit ||
+                Descriptor.ConnectState == ConnectState.Playing || Descriptor.ConnectState == ConnectState.TrigEdit);
+            }
+        }
+
 		public bool AffectFlagged (AffectFlags flag)
 		{
 			return ((CharacterSpecials.Saved.AffectedBy & (byte)flag) == (byte)flag);
@@ -125,6 +187,21 @@ namespace CircleSharp.Structures
 		{
 			CharacterSpecials.Saved.AffectedBy = CharacterSpecials.Saved.AffectedBy | (byte)flag;
 		}
+
+        public bool PreferenceFlagged(PreferenceFlags flag)
+        {
+            return ((PlayerSpecials.Saved.Preferences & (byte)flag) == (byte)flag);
+        }
+
+        public void RemovePreferenceFlag(PreferenceFlags flag)
+        {
+            PlayerSpecials.Saved.Preferences &= ~(byte)flag;
+        }
+
+        public void SetPreferenceFlag(PreferenceFlags flag)
+        {
+            PlayerSpecials.Saved.Preferences = CharacterSpecials.Saved.Flags | (byte)flag;
+        }
 
         public bool PlayerFlagged(PlayerFlags flag)
         {
@@ -156,20 +233,20 @@ namespace CircleSharp.Structures
 			CharacterSpecials.Saved.Flags = CharacterSpecials.Saved.Flags | (byte)flag;
         }
 
-		public bool PreferenceFlagged (PreferenceFlags flag)
-		{
-			return ((PlayerSpecials.Saved.Preferences & (byte)flag) == (byte)flag);
-		}
+        public int GetRealLevel()
+        {
+            return (Descriptor != null && Descriptor.Original != null) ? Descriptor.Original.Player.Level : Player.Level;
+        }
 
-		public void RemovePreferenceFlag (PreferenceFlags flag)
-		{
-			PlayerSpecials.Saved.Preferences &= ~(byte)flag;
-		}
+        public int GetInvisLevel()
+        {
+            return PlayerSpecials.Saved.InvisibleLevel;
+        }
 
-		public void SetPreferenceFlag (PreferenceFlags flag)
-		{
-			PlayerSpecials.Saved.Preferences = PlayerSpecials.Saved.Preferences | (byte)flag;
-		}
+        public string GetName()
+        {
+            return IsNPC ? Player.ShortDescription : Player.Name;
+        }
 
 		public void Clear()
 		{

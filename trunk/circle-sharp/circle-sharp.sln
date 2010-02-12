@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircleSharp", "CircleSharp.csproj", "{E2632E98-2C34-4E26-85EB-DDAB2A7F8893}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircleSharpGui", "..\circle-sharp-gui\CircleSharpGui.csproj", "{B2D5265A-0E01-4D08-B009-926D46F7432A}"

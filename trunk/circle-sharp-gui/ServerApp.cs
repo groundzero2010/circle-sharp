@@ -13,7 +13,7 @@ namespace circle_sharp_gui
         private NotifyIcon _notifyIcon;
         private ContextMenu _notificationMenu;
         private ServerWindow _serverWindow;
-        private SharpCore _serverEngine;
+        private CircleCore _serverEngine;
         private System.Threading.Thread _engineThread;
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace circle_sharp_gui
 
             // Now we want to create the server engine and attach the events required.
 
-            _serverEngine = new SharpCore();
+            _serverEngine = new CircleCore();
 
             // Attach the events of the engine we will need.
             _serverEngine.Started += EngineStarted;

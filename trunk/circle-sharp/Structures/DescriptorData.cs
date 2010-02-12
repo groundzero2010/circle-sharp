@@ -18,7 +18,7 @@ namespace CircleSharp.Structures
         private bool _hasPrompt = false;
         private char[] _rawInputBuffer = new char[0];
         private string _lastInput;
-        private string _output;
+        private byte[] _output = new byte[0];
         private Queue<string> _inputQueue = new Queue<string> ();
         private List<string> _history = new List<string> ();
         private DescriptorData _snooping;
@@ -99,7 +99,7 @@ namespace CircleSharp.Structures
             set { _lastInput = value; }
         }
 
-        public string Output
+        public byte[] Output
         {
             get { return _output; }
             set { _output = value; }

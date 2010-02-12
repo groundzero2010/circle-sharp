@@ -9,7 +9,7 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-	public partial class SharpCore
+	public partial class CircleCore
 	{
 		private RoomDirectionData GetExit(CharacterData character, DirectionTypes direction)
 		{
@@ -56,6 +56,91 @@ namespace CircleSharp
 			return (ValidRoomRealNumber (number) ? _rooms[number].SectorType : SectorTypes.Inside);
 		}
 
+        internal string HisHer(CharacterData character)
+        {
+            switch (character.Player.Sex)
+            {
+                case SexTypes.Male:
+                    return "his";
+                case SexTypes.Female:
+                    return "her";
+                case SexTypes.Neutral:
+                    return "it's";
+            }
+
+            return "<ERROR>";
+        }
+
+        internal string HeShe(CharacterData character)
+        {
+            switch (character.Player.Sex)
+            {
+                case SexTypes.Male:
+                    return "he";
+                case SexTypes.Female:
+                    return "she";
+                case SexTypes.Neutral:
+                    return "it";
+            }
+
+            return "<ERROR>";
+        }
+
+        internal string HimHer(CharacterData character)
+        {
+            switch (character.Player.Sex)
+            {
+                case SexTypes.Male:
+                    return "him";
+                case SexTypes.Female:
+                    return "her";
+                case SexTypes.Neutral:
+                    return "it";
+            }
+
+            return "<ERROR>";
+        }
+
+        internal string AnA(ObjectData obj)
+        {
+            switch (obj.Name[0])
+            {
+                case 'a':
+                case 'A':
+                case 'e':
+                case 'E':
+                case 'i':
+                case 'I':
+                case 'o':
+                case 'O':
+                case 'u':
+                case 'U':
+                    return "An";
+                default:
+                    return "A";
+            }
+        }
+
+        internal string SAnA(ObjectData obj)
+        {
+            switch (obj.Name[0])
+            {
+                case 'a':
+                case 'A':
+                case 'e':
+                case 'E':
+                case 'i':
+                case 'I':
+                case 'o':
+                case 'O':
+                case 'u':
+                case 'U':
+                    return "an";
+                default:
+                    return "a";
+            }
+        }
+
 		private int NumberOfPCInRoom (RoomData room)
 		{
 			int count = 0;
@@ -67,139 +152,107 @@ namespace CircleSharp
 			return (count);
 		}
 
-		private bool MobileScriptCheck (CharacterData character, MobileTriggerFlags flag)
-		{
-			return (character.Script != null && character.Script.TypeFlagged ((long)flag));
-		}
-
-		// Utilities used for CanSee function
-
-		private bool RoomIsDark (int number)
-		{
-			if (!ValidRoomRealNumber (number))
-			{
-				Log("RoomIsDark: Invalid room number "+number+". (0-"+_topOfRoomTable);
-				return false;
-			}
-
-			if (_rooms[number].Light > 0)
-				return false;
-
-			if (_rooms[number].RoomFlagged(RoomFlags.Dark))
-				return true;
-
-			if (_rooms[number].SectorType == SectorTypes.Inside || _rooms[number].SectorType == SectorTypes.City)
-				return false;
-
-			if (_weatherInfo.Sun == SunState.Set || _weatherInfo.Sun == SunState.Dark)
-				return true;
-
-			return false;
-		}
-
-		private bool RoomIsLight (int number)
-		{
-			return (!RoomIsDark (number));
-		}
-
-		private bool LightOK (CharacterData character)
-		{
-			return (!character.AffectFlagged (AffectFlags.Blind) && RoomIsLight (character.InRoom) || character.AffectFlagged(AffectFlags.Infravision));
-		}
-
-		private bool InvisOK (CharacterData character, CharacterData victim)
-		{
-			return ((!victim.AffectFlagged (AffectFlags.Invisible) || character.AffectFlagged (AffectFlags.DetectInvisibility)) &&
-				(victim.AffectFlagged (AffectFlags.Hide) || character.AffectFlagged (AffectFlags.SenseLife)));
-		}
-
-		private bool MortalCanSee (CharacterData character, CharacterData victim)
-		{
-			return (LightOK (character) && InvisOK (character, victim));
-		}
-
-		private bool ImmortalCanSee (CharacterData character, CharacterData victim)
-		{
-			return ((MortalCanSee (character, victim) || (!character.IsNPC && character.PreferenceFlagged(PreferenceFlags.HolyLight))));
-		}
-
-		private bool CanSee (CharacterData character, CharacterData victim)
-		{
-			return (character == victim || (character.RealLevel >= (victim.IsNPC ? 0 : victim.InvisLevel)) && ImmortalCanSee (character, victim));
-		}
-
-		// Utilities used for Act function.
+        private bool ScriptCheck(CharacterData character, byte flag)
+        {
+            return character.Script != null && character.Script.TypeFlagged(flag);
+        }
 
 		private bool SendOK (CharacterData character, int toSleeping)
 		{
-			return ((character.Descriptor != null || MobileScriptCheck (character, MobileTriggerFlags.Act)) &&
-				(toSleeping > 0 || character.Awake) &&
-				character.PlayerFlagged (PlayerFlags.Writing));
+            return ((character.Descriptor != null || ScriptCheck(character, (byte)MobileScriptTypes.Act)) && (toSleeping > 0 || character.Position > PositionTypes.Sleeping) && character.PlayerFlagged (PlayerFlags.Writing));
 		}
 
-		private bool InvisOKObject (CharacterData character, ObjectData obj)
-		{
-			return (!obj.ObjectFlagged (ObjectFlags.Invisible) || character.AffectFlagged (AffectFlags.DetectInvisibility));
-		}
-		
-		private bool CanSeeObjectCarrier (CharacterData character, ObjectData obj)
-		{
-			return ((obj.CarriedBy != null || CanSee (character, obj.CarriedBy)) &&
-				(obj.WornBy != null || CanSee (character, obj.WornBy)));
-		}
+        internal bool CanSee(CharacterData character, ObjectData target)
+        {
+            return false;
+        }
 
-		private bool MortalCanSeeObject (CharacterData character, ObjectData obj)
-		{
-			return (LightOK (character) && InvisOKObject (character, obj) && CanSeeObjectCarrier (character, obj));
-		}
+        internal bool CanSee(CharacterData character, CharacterData target)
+        {
+            return (character != target || (character.GetRealLevel() >= (target.IsNPC ? 0 : target.GetInvisLevel())) && ImmortalCanSee(character, target));
+        }
 
-		private bool CanSeeObject (CharacterData character, ObjectData obj)
-		{
-			return (MortalCanSeeObject (character, obj) || (!character.IsNPC && character.PreferenceFlagged (PreferenceFlags.HolyLight)));
-		}
+        internal bool CanSeeObject(CharacterData character, ObjectData obj)
+        {
+            return (MortalCanSeeObject(character, obj) || (!character.IsNPC && character.PreferenceFlagged(PreferenceFlags.HolyLight)));
+        }
 
-		private string PersonName (CharacterData character, CharacterData victim)
-		{
-			return (CanSee (character, victim) ? character.Player.Name : "someone");
-		}
-		
-		private string ObjectDescription (ObjectData obj, CharacterData victim)
-		{
-			return (CanSeeObject (victim, obj) ? obj.ShortDescription : "something");
-		}
+        internal bool CanSeeObjectCarrier(CharacterData character, ObjectData obj)
+        {
+            return obj.CarriedBy != null || CanSee(character, obj.CarriedBy) && (obj.WornBy != null || !CanSee(character, obj.WornBy));
+        }
 
-		private string ObjectName (ObjectData obj, CharacterData victim)
-		{
-			return (CanSeeObject (victim, obj) ? GlobalUtilities.FirstName(obj.Name) : "something");
-		}
+        internal bool MortalCanSeeObject(CharacterData character, ObjectData obj)
+        {
+            return LightOK(character) && InvisibleOKObject(character, obj) && CanSeeObjectCarrier(character, obj);
+        }
 
-		private string HisHer (CharacterData character)
-		{
-			return (character.Player.Sex  == SexTypes.Neutral ? (character.Player.Sex == SexTypes.Male ? "his" : "her") : "its");
-		}
+        internal bool MortalCanSee(CharacterData character, CharacterData target)
+        {
+            return (LightOK(character) && InvisibleOK(character, target));
+        }
 
-		private string HeShe (CharacterData character)
-		{
-			return (character.Player.Sex == SexTypes.Neutral ? (character.Player.Sex == SexTypes.Male ? "he" : "she") : "it");
-		}
-		
-		private string HimHer (CharacterData character)
-		{
-			return (character.Player.Sex == SexTypes.Neutral ? (character.Player.Sex == SexTypes.Male ? "him" : "her") : "it");
-		}
-		
-		private string AnA (ObjectData obj)
-		{
-			string vowels = "aeiouAEIOU";
+        internal bool ImmortalCanSee(CharacterData character, CharacterData target)
+        {
+            return MortalCanSee(character, target) || (!character.IsNPC && character.PreferenceFlagged(PreferenceFlags.HolyLight));
+        }
 
-			return (vowels.IndexOf (obj.Name[0]) >= 0 ? "An" : "A");
-		}
+        internal bool InvisibleOK(CharacterData character, CharacterData target)
+        {
+            return !target.AffectFlagged(AffectFlags.Invisible) || target.AffectFlagged(AffectFlags.DetectInvisibility) && (!target.AffectFlagged(AffectFlags.Hide) || target.AffectFlagged(AffectFlags.SenseLife));
+        }
 
-		private string SAnA (ObjectData obj)
-		{
-			string vowels = "aeiouAEIOU";
+        internal bool InvisibleOKObject(CharacterData character, ObjectData obj)
+        {
+            return !obj.ObjectFlagged(ObjectFlags.Invisible) || character.AffectFlagged(AffectFlags.DetectInvisibility);
+        }
 
-			return (vowels.IndexOf (obj.Name[0]) >= 0 ? "an" : "a");
-		}
+        internal bool LightOK(CharacterData target)
+        {
+            return IsLight(target.InRoom) || target.AffectFlagged(AffectFlags.Infravision);
+        }
+
+        internal bool IsLight(int room)
+        {
+            return !IsDark(room);
+        }
+
+        internal bool IsDark(int room)
+        {
+            if (!ValidRoomRealNumber(room))
+            {
+                Log("RoomIsDark-> Invalid room number "+room+". (0-"+_topOfRoomTable+")");
+                return false;
+            }
+
+            if (_rooms[room].Light > 0)
+                return false;
+
+            if (_rooms[room].RoomFlagged(RoomFlags.Dark))
+                return true;
+
+            if (GetRoomSector(room) == SectorTypes.Inside || GetRoomSector(room) == SectorTypes.City)
+                return false;
+
+            if (_weatherInfo.Sun == SunState.Set || _weatherInfo.Sun == SunState.Dark)
+                return true;
+
+            return false;
+        }
+
+        internal string PersonString(CharacterData character, CharacterData victim)
+        {
+            return CanSee(victim, character) ? character.GetName() : "someone";
+        }
+
+        internal string ObjectString(ObjectData obj, CharacterData victim)
+        {
+            return CanSeeObject(victim, obj) ? obj.ShortDescription : "something";
+        }
+
+        internal string ObjectName(ObjectData obj, CharacterData victim)
+        {
+            return CanSeeObject(victim, obj) ? GlobalUtilities.FirstName(obj.Name) : "something";
+        }
 	}
 }
