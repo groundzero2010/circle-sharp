@@ -9,10 +9,10 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-	internal delegate void CommandHandler (CharacterData character, string argument, int command, int subcommand);
+	internal delegate void CommandHandler(CharacterData character, string argument, int command, int subcommand);
 
-    public partial class SharpCore
-    {
+	public partial class CircleCore
+	{
 
 		private CommandInfo[] _commandInfo = {
 			new CommandInfo ("RESERVED", PositionTypes.Dead, null, 0, 0),	/* this must be first -- for specprocs */
@@ -390,49 +390,566 @@ namespace CircleSharp
   			new CommandInfo ("\n", PositionTypes.Dead, null, 0, SubCommands.None), // This must be the last
 		};
 
-        private void CommandInterpreter (CharacterData character, string command)
-        {
-            Console.WriteLine("CommandInterpreter");
-        }
+		private void CommandInterpreter(CharacterData character, string command)
+		{
+			Console.WriteLine("CommandInterpreter");
+		}
 
-        private void Nanny(DescriptorData descriptor, string command)
+		private void SkipSpaces(ref string text)
+		{
+			string temp = "";
+
+			for (int i = 0; i < text.Length; i++)
+			{
+				if (text[i] != ' ')
+					temp += text[i];
+			}
+
+			text = temp;
+		}
+
+		private bool ParseName(string input, out string temp)
+		{
+			int i;
+			string str = "";
+
+			SkipSpaces(ref input);
+
+			temp = String.Empty;
+
+			for (i = 0; i < input.Length; i++)
+				if (char.IsLetter(input[i]))
+					str += input[i];
+
+			temp = str;
+
+			if (i == 0)
+				return false;
+
+			return true;
+		}
+
+		private string[] _fill = new string[]
         {
-            Console.WriteLine("Nanny");
-        }
+          "in",
+          "inside",
+          "into",
+          "from",
+          "with",
+          "the",
+          "on",
+          "at",
+          "to",
+          "\n"
+        };
+
+		private string[] _reserved = new string[]
+        {
+          "a",
+          "an",
+          "self",
+          "me",
+          "all",
+          "room",
+          "someone",
+          "something",
+          "\n"
+        };
+
+		private bool FillWord(string input)
+		{
+			foreach (string fill in _fill)
+				if (fill.CompareTo(input) == 0)
+					return true;
+
+			return false;
+		}
+
+		private bool ReservedWord(string input)
+		{
+			foreach (string reserve in _reserved)
+				if (reserve.CompareTo(input) == 0)
+					return true;
+
+			return false;
+		}
+
+		private void DisplayRaces(DescriptorData descriptor)
+		{
+			SendToCharacter(descriptor.Character, "\r\n@YRace Selection Menu:\r\n----------------------\r\n@n");
+
+			for (int i = 0; i < (int)RaceTypes.Index; i++)
+				if (RaceGenderMatrix[(int)descriptor.Character.Player.Sex, i])
+					SendToCharacter(descriptor.Character, "[" + i + "] " + ((RaceTypes)i).ToString());
+
+			SendToCharacter(descriptor.Character, "\n@WRace@n: ");
+		}
+
+		private void DisplayClasses(DescriptorData descriptor)
+		{
+			SendToCharacter(descriptor.Character, "\r\n@YClass Selection Menu:\r\n---------------------\r\n@n");
+
+			for (int i = 0; i < (int)ClassTypes.Index; i++)
+				if (RaceClassMatrix[(int)descriptor.Character.Player.Race, i])
+					SendToCharacter(descriptor.Character, "[" + i + "] " + ((ClassTypes)i).ToString());
+
+			SendToCharacter(descriptor.Character, "\n@WClass@n: ");
+		}
+
+		private enum DupeMode { None = 0, Recon, Usurp, Unswitch };
+
+		private bool PerformDupeCheck(DescriptorData descriptor)
+		{
+			long ID = descriptor.Character.CharacterSpecials.Saved.IDNumber;
+			CharacterData target = null;
+			DupeMode mode = DupeMode.None;
+
+			foreach (DescriptorData cycle in _descriptors)
+			{
+				if (descriptor == cycle)
+					continue;
+
+				if (cycle.Original != null && cycle.Original.CharacterSpecials.Saved.IDNumber == ID)
+				{
+					WriteToOutput(descriptor, "\r\nMultiple login detected -- disconnecting.\r\n");
+					descriptor.ConnectState = ConnectState.Close;
+
+					if (target == null)
+					{
+						target = cycle.Original;
+						mode = DupeMode.Unswitch;
+					}
+
+					if (cycle.Character != null)
+						cycle.Character.Descriptor = null;
+
+					cycle.Character = null;
+					cycle.Original = null;
+				}
+				else if (cycle.Character != null && cycle.Character.CharacterSpecials.Saved.IDNumber == ID && cycle.Original != null)
+				{
+					DoReturn(cycle.Character, null, 0, 0);
+				}
+				else if (cycle.Character != null && cycle.Character.CharacterSpecials.Saved.IDNumber == ID)
+				{
+					if (target == null && cycle.ConnectState == ConnectState.Playing)
+					{
+						WriteToOutput(cycle, "\r\nThis body has been usurped!\r\n");
+						target = cycle.Character;
+						mode = DupeMode.Usurp;
+					}
+
+					cycle.Character.Descriptor = null;
+					cycle.Character = null;
+					cycle.Original = null;
+					WriteToOutput(cycle, "\r\nMultiple login detected -- disconnecting.\r\n");
+					cycle.ConnectState = ConnectState.Close;
+				}
+			}
+
+			foreach (CharacterData cycle in _characters)
+			{
+				if (cycle.MobileFlagged(MobileFlags.IsNPC))
+					continue;
+
+				if (cycle.CharacterSpecials.Saved.IDNumber != ID)
+					continue;
+
+				if (cycle.Descriptor != null)
+					continue;
+
+				if (cycle == target)
+					continue;
+
+				if (target == null)
+				{
+					target = cycle;
+					mode = DupeMode.Recon;
+					continue;
+				}
+
+				if (target == null)
+					return false;
+
+				FreeCharacter(descriptor.Character);
+				descriptor.Character = target;
+				descriptor.Character.Descriptor = descriptor;
+				descriptor.Original = null;
+				descriptor.Character.CharacterSpecials.Timer = 0;
+
+				descriptor.Character.RemovePlayerFlag(PlayerFlags.Writing);
+				descriptor.Character.RemovePlayerFlag(PlayerFlags.Mailing);
+				descriptor.Character.RemoveAffectFlag(AffectFlags.Group);
+
+				descriptor.ConnectState = ConnectState.Playing;
+
+				switch (mode)
+				{
+					case DupeMode.Recon:
+						WriteToOutput(descriptor, "Reconnecting.\r\n");
+						Act("$n has reconnected.", true, descriptor.Character, null, null, GlobalConstants.TO_ROOM);
+
+						//mudlog(NRM, MAX(LVL_IMMORT, GET_INVIS_LEV(d->character)), TRUE, "%s [%s] has reconnected.", GET_NAME(d->character), d->host);
+
+						if (HasMail(descriptor.Character.CharacterSpecials.Saved.IDNumber))
+							WriteToOutput(descriptor, "You have mail waiting.\r\n");
+
+						// FIXME: Something about ZLIB?
+						break;
+
+					case DupeMode.Usurp:
+						WriteToOutput(descriptor, "You take over your own body, already in use!\r\n");
+						Act("$n suddenly keels over in pain, surrounded by a white aura...\r\n" +
+							"$n's body has been taken over by a new spirit!", true, descriptor.Character, null, null, GlobalConstants.TO_ROOM);
+						//mudlog(NRM, MAX(LVL_IMMORT, GET_INVIS_LEV(d->character)), TRUE, 	"%s has re-logged in ... disconnecting old socket.", GET_NAME(d->character));
+						break;
+
+					case DupeMode.Unswitch:
+						WriteToOutput(descriptor, "Reconnecting to unswitched character.");
+						//mudlog(NRM, MAX(LVL_IMMORT, GET_INVIS_LEV(d->character)), TRUE, "%s [%s] has reconnected.", GET_NAME(d->character), d->host);
+						break;
+				}
+			}
+
+			return true;
+		}
+
+		private void Nanny(DescriptorData descriptor, string input)
+		{
+			string tmpName = String.Empty;
+
+			// If there is no character object yet, we need to create one.
+			if (descriptor.Character == null)
+			{
+				descriptor.Character = new CharacterData();
+				descriptor.Character.Descriptor = descriptor;
+			}
+
+			// TODO: OLC states here.
+
+			// Not in OLC, lets do regular welcome.
+			switch (descriptor.ConnectState)
+			{
+				case ConnectState.GetName:
+					if (descriptor.Character == null)
+					{
+						descriptor.Character = new CharacterData();
+						descriptor.Character.Descriptor = descriptor;
+					}
+
+					if (input.Length == 0)
+						descriptor.ConnectState = ConnectState.Close;
+					else
+					{
+						if (!ParseName(input, out tmpName) || tmpName.Length < 2 || tmpName.Length > 25 || !ValidName(tmpName) || FillWord(tmpName) || ReservedWord(tmpName))
+						{
+							WriteToOutput(descriptor, "Invalid name, please try another.\r\nPlease provide your name: ");
+							return;
+						}
+					}
+
+					if (LoadCharacter(tmpName, descriptor.Character))
+					{
+						if (descriptor.Character.PlayerFlagged(PlayerFlags.Deleted))
+						{
+							RemovePlayer(descriptor.Character);
+
+							descriptor.Character = null;
+
+							FreeCharacter(descriptor.Character);
+
+							if (!ValidName(tmpName))
+							{
+								WriteToOutput(descriptor, "Invalid name, please try another.\r\nPlease provide your name: ");
+								return;
+							}
+
+							descriptor.Character = new CharacterData();
+							descriptor.Character.Descriptor = descriptor;
+							descriptor.Character.Player.Name = GlobalUtilities.Capital(tmpName);
+
+							WriteToOutput(descriptor, "Did I get that right, @Y" + tmpName + "@n [Y/N]? ");
+							descriptor.ConnectState = ConnectState.NameConfirm;
+						}
+						else
+						{
+							/* undo it just in case they are set */
+							descriptor.Character.RemovePlayerFlag(PlayerFlags.Writing);
+							descriptor.Character.RemovePlayerFlag(PlayerFlags.Mailing);
+							descriptor.Character.RemovePlayerFlag(PlayerFlags.Cryo);
+							descriptor.Character.RemoveAffectFlag(AffectFlags.Group);
+							descriptor.Character.Player.Time.Logon = DateTime.Now;
+							WriteToOutput(descriptor, "Please enter the @gpassword@n: ");
+							EchoOff(descriptor);
+
+							descriptor.IdleTicks = 0;
+
+							descriptor.ConnectState = ConnectState.Password;
+						}
+					}
+					else
+					{
+						if (!ValidName(tmpName))
+						{
+							WriteToOutput(descriptor, "Invalid name, please try another.\r\nPlease provide your name: ");
+							return;
+						}
+
+						descriptor.Character.Player.Name = tmpName;
+
+						WriteToOutput(descriptor, "Did I get that right, @Y" + tmpName + "@n [Y/N]?");
+
+						descriptor.ConnectState = ConnectState.NameConfirm;
+					}
+					break;
+
+				case ConnectState.NameConfirm:
+					if (input.ToLower()[0] == 'y')
+					{
+						if (IsBanned(descriptor.Hostname) > BanTypes.New)
+						{
+							//mudlog(NRM, LVL_GOD, TRUE, "Request for new char %s denied from [%s] (siteban)", GET_PC_NAME(d->character), d->host);
+							WriteToOutput(descriptor, "@RSorry, new characters are not allowed from your site!@n\r\n");
+							descriptor.ConnectState = ConnectState.Close;
+							return;
+						}
+
+						if (GlobalSettings.UserRestriction > 0)
+						{
+							WriteToOutput(descriptor, "@RSorry, new players can't be created at the moment.@n\r\n");
+							//mudlog(NRM, LVL_GOD, TRUE, "Request for new char %s denied from [%s] (wizlock)", GET_PC_NAME(d->character), d->host);
+							descriptor.ConnectState = ConnectState.Close;
+							return;
+						}
+
+						WriteToOutput(descriptor, "@MNew Character!@n\r\nProvide a new @gpassword@n: ");
+						EchoOff(descriptor);
+						descriptor.ConnectState = ConnectState.NewPassword;
+					}
+					else if (input.ToLower()[0] == 'n')
+					{
+						WriteToOutput(descriptor, "Okay, then what IS your name: ");
+						descriptor.Character.Player.Name = String.Empty;
+						descriptor.ConnectState = ConnectState.GetName;
+					}
+					else
+						WriteToOutput(descriptor, "Please type Yes or No [Y/N]: ");
+					break;
+
+				case ConnectState.Password:
+					EchoOn(descriptor);
+
+					WriteToOutput(descriptor, "\r\n"); // New EchoOn() eats the return on telnet, an extra space helps just in case.
+
+					if (String.IsNullOrEmpty(input))
+						descriptor.ConnectState = ConnectState.Close;
+					else
+					{
+						if (descriptor.Character.Player.Password.CompareTo(input) != 0)
+						{
+							//mudlog(BRF, LVL_GOD, TRUE, "Bad PW: %s [%s]", GET_NAME(d->character), d->host);
+
+							descriptor.Character.PlayerSpecials.Saved.BadPasswords++;
+							SaveCharacter(descriptor.Character);
+
+							if (++descriptor.BadPasswords >= GlobalConstants.MAX_BAD_PWS)
+							{
+								WriteToOutput(descriptor, "@RWrong password... disconnecting.@n\r\n");
+								descriptor.ConnectState = ConnectState.Close;
+							}
+							else
+							{
+								WriteToOutput(descriptor, "@RWrong password@n. Please provide the @gpassword@n: ");
+								EchoOff(descriptor);
+							}
+
+							return;
+						}
+
+						int hadBadPasswords = descriptor.Character.PlayerSpecials.Saved.BadPasswords;
+						descriptor.Character.PlayerSpecials.Saved.BadPasswords = 0;
+						descriptor.BadPasswords = 0;
+
+						if (IsBanned(descriptor.Hostname) == BanTypes.Select && descriptor.Character.PlayerFlagged(PlayerFlags.SiteOK))
+						{
+							WriteToOutput(descriptor, "Sorry, this character has not been cleared to login from your site!\r\n");
+							descriptor.ConnectState = ConnectState.Close;
+							//mudlog(NRM, LVL_GOD, TRUE, "Connection attempt for %s denied from %s", GET_NAME(d->character), d->host);
+							return;
+						}
+
+						if (descriptor.Character.Player.Level < GlobalSettings.UserRestriction)
+						{
+							WriteToOutput(descriptor, "The game is temporarily restricted... please try again later.\r\n");
+							descriptor.ConnectState = ConnectState.Close;
+							//mudlog(NRM, LVL_GOD, TRUE, "Request for login denied for %s [%s] (wizlock)", GET_NAME(d->character), d->host);
+							return;
+						}
+
+						if (PerformDupeCheck(descriptor))
+							return;
+
+						if (descriptor.Character.Player.Level >= GlobalConstants.LVL_IMMORT)
+							WriteToOutput(descriptor, _textIMOTD);
+						else
+							WriteToOutput(descriptor, _textMOTD);
+
+						//if (descriptor.Character.PlayerSpecials.Saved.InvisibleLevel > 0)
+						//mudlog(BRF, MAX(LVL_IMMORT, GET_INVIS_LEV(d->character)), TRUE, "%s [%s] has connected. (invis %d)", GET_NAME(d->character), d->host, GET_INVIS_LEV(d->character));
+						//else
+						//mudlog(BRF, LVL_IMMORT, TRUE, "%s [%s] has connected.", GET_NAME(d->character), d->host);
+
+						if (hadBadPasswords > 0)
+						{
+							WriteToOutput(descriptor, "\r\n\r\n\007\007\007@R" + hadBadPasswords + " LOGIN FAILURE(S) SINCE LAST SUCCESSFUL LOGIN.@n\r\n");
+							descriptor.Character.PlayerSpecials.Saved.BadPasswords = 0;
+						}
+
+						WriteToOutput(descriptor, "\r\n*** PRESS RETURN: ");
+
+						descriptor.ConnectState = ConnectState.RMOTD;
+					}
+					break;
+
+				case ConnectState.NewPassword:
+				case ConnectState.ChangePasswordGetNew:
+					if (String.IsNullOrEmpty(input) || input.Length > GlobalConstants.MAX_PWD_LENGTH || input.Length < 3 || descriptor.Character.Player.Name.CompareTo(input) == 0)
+					{
+						WriteToOutput(descriptor, "\r\nIllegal password.\r\nPlease provide your @gpassword@n: ");
+						return;
+					}
+
+					descriptor.Character.Player.Password = input;
+
+					WriteToOutput(descriptor, "\r\nPlease retype your @gpassword@n: ");
+
+					if (descriptor.ConnectState == ConnectState.NewPassword)
+						descriptor.ConnectState = ConnectState.ConfirmPassword;
+					else
+						descriptor.ConnectState = ConnectState.ChangePasswordVerify;
+					break;
+
+				case ConnectState.ConfirmPassword:
+				case ConnectState.ChangePasswordVerify:
+					if (descriptor.Character.Player.Password.CompareTo(input) != 0)
+					{
+						WriteToOutput(descriptor, "\r\nPasswords do not match... start over.\r\nPlease provide your @gpassword@n: ");
+						if (descriptor.ConnectState == ConnectState.ConfirmPassword)
+							descriptor.ConnectState = ConnectState.NewPassword;
+						else
+							descriptor.ConnectState = ConnectState.ChangePasswordGetNew;
+						return;
+					}
+					EchoOn(descriptor);
+
+					if (descriptor.ConnectState == ConnectState.ConfirmPassword)
+					{
+						WriteToOutput(descriptor, "\r\nWhat is your character's sex [M/F]: ");
+						descriptor.ConnectState = ConnectState.QuestionSex;
+					}
+					else
+					{
+						SaveCharacter(descriptor.Character);
+						WriteToOutput(descriptor, "\r\nDone.\r\n" + _textMenu);
+						descriptor.ConnectState = ConnectState.Menu;
+					}
+					break;
+
+				case ConnectState.QuestionSex:
+					switch (input.ToLower()[0])
+					{
+						case 'm':
+							descriptor.Character.Player.Sex = SexTypes.Male;
+							break;
+
+						case 'f':
+							descriptor.Character.Player.Sex = SexTypes.Female;
+							break;
+
+						case 'n':
+							descriptor.Character.Player.Sex = SexTypes.Neutral;
+							break;
+
+						default:
+							WriteToOutput(descriptor, "That is not a sex..\r\nWhat IS your character's sex [M/F]: ");
+							return;
+					}
+
+					DisplayRaces(descriptor);
+
+					descriptor.ConnectState = ConnectState.QuestionRace;
+					break;
+
+				case ConnectState.QuestionRace:
+					RaceTypes race = (RaceTypes)int.Parse(input);
+
+					if (race == RaceTypes.Undefined)
+					{
+						WriteToOutput(descriptor, "\r\nThat's not a race.\r\nRace: ");
+						return;
+					}
+					else
+						descriptor.Character.Player.Race = race;
+
+					DisplayClasses(descriptor);
+
+					descriptor.ConnectState = ConnectState.QuestionClass;
+					break;
+
+				case ConnectState.QuestionClass:
+					ClassTypes cls = (ClassTypes)int.Parse(input);
+
+					if (cls == ClassTypes.Undefined)
+					{
+						WriteToOutput(descriptor, "\r\nThat's not a class.\r\nClass: ");
+						return;
+					}
+					else
+						descriptor.Character.Player.Class = cls;
+
+					WriteToOutput(descriptor, "\r\n*** PRESS RETURN: ");
+					descriptor.ConnectState = ConnectState.QuestionRollStats;
+					break;
+
+				case ConnectState.QuestionRollStats:
+
+					break;
+			}
+		}
 
 		private int FindCommand(string command)
 		{
 			return 0;
 		}
 
-		private bool Special (CharacterData character, int command, string arg)
+		private bool Special(CharacterData character, int command, string arg)
 		{
 			if (GetRoomSpecial(character.InRoom) != null)
-				if (GetRoomSpecial (character.InRoom) (character, _rooms[character.InRoom], command, arg))
+				if (GetRoomSpecial(character.InRoom)(character, _rooms[character.InRoom], command, arg))
 					return true;
 
 			for (int j = 0; j < (int)WearTypes.Index; j++)
-				if (character.Equipment[j] != null && GetObjectSpecial (character.Equipment[j]) != null)
-					if (GetObjectSpecial(character.Equipment[j]) (character, character.Equipment[j], command, arg))
+				if (character.Equipment[j] != null && GetObjectSpecial(character.Equipment[j]) != null)
+					if (GetObjectSpecial(character.Equipment[j])(character, character.Equipment[j], command, arg))
 						return true;
 
 			foreach (ObjectData obj in character.Inventory)
 				if (GetObjectSpecial(obj) != null)
-					if (GetObjectSpecial (obj) (character, obj, command, arg))
+					if (GetObjectSpecial(obj)(character, obj, command, arg))
 						return true;
 
 			foreach (CharacterData person in _rooms[character.InRoom].People)
-				if (!person.MobileFlagged (MobileFlags.NotDeadYet))
-					if (GetMobileSpecial (person) != null)
-						if (GetMobileSpecial (person) (character, person, command, arg))
+				if (!person.MobileFlagged(MobileFlags.NotDeadYet))
+					if (GetMobileSpecial(person) != null)
+						if (GetMobileSpecial(person)(character, person, command, arg))
 							return true;
 
 			foreach (ObjectData obj in _rooms[character.InRoom].Contents)
-				if (GetObjectSpecial (obj) != null)
-					if (GetObjectSpecial (obj) (character, obj, command, arg))
+				if (GetObjectSpecial(obj) != null)
+					if (GetObjectSpecial(obj)(character, obj, command, arg))
 						return true;
 
 			return false;
 		}
-    }
+	}
 }
