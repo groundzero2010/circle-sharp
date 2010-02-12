@@ -9,7 +9,7 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-	public partial class SharpCore
+	public partial class CircleCore
 	{
 		private Dictionary<string, SocialMessageListElement> _socialMessages = new Dictionary<string, SocialMessageListElement> ();
 

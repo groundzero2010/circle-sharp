@@ -7,7 +7,7 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-    public partial class SharpCore
+    public partial class CircleCore
     {
         private int _extractionsPending = 0;
 

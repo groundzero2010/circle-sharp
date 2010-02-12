@@ -16,10 +16,12 @@ namespace CircleSharp.Structures
 		public string Title;
 		public SexTypes Sex;
 		public ClassTypes Class;
+		public RaceTypes Race;
 		public int Level;
 		public int Hometown;
 		public int Age;
 		public int Weight;
 		public int Height;
+        public TimeData Time = new TimeData();
     }
 }

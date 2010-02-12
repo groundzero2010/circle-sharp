@@ -20,6 +20,10 @@ namespace CircleSharp
 
 		public int TunnelSize = 2;
 
+		public int StampPrice = 150;
+
+		public int UserRestriction = 0;
+
 		private string _settingsFile = String.Empty;
 		private XmlDocument _settingsDocument = new XmlDocument ();
 		
@@ -37,8 +41,12 @@ namespace CircleSharp
 			DeathTrapsAreDumps = bool.Parse (_settingsDocument.DocumentElement["DeathTrapsAreDumps"].InnerText);
 
 			TunnelSize = int.Parse (_settingsDocument.DocumentElement["TunnelSize"].InnerText);
+			
+			StampPrice = int.Parse(_settingsDocument.DocumentElement["StampPrice"].InnerText);
 
 			ListenPort = Int32.Parse (_settingsDocument.DocumentElement["ListenPort"].InnerText);
+
+			UserRestriction = Int32.Parse(_settingsDocument.DocumentElement["UserRestriction"].InnerText);
 		}
 
 		public void Save ()
@@ -56,6 +64,8 @@ namespace CircleSharp
 			_settingsDocument.DocumentElement["ListenPort"].InnerText = ListenPort.ToString ();
 
 			_settingsDocument.DocumentElement["TunnelSize"].InnerText = TunnelSize.ToString ();
+			_settingsDocument.DocumentElement["StampPrice"].InnerText = StampPrice.ToString();
+			_settingsDocument.DocumentElement["UserRestriction"].InnerText = UserRestriction.ToString();
 
 			_settingsDocument.Save (_settingsFile);
 		}

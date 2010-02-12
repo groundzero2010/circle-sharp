@@ -9,7 +9,7 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-    public partial class SharpCore
+    public partial class CircleCore
     {
         private static int MinutesSinceCrashSave = 0;
         private static long Pulse = 0;
@@ -21,6 +21,8 @@ namespace CircleSharp
 
         private int _maxPlayers = 0;
 		private int _actCheck;
+
+        private int scriptActTrigger;
 
         private void InitializeGame()
         {
@@ -131,8 +133,13 @@ namespace CircleSharp
                 // kick out old/bad connections
 
                 foreach (DescriptorData descriptor in _descriptors)
+                {
                     if (ProcessInput(descriptor) < 0)
+                    {
+                        descriptor.ConnectState = ConnectState.Close;
                         descriptor.Connection.Close();
+                    }
+                }
 
                 foreach (DescriptorData descriptor in _descriptors)
                 {
@@ -152,16 +159,16 @@ namespace CircleSharp
 
                     if (descriptor.Character != null)
                     {
-                        descriptor.Character.CharacterSpecials.Timer = 0;
+                        //descriptor.Character.CharacterSpecials.Timer = 0;
 
                         if (descriptor.ConnectState == ConnectState.Playing && descriptor.Character.WasInRoom != GlobalConstants.NOWHERE)
                         {
-                            if (descriptor.Character.InRoom != GlobalConstants.NOWHERE)
-								CharacterFromRoom(descriptor.Character);
+                            //if (descriptor.Character.InRoom != NOWHERE)
+                                //CharacterFromRoom(descriptor.Character);
 
-                            CharacterToRoom(descriptor.Character, descriptor.Character.WasInRoom);
+                            //CharacterToRoom(descriptor.Character, descriptor.Character.WasInRoom);
                             descriptor.Character.WasInRoom = GlobalConstants.NOWHERE;
-                            Act("$n has returned.", true, descriptor.Character, null, null, GlobalConstants.TO_ROOM);
+                            //act("$n has returned.", TRUE, d->character, 0, 0, TO_ROOM);
                         }
 
                         descriptor.Character.Wait = 1;
@@ -200,10 +207,10 @@ namespace CircleSharp
                     }
                 }
 
-                foreach (DescriptorData descriptor in _descriptors)
+                for (int i = 0; i < _descriptors.Count; i++)
                 {
-                    if (descriptor.ConnectState == ConnectState.Close || descriptor.ConnectState == ConnectState.Disconnect)
-                        CloseSocket(descriptor);
+                    if (_descriptors[i].ConnectState == ConnectState.Close || _descriptors[i].ConnectState == ConnectState.Disconnect)
+                        CloseSocket(_descriptors[i]);
                 }
 
                 missedPulses++;
@@ -326,6 +333,18 @@ namespace CircleSharp
         {
             byte[] buffer = new byte[descriptor.Connection.Available];
 
+            TcpClient tcpClient = descriptor.Connection;
+
+            try
+            {
+                // Test the socket
+                descriptor.Connection.Client.Send(Encoding.UTF8.GetBytes("\0"));
+            }
+            catch (SocketException ex)
+            {
+                return -1;
+            }
+
             if (descriptor.Connection.Available > 0)
             {
                 int position = descriptor.RawInputBuffer.Length;
@@ -402,6 +421,10 @@ namespace CircleSharp
 
                         descriptor.InputQueue.Enqueue(command);
                     }
+                    else if (commandbuffer.Length == 0 && indexNL != -1)
+                    {
+                        descriptor.InputQueue.Enqueue("");
+                    }
                 }
             }
 
@@ -410,10 +433,10 @@ namespace CircleSharp
 
         private void ProcessOutput(DescriptorData descriptor)
         {
-            string output = String.Empty;
+            byte[] output = new byte[0];
             string end = "\r\n";
 
-            output += descriptor.Output;
+            //output += descriptor.Output;
 
             // TODO: Deal with overflow?
 
@@ -422,19 +445,218 @@ namespace CircleSharp
 
             end += MakePrompt(descriptor);
 
-            if (!descriptor.HasPrompt)
+            if (descriptor.HasPrompt)
             {
-                descriptor.HasPrompt = true;
+                descriptor.HasPrompt = false;
                 WriteToDescriptor(descriptor, end);
             }
             else
             {
-                WriteToDescriptor(descriptor, output);
+                WriteToDescriptor(descriptor, descriptor.Output);
 
                 // TODO: Output to Snooper
 
-                descriptor.Output = String.Empty;
+                descriptor.Output = new byte[0];
             }
+        }
+
+        private void EchoOff(DescriptorData descriptor)
+        {
+            byte[] bytes = new byte[4] { (byte)GlobalConstants.IAC, (byte)GlobalConstants.WILL, (byte)GlobalConstants.TELOPT_ECHO, (byte)0 };
+            WriteToOutput(descriptor, bytes);
+        }
+
+        private void EchoOn(DescriptorData descriptor)
+        {
+            byte[] bytes = new byte[4] { (byte)GlobalConstants.IAC, (byte)GlobalConstants.WONT, (byte)GlobalConstants.TELOPT_ECHO, (byte)0 };
+            WriteToOutput(descriptor, bytes);
+        }
+
+        private string ProcessColors(string text)
+        {
+            if (text.IndexOf("@") < 0)
+                return text;
+            else
+            {
+                string output = String.Empty;
+                int position = 0;
+
+                for (position = 0; position < text.Length; position++)
+                {
+                    if (text[position] == '@')
+                    {
+                        string code = "\x1B[";
+
+                        switch (text[position + 1])
+                        {
+                            // @ndbgcrmywDBGCRMYW01234567luoex!
+                            case '@':
+                                output += "@";
+                                break;
+
+                            case 'n':
+                                output += code + "0m";
+                                break;
+
+                            case 'd':
+                                output += code + "0;30m";
+                                break;
+
+                            case 'b':
+                                output += code + "0;34m";
+                                break;
+
+                            case 'g':
+                                output += code + "0;32m";
+                                break;
+
+                            case 'c':
+                                output += code + "0;36m";
+                                break;
+
+                            case 'r':
+                                output += code + "0;31m";
+                                break;
+
+                            case 'm':
+                                output += code + "0;35m";
+                                break;
+
+                            case 'y':
+                                output += code + "0;33m";
+                                break;
+
+                            case 'w':
+                                output += code + "0;37m";
+                                break;
+
+                            case 'D':
+                                output += code + "1;30m";
+                                break;
+
+                            case 'B':
+                                output += code + "1;34m";
+                                break;
+
+                            case 'G':
+                                output += code + "1;32m";
+                                break;
+
+                            case 'C':
+                                output += code + "1;36m";
+                                break;
+
+                            case 'R':
+                                output += code + "1;31m";
+                                break;
+
+                            case 'M':
+                                output += code + "1;35m";
+                                break;
+
+                            case 'Y':
+                                output += code + "1;33m";
+                                break;
+
+                            case 'W':
+                                output += code + "1;37m";
+                                break;
+
+                            case '0':
+                                output += code + "40m";
+                                break;
+
+                            case '1':
+                                output += code + "44m";
+                                break;
+
+                            case '2':
+                                output += code + "42m";
+                                break;
+
+                            case '3':
+                                output += code + "46m";
+                                break;
+
+                            case '4':
+                                output += code + "41m";
+                                break;
+
+                            case '5':
+                                output += code + "45m";
+                                break;
+
+                            case '6':
+                                output += code + "43m";
+                                break;
+
+                            case '7':
+                                output += code + "47m";
+                                break;
+
+                            case 'l':
+                                output += code + "5m";
+                                break;
+
+                            case 'u':
+                                output += code + "4m";
+                                break;
+
+                            case 'o':
+                                output += code + "1m";
+                                break;
+
+                            case 'e':
+                                output += code + "7m";
+                                break;
+
+                            case 'x':
+                                output += code + "7m";
+                                break;
+
+                            case '!':
+                                output += code + "!";
+                                break;
+
+                        }
+
+                        // Skip the next position, since its been consumed
+                        position++;
+
+                    }
+                    else
+                    {
+                        // Not a color code
+                        output += text[position];
+                    }
+                }
+
+                return output;
+            }
+        }
+
+        private void WriteToOutput(DescriptorData descriptor, string text)
+        {
+            WriteToOutput(descriptor, Encoding.UTF8.GetBytes(ProcessColors(text)));
+        }
+
+        private void WriteToOutput(DescriptorData descriptor, byte[] bytes)
+        {
+            // this is to add data to the output buffer (queue) to be sent out.
+            // Add the bytes to a new byte array with both.
+            byte[] totalBytes = new byte[bytes.Length + descriptor.Output.Length];
+
+            Array.Copy(descriptor.Output, 0, totalBytes, 0, descriptor.Output.Length);
+            Array.Copy(bytes, 0, totalBytes, descriptor.Output.Length, bytes.Length);
+
+            descriptor.Output = totalBytes;
+        }
+
+        private int WriteToDescriptor(DescriptorData descriptor, byte[] bytes)
+        {
+            int bytesWritten = descriptor.Connection.Client.Send(bytes);
+
+            return (bytesWritten);
         }
 
         private int WriteToDescriptor(DescriptorData descriptor, string text)
@@ -442,12 +664,6 @@ namespace CircleSharp
             int bytesWritten = descriptor.Connection.Client.Send(Encoding.UTF8.GetBytes(text));
 
             return (bytesWritten);
-        }
-
-        private void WriteToOutput(DescriptorData descriptor, string text)
-        {
-            // this is to add data to the output buffer (queue) to be sent out.
-            descriptor.Output += text;
         }
 
 		private bool SendToCharacter (CharacterData character, string message, params object[] vars)
@@ -468,217 +684,267 @@ namespace CircleSharp
         {
             return ">";
         }
-		
-		private void PerformAct (string original, CharacterData character, ObjectData obj, object victim, CharacterData to)
-		{
-			CharacterData triggerVictim = null;
-			ObjectData triggerTarget = null;
-			string triggerArg = String.Empty;
 
-			//const char *i = NULL;
-			//char lbuf[MAX_STRING_LENGTH], *buf, *j;
-			//bool uppercasenext = FALSE;
-			//buf = lbuf;
+        private void Act(string text, bool hideInvisible, CharacterData character, ObjectData obj, object victim, int type)
+        {
+            int toSleeping;
 
-			if (original.IndexOf ("$n") >= 0)
-			{
-				original = original.Replace ("$n", PersonName (character, to));
-			}
+            if (String.IsNullOrEmpty(text))
+                return;
 
-			if (original.IndexOf ("$N") >= 0)
-			{
-				if (victim == null)
-					original = original.Replace ("$N", "<NULL>");
-				else
-					original = original.Replace ("$N", PersonName (victim as CharacterData, to));
+            if ((toSleeping = (type & GlobalConstants.TO_SLEEP)) != 0)
+                type &= ~GlobalConstants.TO_SLEEP;
 
-				triggerVictim = victim as CharacterData;
-			}
+            /* this is a hack as well - DG_NO_TRIG is 256 -- Welcor */
+            if ((_actCheck = (type & GlobalConstants.DG_NO_TRIG)) != 0)
+                type &= ~GlobalConstants.DG_NO_TRIG;
 
-			if (original.IndexOf ("$m") >= 0)
-			{
-				original = original.Replace ("$m", HimHer (character));
-			}
+            if (type == GlobalConstants.TO_CHAR)
+            {
+                if (character != null && SendOK(character, toSleeping))
+                    PerformAct(text, character, obj, victim, character);
 
-			if (original.IndexOf ("$M") >= 0)
-			{
-				if (victim == null)
-					original = original.Replace ("$M", "<NULL>");
-				else
-					original = original.Replace ("$M", HimHer (victim as CharacterData));
+                return;
+            }
 
-				triggerVictim = victim as CharacterData;
-			}
+            if (type == GlobalConstants.TO_VICT)
+            {
+                CharacterData to = victim as CharacterData;
 
-			if (original.IndexOf ("$s") >= 0)
-			{
-				original = original.Replace ("$s", HisHer (character));
-			}
+                if (to != null && SendOK(to, toSleeping))
+                {
+                    PerformAct(text, character, obj, victim, to);
+                }
 
-			if (original.IndexOf ("$S") >= 0)
-			{
-				if (victim == null)
-					original = original.Replace ("$M", "<NULL>");
-				else
-					original = original.Replace ("$M", HisHer (victim as CharacterData));
+                return;
+            }
 
-				triggerVictim = victim as CharacterData;
-			}
+            if (type == GlobalConstants.TO_GMOTE)
+            {
+                DescriptorData i;
 
-			if (original.IndexOf ("$e") >= 0)
-			{
-				original = original.Replace ("$e", HeShe(character));
-			}
+                foreach (DescriptorData data in _descriptors)
+                {
+                    if (data.Character != null && data.Character.PreferenceFlagged(PreferenceFlags.NoGossip) && data.Character.PlayerFlagged(PlayerFlags.Writing) &&
+                        _rooms[data.Character.InRoom].RoomFlagged(RoomFlags.Soundproof))
+                    {
+                        SendToCharacter(data.Character, "%s", CharacterData.ColorYellow(data.Character, GlobalConstants.C_NRM));
+                        PerformAct(text, character, obj, victim, data.Character);
+                        SendToCharacter(data.Character, "%s", CharacterData.ColorNormal(data.Character, GlobalConstants.C_NRM));
+                    }
+                }
 
-			if (original.IndexOf ("$E") >= 0)
-			{
-				if (victim == null)
-					original = original.Replace ("$M", "<NULL>");
-				else
-					original = original.Replace ("$M", HeShe (victim as CharacterData));
+                return;
+            }
 
-				triggerVictim = victim as CharacterData;
-			}
+            List<CharacterData> people = null;
 
-			if (original.IndexOf ("$o") >= 0)
-			{
-				if (obj == null)
-					original = original.Replace ("$o", "<NULL>");
-				else
-					original = original.Replace ("$o", ObjectName (obj, to));
-			}
+            if (character != null && character.InRoom != GlobalConstants.NOWHERE)
+                people = _rooms[character.InRoom].People;
+            else if (obj != null && obj.InRoom != GlobalConstants.NOWHERE)
+                people = _rooms[obj.InRoom].People;
+            else
+            {
+                Log("SYSERR: no valid target to Act()!");
+                return;
+            }
 
-			if (original.IndexOf ("$O") >= 0)
-			{
-				if (victim == null)
-					original = original.Replace ("$O", "<NULL>");
-				else
-					original = original.Replace ("$O", ObjectName (victim as ObjectData, to));
+            foreach (CharacterData person in people)
+            {
+                if (!SendOK(person, toSleeping) || person == character)
+                    continue;
+                if (hideInvisible && character != null && !CanSee(person, character))
+                    continue;
+                if (type != GlobalConstants.TO_ROOM && person == victim)
+                    continue;
+                PerformAct(text, character, obj, victim, person);
+            }
+        }
 
-				triggerTarget = victim as ObjectData;
-			}
+        void PerformAct (string text, CharacterData character, ObjectData obj, object victimObject, CharacterData to)
+        {
+            string str = "";
+            CharacterData scriptVictim = null;
+            ObjectData scriptTarget = null;
 
-			if (original.IndexOf ("$p") >= 0)
-			{
-				if (obj == null)
-					original = original.Replace ("$p", "<NULL>");
-				else
-					original = original.Replace ("$p", ObjectDescription (obj, to));
-			}
+            string buffer = String.Empty;
 
-			if (original.IndexOf ("$P") >= 0)
-			{
-				if (victim == null)
-					original = original.Replace ("$P", "<NULL>");
-				else
-					original = original.Replace ("$P", ObjectDescription (victim as ObjectData, to));
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] == '$')
+                {
+                    switch (text[++i])
+                    {
+                        case 'n':
+                            str = PersonString(character, to);
+                            break;
 
-				triggerTarget = victim as ObjectData;
-			}
+                        case 'N':
+                            scriptVictim = victimObject as CharacterData;
 
-			if (original.IndexOf ("$a") >= 0)
-			{
-				if (obj == null)
-					original = original.Replace ("$a", "<NULL>");
-				else
-					original = original.Replace ("$a", SAnA(obj));
-			}
+                            if (scriptVictim == null)
+                                str = "<NULL>";
+                            else
+                                str = PersonString(scriptVictim, to);
+                            break;
 
-			if (original.IndexOf ("$A") >= 0)
-			{
-				if (victim == null)
-					original = original.Replace ("$A", "<NULL>");
-				else
-					original = original.Replace ("$A", SAnA(victim as ObjectData));
+                        case 'm':
+                            str = HimHer(character);
+                            break;
 
-				triggerTarget = victim as ObjectData;
-			}
+                        case 'M':
+                            scriptVictim = victimObject as CharacterData;
 
-			if (original.IndexOf ("$T") >= 0)
-			{
-				if (victim == null)
-					original = original.Replace ("$T", "<NULL>");
-				else
-					original = original.Replace ("$T", victim as string);
+                            if (scriptVictim == null)
+                                str = "<NULL>";
+                            else
+                                str = HimHer(scriptVictim);
+                            break;
 
-				triggerArg = victim as string;
-			}
+                        case 's':
+                            str = HisHer(character);
+                            break;
 
-			if (original.IndexOf ("$F") >= 0)
-			{
-				if (victim == null)
-					original = original.Replace ("$F", "<NULL>");
-				else
-					original = original.Replace ("$F", GlobalUtilities.FirstName (victim as string));
-			}
+                        case 'S':
+                            scriptVictim = victimObject as CharacterData;
 
-			if (original.IndexOf ("$$") >= 0)
-				original = original.Replace ("$$", "$");
+                            if (scriptVictim == null)
+                                str = "<NULL>";
+                            else
+                                str = HisHer(scriptVictim);
+                            break;
 
-			if (to.Descriptor != null)
-				WriteToOutput (to.Descriptor, original);
+                        case 'e':
+                            str = HeShe(character);
+                            break;
 
-			//if ((to.IsNPC && triggerActCheck) && (to != character))
-			//	ActMobileTrigger (to, original, character, triggerVictim, obj, triggerTarget, triggerArg);
-		}
+                        case 'E':
+                            scriptVictim = victimObject as CharacterData;
 
-		private void Act (string text, bool hideInvisible, CharacterData character, ObjectData obj, object victim, int type)
-		{
-			CharacterData to;
-			int toSleeping;
+                            if (scriptVictim == null)
+                                str = "<NULL>";
+                            else
+                                str = HeShe(scriptVictim);
+                            break;
 
-			if (String.IsNullOrEmpty (text))
-				return;
+                        case 'o':
+                            if (obj == null)
+                                str = "<NULL>";
+                            else
+                                str = ObjectName(obj, to);
+                            break;
 
-			if ((toSleeping = (type & GlobalConstants.TO_SLEEP)) > 0)
-				type &= ~GlobalConstants.TO_SLEEP;
+                        case 'O':
+                            scriptTarget = victimObject as ObjectData;
 
-			if ((_actCheck = (type & GlobalConstants.DG_NO_TRIG)) > 0)
-				type &= ~GlobalConstants.DG_NO_TRIG;
+                            if (scriptTarget == null)
+                                str = "<NULL>";
+                            else
+                                str = ObjectName(scriptTarget, to);
+                            break;
 
-			if (type == GlobalConstants.TO_CHAR)
-			{
-				if (character != null && SendOK (character, toSleeping))
-					PerformAct (text, character, obj, victim, character);
+                        case 'p':
+                            if (obj == null)
+                                str = "<NULL>";
+                            else
+                                str = ObjectString(obj, to);
+                            break;
 
-				return;
-			}
+                        case 'P':
+                            scriptTarget = victimObject as ObjectData;
 
-			if (type == GlobalConstants.TO_VICT)
-			{
-				to = victim as CharacterData;
+                            if (scriptTarget == null)
+                                str = "<NULL>";
+                            else
+                                str = ObjectString(scriptTarget, to);
+                            break;
 
-				if (to != null && SendOK (to, toSleeping))
-					PerformAct (text, character, obj, victim, to);
+                        case 'a':
+                            if (obj == null)
+                                str = "<NULL>";
+                            else
+                                str = SAnA(obj);
+                            break;
 
-				return;
-			}
+                        case 'A':
+                            scriptTarget = victimObject as ObjectData;
 
-			List<CharacterData> people;
+                            if (scriptTarget == null)
+                                str = "<NULL>";
+                            else
+                                str = SAnA(scriptTarget);
+                            break;
 
-			if (character != null && character.InRoom != GlobalConstants.NOWHERE)
-				people = _rooms[character.InRoom].People;
-			else if (obj != null && obj.InRoom != GlobalConstants.NOWHERE)
-				people = _rooms[obj.InRoom].People;
-			else
-			{
-				Log ("SYSERR: No valid target to Act()!");
-				return;
-			}
+                        case 't':
+                            if (obj == null)
+                                str = "<NULL>";
+                            else
+                                str = obj.Name;
+                            break;
 
-			foreach (CharacterData person in people)
-			{
-				if (!SendOK (person, toSleeping) || (person == character))
-					continue;
+                        case 'T':
+                            scriptTarget = victimObject as ObjectData;
 
-				if (hideInvisible && character != null && !CanSee (person, character))
-					continue;
+                            if (scriptTarget == null)
+                                str = "<NULL>";
+                            else
+                                str = scriptTarget.Name;
+                            break;
 
-				if (type != GlobalConstants.TO_ROOM && person == victim)
-					continue;
+                        case 'F':
+                            if (obj == null)
+                                str = "<NULL>";
+                            else
+                                str = GlobalUtilities.FirstName(obj.Name);
+                            break;
 
-				PerformAct (text, character, obj, victim, person);
-			}
-		}
+                        case 'u':
+                            //for (j=buf; j > lbuf && !isspace((int) *(j-1)); j--);
+                            //if (j != buf)
+                            //  *j = UPPER(*j);
+                            //i = "";
+                            break;
+
+                        case 'U':
+                            //uppercasenext = TRUE;
+                            //i = "";
+                            break;
+
+                        case '$':
+                            str = "$";
+                            break;
+
+                        default:
+                            Log("SYSERR: Illegal $-code to act(): " + text[i]);
+                            Log("SYSERR: " + text);
+                            str = "";
+                            break;
+                    }
+
+                    buffer += str;
+                }
+                else
+                {
+                    buffer += text[i];
+                }
+                //else if (!(*(buf++) = *(orig++)))
+                //{
+                //    break;
+                //}
+                //else if (uppercasenext && !isspace((int) *(buf-1)))
+                //{
+                //    *(buf-1) = UPPER(*(buf-1));
+                    //uppercasenext = FALSE;
+                //}
+            }
+
+            buffer += "r\n\0";
+
+            if (to.Descriptor != null)
+                WriteToOutput(to.Descriptor, buffer);
+
+            //if ((to.IsNPC && scriptActTrigger > 0) && (to != character))
+              //act_mtrigger(to, lbuf, ch, dg_victim, obj, dg_target, dg_arg);
+        }
     }
 }

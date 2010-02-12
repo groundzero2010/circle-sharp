@@ -9,7 +9,7 @@ using CircleSharp.Enumerations;
 
 namespace CircleSharp
 {
-	public partial class SharpCore
+	public partial class CircleCore
 	{
 		private Dictionary<int, HouseData> _houses = new Dictionary<int, HouseData> ();
 		private int _topOfHouseTable = 0;

@@ -20,6 +20,11 @@ namespace CircleSharp
             return (sum);
         }
 
+        public static string Capital(string text)
+        {
+            return text[0].ToString().ToUpper() + text.Substring(1).ToLower();
+        }
+
 		public static string FirstName (string text)
 		{
 			if (String.IsNullOrEmpty (text))
