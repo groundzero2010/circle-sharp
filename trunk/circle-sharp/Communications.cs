@@ -296,14 +296,14 @@ namespace CircleSharp
 
         private int GetMaxPlayers()
         {
-            return GlobalConstants.MAX_PLAYERS;
+            return GlobalSettings.MaximumPlayers;
         }
 
         private void NewDescriptor(TcpClient client)
         {
             DescriptorData descriptor = new DescriptorData(client);
 
-			if (_descriptors.Count >= GlobalSettings.UserRestriction)
+			if (_descriptors.Count >= GlobalSettings.MaximumPlayers)
             {
                 WriteToDescriptor(descriptor, "Sorry, the system is full right now... please try again later!\r\n");
                 client.Close();

@@ -8,6 +8,7 @@
   <ListenPort>4000</ListenPort>
   <TunnelSize>2</TunnelSize>
   <StampPrice>0</StampPrice>
-  <UserRestriction>150</UserRestriction>
+  <UserRestriction>0</UserRestriction>
+  <MaximumPlayers>150</MaximumPlayers>
   <BeginningOfTime>0</BeginningOfTime>
 </GlobalSettings>
