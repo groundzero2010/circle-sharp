@@ -53,7 +53,6 @@ namespace CircleSharp
         public const int MAX_SKILLS = 200;
         public const int MAX_AFFECT = 32;
         public const int MAX_OBJ_AFFECT = 6;
-        public const int MAX_PLAYERS = 150;
 
         public const int DB_BOOT_ROOM = 0;
         public const int DB_BOOT_MOBILE = 1;
