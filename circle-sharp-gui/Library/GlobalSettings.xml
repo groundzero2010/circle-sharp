@@ -9,4 +9,5 @@
   <TunnelSize>2</TunnelSize>
   <StampPrice>0</StampPrice>
   <UserRestriction>0</UserRestriction>
+  <BeginningOfTime>0</BeginningOfTime>
 </GlobalSettings>
