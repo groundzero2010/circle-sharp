@@ -1,0 +1,1354 @@
+<Socials>
+  <SocialMessage ID="accuse">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Accuse who??</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You look accusingly at $M.</CharacterFound>
+    <OthersFound>$n looks accusingly at $N.</OthersFound>
+    <VictimFound>$n looks accusingly at you.</VictimFound>
+    <NotFound>Accuse somebody who's not even there??</NotFound>
+    <CharacterAuto>You accuse yourself.</CharacterAuto>
+    <OthersAuto>$n seems to have a bad conscience.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="applaud">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Clap, clap, clap.</CharacterNoArg>
+    <OthersNoArg>$n gives a round of applause.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="beg">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You beg the gods for mercy.  (No way you're gonna get it! :-))</CharacterNoArg>
+    <OthersNoArg>The gods fall down laughing at $n's request for mercy.</OthersNoArg>
+    <CharacterFound>You desperately try to squeeze a few coins from $M.</CharacterFound>
+    <OthersFound>$n begs you for money.  You gratiously let $m peep at your fortune.</OthersFound>
+    <VictimFound>$n begs $N for a dime or two -- or twenty!</VictimFound>
+    <NotFound>Your money-lender seems to be out for the moment.</NotFound>
+    <CharacterAuto>How? - begging yourself for money doesn't help.</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="bleed">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You bleed profusely, making an awful mess...</CharacterNoArg>
+    <OthersNoArg>$n bleeds profusely, making an awful mess...</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="blush">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Your cheeks are burning.</CharacterNoArg>
+    <OthersNoArg>$n blushes.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="bounce">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>BOIINNNNNNGG!</CharacterNoArg>
+    <OthersNoArg>$n bounces around.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="bow">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>You bow deeply.</CharacterNoArg>
+    <OthersNoArg>$n bows deeply.</OthersNoArg>
+    <CharacterFound>You bow before $M.</CharacterFound>
+    <OthersFound>$n bows before $N.</OthersFound>
+    <VictimFound>$n bows before you.</VictimFound>
+    <NotFound>Who's that?</NotFound>
+    <CharacterAuto>You kiss your toes.</CharacterAuto>
+    <OthersAuto>$n folds up like a jacknife and kisses $s own toes.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="brb">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Come back soon!</CharacterNoArg>
+    <OthersNoArg>$n will be right back!</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="burp">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You burp loudly.</CharacterNoArg>
+    <OthersNoArg>$n burps loudly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="cackle">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You cackle gleefully.</CharacterNoArg>
+    <OthersNoArg>$n throws back $s head and cackles with insane glee!</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="chuckle">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You chuckle politely.</CharacterNoArg>
+    <OthersNoArg>$n chuckles politely.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="clap">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You clap your small hands together.</CharacterNoArg>
+    <OthersNoArg>$n shows $s approval by clapping $s small hands together.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="comb">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You comb your hair -- perfect.</CharacterNoArg>
+    <OthersNoArg>$n combs $s hair, what a dashing specimen!</OthersNoArg>
+    <CharacterFound>You patiently untangle $N's hair -- what a mess!</CharacterFound>
+    <OthersFound>$n tries patiently to untangle $N's hair.</OthersFound>
+    <VictimFound>$n pulls your hair in an attempt to comb it.</VictimFound>
+    <NotFound>That person is not here.</NotFound>
+    <CharacterAuto>You pull your hair, but it will not be combed.</CharacterAuto>
+    <OthersAuto>$n tries to comb $s tangled hair.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="comfort">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Do you feel uncomfortable?</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You comfort $M.</CharacterFound>
+    <OthersFound>$n comforts $N.</OthersFound>
+    <VictimFound>$n comforts you.</VictimFound>
+    <NotFound>Comfort who?</NotFound>
+    <CharacterAuto>You make a vain attempt to comfort yourself.</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="cough">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Yuck, try to cover your mouth next time!</CharacterNoArg>
+    <OthersNoArg>$n coughs loudly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="cringe">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You cringe in terror.</CharacterNoArg>
+    <OthersNoArg>$n cringes in terror!</OthersNoArg>
+    <CharacterFound>You cringe away from $M.</CharacterFound>
+    <OthersFound>$n cringes away from $N in mortal terror.</OthersFound>
+    <VictimFound>$n cringes away from you.</VictimFound>
+    <NotFound>I don't see anyone by that name here.. what are you afraid of?</NotFound>
+    <CharacterAuto>I beg your pardon?</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="cry">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Waaaaah..</CharacterNoArg>
+    <OthersNoArg>$n bursts into tears.</OthersNoArg>
+    <CharacterFound>You cry on $S shoulder.</CharacterFound>
+    <OthersFound>$n cries on $N's shoulder.</OthersFound>
+    <VictimFound>$n cries on your shoulder.</VictimFound>
+    <NotFound>Who's that?</NotFound>
+    <CharacterAuto>You cry to yourself.</CharacterAuto>
+    <OthersAuto>$n sobs quietly to $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="cuddle">
+    <Hide>true</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Who do you feel like cuddling today?</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You cuddle $M.</CharacterFound>
+    <OthersFound>$n cuddles $N.</OthersFound>
+    <VictimFound>They aren't here.</VictimFound>
+    <NotFound>You must feel very cuddly indeed.  :)</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="curse">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You swear loudly for a long time.</CharacterNoArg>
+    <OthersNoArg>$n swears: #&#064;**&amp;^$$&#064;*&amp;!!!!!!</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="curtsey">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You curtsey to your audience.</CharacterNoArg>
+    <OthersNoArg>$n curtseys gracefully.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="dance">
+    <Hide>true</Hide>
+    <MinimumPosition>8</MinimumPosition>
+    <CharacterNoArg>Feels silly, doesn't it?</CharacterNoArg>
+    <OthersNoArg>$n tries to dance breakdance but nearly breaks $s neck!</OthersNoArg>
+    <CharacterFound>You lead $M to the dancefloor.</CharacterFound>
+    <OthersFound>$n sends $N across the dancefloor.</OthersFound>
+    <VictimFound>$n sends you across the dancefloor.</VictimFound>
+    <NotFound>Eh, WHO?</NotFound>
+    <CharacterAuto>You skip and dance around by yourself.</CharacterAuto>
+    <OthersAuto>$n skips a light Fandango.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="daydream">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You dream of better times.</CharacterNoArg>
+    <OthersNoArg>$n looks absent-minded, $s eyes staring into space.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="drool">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You start to drool.</CharacterNoArg>
+    <OthersNoArg>$n starts to drool.</OthersNoArg>
+    <CharacterFound>You drool all over $N.</CharacterFound>
+    <OthersFound>$n drools all over $N.</OthersFound>
+    <VictimFound>$n drools all over you.</VictimFound>
+    <NotFound>Pardon??</NotFound>
+    <CharacterAuto>Sure, go ahead and drool...yuk!</CharacterAuto>
+    <OthersAuto>$n drools on $mself.  What a sight.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="embrace">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You reach but come away empty.  :(</CharacterNoArg>
+    <OthersNoArg>$n reaches out for an embrace, but no one is there.</OthersNoArg>
+    <CharacterFound>You embrace $M warmly.</CharacterFound>
+    <OthersFound>$n embraces $N warmly.</OthersFound>
+    <VictimFound>$n embraces you warmly.</VictimFound>
+    <NotFound>Alas, your embracee is not here.</NotFound>
+    <CharacterAuto>You embrace yourself??</CharacterAuto>
+    <OthersAuto>$n wraps his arms around himself for a warm self-embrace.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="fart">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Where are your manners?</CharacterNoArg>
+    <OthersNoArg>$n lets off a real rip-roarer!</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="flip">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You flip head over heels.</CharacterNoArg>
+    <OthersNoArg>$n flips head over heels.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="flirt">
+    <Hide>true</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>You flirt outrageously.</CharacterNoArg>
+    <OthersNoArg>$n flirts outragously.</OthersNoArg>
+    <CharacterFound>You flirt outrageously with $N.</CharacterFound>
+    <OthersFound>$n flirts outrageously with $N.</OthersFound>
+    <VictimFound>$n flirts outrageously with you.</VictimFound>
+    <NotFound>Sorry, your dearly beloved is not around.</NotFound>
+    <CharacterAuto>You flirt with yourself.  Must look stupid.</CharacterAuto>
+    <OthersAuto>$n thinks $e is the most wonderful person in the world.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="fondle">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Who needs to be fondled?</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You fondly fondle $M.</CharacterFound>
+    <OthersFound>$n fondly fondles $N.</OthersFound>
+    <VictimFound>$n fondly fondles you.</VictimFound>
+    <NotFound>You fondly try to fondle someone not in the room, but who cares.</NotFound>
+    <CharacterAuto>You fondly fondle yourself, feels funny doesn't it?</CharacterAuto>
+    <OthersAuto>$n fondly fondles $mself -- this is going too far!!</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="french">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>French whom??</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You give $N a long and passionate kiss, it seems to take forever...</CharacterFound>
+    <OthersFound>$n kisses $N passionately.</OthersFound>
+    <VictimFound>$n gives you a long and passionate kiss, it seems to take forever...</VictimFound>
+    <NotFound>Your heart is filled with despair as that person is not here.</NotFound>
+    <CharacterAuto>You gather yourself in your arms and try to kiss yourself.</CharacterAuto>
+    <OthersAuto>$n makes an attempt at kissing $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="frown">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>What's bothering you?</CharacterNoArg>
+    <OthersNoArg>$n frowns.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="fume">
+    <Hide>true</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Take it easy now!  Count to ten, very slowly.</CharacterNoArg>
+    <OthersNoArg>$n grits $s teeth and fumes with rage.</OthersNoArg>
+    <CharacterFound>You stare at $M, fuming.</CharacterFound>
+    <OthersFound>$n stares at $N, fuming with rage.</OthersFound>
+    <VictimFound>$n stares at you, fuming with rage!</VictimFound>
+    <NotFound>Fume away.. they ain't here.</NotFound>
+    <CharacterAuto>That's right - hate yourself!</CharacterAuto>
+    <OthersAuto>$n clenches $s fists and stomps his feet, fuming with anger.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="gasp">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You gasp in astonishment.</CharacterNoArg>
+    <OthersNoArg>$n gasps in astonishment.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="giggle">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You giggle.</CharacterNoArg>
+    <OthersNoArg>$n giggles.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="glare">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>You glare at nothing in particular.</CharacterNoArg>
+    <OthersNoArg>$n glares around $m.</OthersNoArg>
+    <CharacterFound>You glare icily at $M.</CharacterFound>
+    <OthersFound>$n glares at $N.</OthersFound>
+    <VictimFound>$n glares icily at you, you feel cold to your bones.</VictimFound>
+    <NotFound>You try to glare at somebody who is not present.</NotFound>
+    <CharacterAuto>You glare icily at your feet, they are suddenly very cold.</CharacterAuto>
+    <OthersAuto>$n glares at $s feet, what is bothering $m?</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="greet">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Greet Who?</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You greet $m with a light kiss on his cheek.</CharacterFound>
+    <OthersFound>$n greets $N with a light kiss on its cheek.</OthersFound>
+    <VictimFound>$n greets you with a light kiss on your cheek.</VictimFound>
+    <NotFound>Please -- try someone who is here?</NotFound>
+    <CharacterAuto>So, you've finally discovered yourself!</CharacterAuto>
+    <OthersAuto>$n greets $mself.. $e always was a strange one.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="grin">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You grin evilly.</CharacterNoArg>
+    <OthersNoArg>$n grins evilly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="groan">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You groan loudly.</CharacterNoArg>
+    <OthersNoArg>$n groans loudly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="grope">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Whom do you wish to grope??</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>Well, what sort of noise do you expect here?</CharacterFound>
+    <OthersFound>$n gropes $N.</OthersFound>
+    <VictimFound>$n gropes you.</VictimFound>
+    <NotFound>Try someone who's here.</NotFound>
+    <CharacterAuto>You grope yourself -- YUCK.</CharacterAuto>
+    <OthersAuto>$n gropes $mself -- YUCK.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="grovel">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You grovel in the dirt.</CharacterNoArg>
+    <OthersNoArg>$n grovels in the dirt.</OthersNoArg>
+    <CharacterFound>You grovel before $M.</CharacterFound>
+    <OthersFound>$n grovels in the dirt before $N.</OthersFound>
+    <VictimFound>$n grovels in the dirt before you.</VictimFound>
+    <NotFound>Who?</NotFound>
+    <CharacterAuto>That seems a little silly to me..</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="growl">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Grrrrrrrrrr...</CharacterNoArg>
+    <OthersNoArg>$n growls.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="hiccup">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>*HIC*</CharacterNoArg>
+    <OthersNoArg>$n hiccups.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="hug">
+    <Hide>true</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Hug who?</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You hug $M.</CharacterFound>
+    <OthersFound>$n hugs $N.</OthersFound>
+    <VictimFound>$n hugs you.</VictimFound>
+    <NotFound>Sorry, friend, I can't see that person here.</NotFound>
+    <CharacterAuto>You hug yourself.</CharacterAuto>
+    <OthersAuto>$n hugs $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="kiss">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Isn't there someone you want to kiss?</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You kiss $M.</CharacterFound>
+    <OthersFound>$n kisses $N.</OthersFound>
+    <VictimFound>$n kisses you.</VictimFound>
+    <NotFound>Never around when required.</NotFound>
+    <CharacterAuto>All the lonely people :(</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="laugh">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You fall down laughing.</CharacterNoArg>
+    <OthersNoArg>$n falls down laughing.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="lick">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You lick your mouth and smile.</CharacterNoArg>
+    <OthersNoArg>$n licks $s mouth and smiles.</OthersNoArg>
+    <CharacterFound>You lick $M.</CharacterFound>
+    <OthersFound>$n licks $N.</OthersFound>
+    <VictimFound>$n licks you.</VictimFound>
+    <NotFound>Lick away, nobody's here with that name.</NotFound>
+    <CharacterAuto>You lick yourself.</CharacterAuto>
+    <OthersAuto>$n licks $mself -- YUCK.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="love">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You love the whole world.</CharacterNoArg>
+    <OthersNoArg>$n loves everybody in the world.</OthersNoArg>
+    <CharacterFound>You tell your true feelings to $N.</CharacterFound>
+    <OthersFound>$n whispers softly to $N.</OthersFound>
+    <VictimFound>$n whispers to you sweet words of love.</VictimFound>
+    <NotFound>Alas, your love is not present...</NotFound>
+    <CharacterAuto>Well, we already know you love yourself (lucky someone does!)</CharacterAuto>
+    <OthersAuto>$n loves $mself, can you believe it?</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="massage">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Massage what, thin air?</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You gently massage $N's shoulders.</CharacterFound>
+    <OthersFound>$n massages $N's shoulders.</OthersFound>
+    <VictimFound>$n gently massages your shoulders...ahhhhhhhhhh...</VictimFound>
+    <NotFound>You can only massage someone in the same room as you.</NotFound>
+    <CharacterAuto>You practise yoga as you try to massage yourself.</CharacterAuto>
+    <OthersAuto>$n gives a show on yoga-positions, trying to massage $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="moan">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You start to moan.</CharacterNoArg>
+    <OthersNoArg>$n starts moaning.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="nibble">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Nibble on who?</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You nibble on $N's ear.</CharacterFound>
+    <OthersFound>$n nibbles on $N's ear.</OthersFound>
+    <VictimFound>$n nibbles on your ear.</VictimFound>
+    <NotFound>Sorry, not here, better go back to dreaming about it.</NotFound>
+    <CharacterAuto>You nibble on your OWN ear???????????????????</CharacterAuto>
+    <OthersAuto>$n nibbles on $s OWN ear (I wonder how it is done!!).</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="nod">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You nod solemnly.</CharacterNoArg>
+    <OthersNoArg>$n nods solemnly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="nudge">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Nudge?  Nudge???  The HELL you say!!!!</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You nudge $M with your elbow.</CharacterFound>
+    <OthersFound>$n nudges $N suggestively with $s elbow.</OthersFound>
+    <VictimFound>$n nudges you suggestively.  You two have an understanding.</VictimFound>
+    <NotFound>Eh?  That person isn't here, you know.</NotFound>
+    <CharacterAuto>Well, just nudge yourself, but how do you get your elbow in that position?</CharacterAuto>
+    <OthersAuto>$n nudges $mself with $s elbows, making $m look like a large chicken.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="nuzzle">
+    <Hide>true</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Nuzzle who??</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You nuzzle $S neck softly.</CharacterFound>
+    <OthersFound>$n softly nuzzles $N's neck.</OthersFound>
+    <VictimFound>$n softly nuzzles your neck.</VictimFound>
+    <NotFound>No.. they aren't here..</NotFound>
+    <CharacterAuto>I'm sorry, friend, but that's impossible.</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="pat">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Pat who??</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You pat $N on $S head.</CharacterFound>
+    <OthersFound>$n pats $N on $S head.</OthersFound>
+    <VictimFound>$n pats you on your head.</VictimFound>
+    <NotFound>Who, where, what??</NotFound>
+    <CharacterAuto>You pat yourself on your head, very reassuring.</CharacterAuto>
+    <OthersAuto>$n pats $mself on the head.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="peer">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You peer around you, uncertain that what you see is actually true.</CharacterNoArg>
+    <OthersNoArg>$n peers around, looking as if $e has trouble seeing everything clearly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="point">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You point whereto?</CharacterNoArg>
+    <OthersNoArg>$n points in all directions, seemingly confused.</OthersNoArg>
+    <CharacterFound>You point at $M -- $E DOES look funny.</CharacterFound>
+    <OthersFound>$n muffles a laugh, pointing at $N.</OthersFound>
+    <VictimFound>$n points at you... how rude!</VictimFound>
+    <NotFound>You must have a VERY long index-finger...</NotFound>
+    <CharacterAuto>You point at yourself.  Insinuating something?</CharacterAuto>
+    <OthersAuto>$n points at $mself, suggesting that the center of matters is $e.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="poke">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Poke who??</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You poke $M in the ribs.</CharacterFound>
+    <OthersFound>$n pokes $N in the ribs.</OthersFound>
+    <VictimFound>$n pokes you in the ribs.</VictimFound>
+    <NotFound>You can't poke someone who's not here!</NotFound>
+    <CharacterAuto>You poke yourself in the ribs, feeling very silly.</CharacterAuto>
+    <OthersAuto>$n pokes $mself in the ribs, looking very sheepish.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="ponder">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You ponder over matters as they appear to you at this moment.</CharacterNoArg>
+    <OthersNoArg>$n sinks deeply into $s own thoughts.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="pout">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Ah, don't take it so hard.</CharacterNoArg>
+    <OthersNoArg>$n pouts.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="pray">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You feel righteous, and maybe a little foolish.</CharacterNoArg>
+    <OthersNoArg>$n begs and grovels to the powers that be.</OthersNoArg>
+    <CharacterFound>You crawl in the dust before $M.</CharacterFound>
+    <OthersFound>$n falls down and grovels in the dirt before $N.</OthersFound>
+    <VictimFound>$n kisses the dirt at your feet.</VictimFound>
+    <NotFound>No such person around; your prayers vanish into the endless voids.</NotFound>
+    <CharacterAuto>Talk about narcissism...</CharacterAuto>
+    <OthersAuto>$n performs some strange yoga-exercises and mumbles a prayer to $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="puke">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You puke.</CharacterNoArg>
+    <OthersNoArg>$n pukes.</OthersNoArg>
+    <CharacterFound>You puke on $M.</CharacterFound>
+    <OthersFound>$n pukes on $N.</OthersFound>
+    <VictimFound>$n pukes on your clothes!</VictimFound>
+    <NotFound>Once again?</NotFound>
+    <CharacterAuto>You puke on yourself.</CharacterAuto>
+    <OthersAuto>$n pukes on $s clothes.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="punch">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Punch the air?  Sure, go ahead, fine by me...</CharacterNoArg>
+    <OthersNoArg>$n starts shadow-boxing.</OthersNoArg>
+    <CharacterFound>You punch $M right in the face!  Yuck, the BLOOD!</CharacterFound>
+    <OthersFound>$n punches weakly at $N, missing by miles.</OthersFound>
+    <VictimFound>$n tries a punch at you but misses by a good quarter-mile...</VictimFound>
+    <NotFound>Punch who?</NotFound>
+    <CharacterAuto>You punch yourself in the face resulting in your own nose being bloodied.</CharacterAuto>
+    <OthersAuto>$n punches $mself in the face, looking kind of stupid.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="purr">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>MMMMEEEEEEEEOOOOOOOOOWWWWWWWWWWWW.</CharacterNoArg>
+    <OthersNoArg>$n purrs contentedly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="roll">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You roll your eyes in disgust.</CharacterNoArg>
+    <OthersNoArg>$n rolls $s eyes in disgust.</OthersNoArg>
+    <CharacterFound>You look at $M and roll your eyes in disgust.</CharacterFound>
+    <OthersFound>$n looks at $N in contempt and rolls $s eyes with disgust.</OthersFound>
+    <VictimFound>$n stares at you and rolls $s eyes in digust.</VictimFound>
+    <NotFound>Um... who?</NotFound>
+    <CharacterAuto>You roll your eyes, disgusted with your own incompetence.</CharacterAuto>
+    <OthersAuto>$n rolls $s eyes, disgusted with $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="ruffle">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You've got to ruffle SOMEONE.</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You ruffle $N's hair playfully.</CharacterFound>
+    <OthersFound>$n ruffles $N's hair playfully.</OthersFound>
+    <VictimFound>$n ruffles your hair playfully.</VictimFound>
+    <NotFound>Might be a bit difficult.</NotFound>
+    <CharacterAuto>You ruffle your hair, wondering how far you can go before the rest think you're crazy.</CharacterAuto>
+    <OthersAuto>$n ruffles $s hair -- weirdo!</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="scream">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>ARRRRRRRRRRGH!!!!!</CharacterNoArg>
+    <OthersNoArg>$n screams loudly!</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="shake">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>You shake your head.</CharacterNoArg>
+    <OthersNoArg>$n shakes $s head.</OthersNoArg>
+    <CharacterFound>You shake $S hand.</CharacterFound>
+    <OthersFound>$n shakes $N's hand.</OthersFound>
+    <VictimFound>$n shakes your hand.</VictimFound>
+    <NotFound>Sorry good buddy, but that person doesn't seem to be here.</NotFound>
+    <CharacterAuto>You are shaken by yourself.</CharacterAuto>
+    <OthersAuto>$n shakes and quivers like a bowlful of jelly.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="shiver">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Brrrrrrrrr.</CharacterNoArg>
+    <OthersNoArg>$n shivers uncomfortably.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="shrug">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You shrug.</CharacterNoArg>
+    <OthersNoArg>$n shrugs helplessly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="sigh">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You sigh.</CharacterNoArg>
+    <OthersNoArg>$n sighs loudly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="sing">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You raise your clear (?) voice towards the sky.</CharacterNoArg>
+    <OthersNoArg>SEEK SHELTER AT ONCE!  $n has begun to sing.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="slap">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Normally you slap SOMEBODY.</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You slap $N.</CharacterFound>
+    <OthersFound>$n slaps $N.</OthersFound>
+    <VictimFound>You are slapped by $n.</VictimFound>
+    <NotFound>How about slapping someone in the same room as you??</NotFound>
+    <CharacterAuto>You slap yourself, silly you.</CharacterAuto>
+    <OthersAuto>$n slaps $mself, really strange...</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="smile">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You smile happily.</CharacterNoArg>
+    <OthersNoArg>$n smiles happily.</OthersNoArg>
+    <CharacterFound>You smile at $M.</CharacterFound>
+    <OthersFound>$n beams a smile at $N.</OthersFound>
+    <VictimFound>$n smiles at you.</VictimFound>
+    <NotFound>There's no one by that name around.</NotFound>
+    <CharacterAuto>You smile at yourself.</CharacterAuto>
+    <OthersAuto>$n smiles at $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="smirk">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You smirk.</CharacterNoArg>
+    <OthersNoArg>$n smirks.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="snap">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>PRONTO!  You snap your fingers.</CharacterNoArg>
+    <OthersNoArg>$n snaps $s fingers.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="snarl">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You snarl like a viscious animal.</CharacterNoArg>
+    <OthersNoArg>$n snarls like a cornered, viscious animal.</OthersNoArg>
+    <CharacterFound>You snarl at $M angrily.  Control yourself!</CharacterFound>
+    <OthersFound>$n snarls angrily at $N.  $e$u seems incapable of controlling $mself.</OthersFound>
+    <VictimFound>$n snarls viciously at you.  $U$s self-control seems to have gone bananas.</VictimFound>
+    <NotFound>Eh?  Who?  Not here, my friend.</NotFound>
+    <CharacterAuto>You snarl at yourself, obviously suffering from schizophrenia.</CharacterAuto>
+    <OthersAuto>$n snarls at $mself, and suddenly looks very frightened.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="sneeze">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Gesundheit!</CharacterNoArg>
+    <OthersNoArg>$n sneezes.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="snicker">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You snicker softly.</CharacterNoArg>
+    <OthersNoArg>$n snickers softly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="sniff">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You sniff sadly.  *SNIFF*</CharacterNoArg>
+    <OthersNoArg>$n sniffs sadly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="snore">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Zzzzzzzzzzzzzzzzz.</CharacterNoArg>
+    <OthersNoArg>$n snores loudly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="snowball">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Who do you want to throw a snowball at??</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You throw a snowball in $N's face.</CharacterFound>
+    <OthersFound>$n conjures a snowball from thin air and throws it at $N.</OthersFound>
+    <VictimFound>$n conjures a snowball from thin air and throws it at you.</VictimFound>
+    <NotFound>You stand with the snowball in your hand because your victim is not here.</NotFound>
+    <CharacterAuto>You conjure a snowball from thin air and throw it at yourself.</CharacterAuto>
+    <OthersAuto>$n conjures a snowball out of the thin air and throws it at $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="snuggle">
+    <Hide>true</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Who?</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You snuggle $M.</CharacterFound>
+    <OthersFound>$n snuggles up to $N.</OthersFound>
+    <VictimFound>$n snuggles up to you.</VictimFound>
+    <NotFound>They aren't here.</NotFound>
+    <CharacterAuto>Hmmm...</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="spank">
+    <Hide>false</Hide>
+    <MinimumPosition>8</MinimumPosition>
+    <CharacterNoArg>You spank WHO?  Eh?  How?  Naaah, you'd never.</CharacterNoArg>
+    <OthersNoArg>$n spanks the thin air with a flat hand.</OthersNoArg>
+    <CharacterFound>You spank $M vigorously, long and hard.  Your hand hurts.</CharacterFound>
+    <OthersFound>$n spanks $N over $s knee.  It hurts to even watch.</OthersFound>
+    <VictimFound>$n spanks you long and hard.  You feel like a naughty child.</VictimFound>
+    <NotFound>Are you sure about this?  I mean, that person isn't even here!</NotFound>
+    <CharacterAuto>Hmm, not likely.</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="spit">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You spit over your left shoulder.</CharacterNoArg>
+    <OthersNoArg>$n spits over $s left shoulder.</OthersNoArg>
+    <CharacterFound>You spit on $M.</CharacterFound>
+    <OthersFound>$n spits in $N's face.</OthersFound>
+    <VictimFound>$n spits in your face.</VictimFound>
+    <NotFound>Can you spit that far?</NotFound>
+    <CharacterAuto>You drool down your front.</CharacterAuto>
+    <OthersAuto>$n drools down $s front.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="squeeze">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Where, what, how, WHO???</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You squeeze $M fondly.</CharacterFound>
+    <OthersFound>$n squeezes $N fondly.</OthersFound>
+    <VictimFound>$n squeezes you fondly.</VictimFound>
+    <NotFound>Where, what, how, WHO???</NotFound>
+    <CharacterAuto>You squeeze yourself -- try to relax a little!</CharacterAuto>
+    <OthersAuto>$n squeezes $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="stare">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>You stare at the sky.</CharacterNoArg>
+    <OthersNoArg>$n stares at the sky.</OthersNoArg>
+    <CharacterFound>You stare dreamily at $N, completely lost in $S eyes..</CharacterFound>
+    <OthersFound>$n stares dreamily at $N.</OthersFound>
+    <VictimFound>$n stares dreamily at you, completely lost in your eyes.</VictimFound>
+    <NotFound>You stare and stare but can't see that person anywhere...</NotFound>
+    <CharacterAuto>You stare dreamily at yourself - enough narcissism for now.</CharacterAuto>
+    <OthersAuto>$n stares dreamily at $mself - NARCISSIST!</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="steam">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You let out some steam, much to the others' relief (and your own!)</CharacterNoArg>
+    <OthersNoArg>$n lets out a lot of steam, much to your relief.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="stroke">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Whose thigh would you like to stroke?</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You gently stroke $S inner thigh.</CharacterFound>
+    <OthersFound>$n gently strokes $N's inner thigh... hmm...</OthersFound>
+    <VictimFound>$n gently strokes your inner thigh with feathery touches.</VictimFound>
+    <NotFound>That person is not within reach.</NotFound>
+    <CharacterAuto>You are about to do something you would rather not be caught doing.</CharacterAuto>
+    <OthersAuto>$n starts to do something disgusting and then stops.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="strut">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Strut your stuff.</CharacterNoArg>
+    <OthersNoArg>$n struts proudly.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="sulk">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You sulk.</CharacterNoArg>
+    <OthersNoArg>$n sulks in the corner.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="tackle">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>You tackle the air.  It stands not a chance.</CharacterNoArg>
+    <OthersNoArg>$n starts running around $mself in a desparate attempt to tackle the air.</OthersNoArg>
+    <CharacterFound>You ruthlessly tackle $M to the ground.</CharacterFound>
+    <OthersFound>$n ruthlessly tackles $N, pinning $M to the ground.</OthersFound>
+    <VictimFound>$n suddenly lunges at you and tackles you to the ground!</VictimFound>
+    <NotFound>That person isn't here (luck for them, it would seem...)</NotFound>
+    <CharacterAuto>Tackle yourself?  Yeah, right....</CharacterAuto>
+    <OthersAuto>$n makes a dextrous move and kicks $s left leg away with $s right.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="tango">
+    <Hide>false</Hide>
+    <MinimumPosition>8</MinimumPosition>
+    <CharacterNoArg>With whom would you like to tango?</CharacterNoArg>
+    <OthersNoArg>$n puts a rose between $s teeth, but takes out it since noone joins $m.</OthersNoArg>
+    <CharacterFound>You put a rose between your teeth and tango with $M seductively.</CharacterFound>
+    <OthersFound>$n puts a rose between $s teeth and tangos with $N seductively.</OthersFound>
+    <VictimFound>$n puts a rose between $s teeth and tangos with you seductively.</VictimFound>
+    <NotFound>That person isn't around.  Better sit this one out.</NotFound>
+    <CharacterAuto>Feels rather stupid, doesn't it?</CharacterAuto>
+    <OthersAuto>$n puts a rose between $s teeth and tries to tango with $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="taunt">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You taunt the nothing in front of you. </CharacterNoArg>
+    <OthersNoArg>$n taunts something that seems to be right in front of $m.</OthersNoArg>
+    <CharacterFound>You taunt $M, to your own delight.</CharacterFound>
+    <OthersFound>$n taunts $N rather insultingly.  $U$n seems to enjoy it tremendously.</OthersFound>
+    <VictimFound>$n taunts you.  It really hurts your feelings.</VictimFound>
+    <NotFound>Hmmmmmmm.....nope, no one by that name here.</NotFound>
+    <CharacterAuto>You taunt yourself, almost making you cry...:(</CharacterAuto>
+    <OthersAuto>$n taunts $mself to tears.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="thank">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Thank you too.</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You thank $N heartily.</CharacterFound>
+    <OthersFound>$n thanks $N heartily.</OthersFound>
+    <VictimFound>$n thanks you heartily.</VictimFound>
+    <NotFound>No one answers to that name here.</NotFound>
+    <CharacterAuto>You thank yourself since nobody else wants to!</CharacterAuto>
+    <OthersAuto>$n thanks $mself since you won't.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="think">
+    <Hide>true</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You think about life, the universe and everything.</CharacterNoArg>
+    <OthersNoArg>$n sinks deeply into thought about the meaning of life.</OthersNoArg>
+    <CharacterFound>You think about what purpose $E has in relation to your part of life.</CharacterFound>
+    <OthersFound>$n stops and thinks about $N, completely lost in thought.</OthersFound>
+    <VictimFound>Your ears burn as $n thinks about you.. you wonder what about.</VictimFound>
+    <NotFound>You'd better think harder, if you hope to make contact!</NotFound>
+    <CharacterAuto>You think about yourself (for once).</CharacterAuto>
+    <OthersAuto>$n thinks about $mself for a change.....(?)</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="tickle">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Who do you want to tickle??</CharacterNoArg>
+    <OthersNoArg>#</OthersNoArg>
+    <CharacterFound>You tickle $N.</CharacterFound>
+    <OthersFound>$n tickles $N.</OthersFound>
+    <VictimFound>$n tickles you - hee hee hee.</VictimFound>
+    <NotFound>Who is that??</NotFound>
+    <CharacterAuto>You tickle yourself, how funny!</CharacterAuto>
+    <OthersAuto>$n tickles $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="twiddle">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You patiently twiddle your thumbs.</CharacterNoArg>
+    <OthersNoArg>$n patiently twiddles $s thumbs.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="wave">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You wave.</CharacterNoArg>
+    <OthersNoArg>$n waves happily.</OthersNoArg>
+    <CharacterFound>You wave goodbye to $N.</CharacterFound>
+    <OthersFound>$n waves goodbye to $N.</OthersFound>
+    <VictimFound>$n waves goodbye to you.  Have a good journey.</VictimFound>
+    <NotFound>They didn't wait for you to wave goodbye.</NotFound>
+    <CharacterAuto>Are you going on adventures as well??</CharacterAuto>
+    <OthersAuto>$n waves goodbye to $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="whine">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You whine pitifully.</CharacterNoArg>
+    <OthersNoArg>$n whines pitifully about the whole situation.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="whistle">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You whistle appreciatively.</CharacterNoArg>
+    <OthersNoArg>$n whistles appreciatively.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="wiggle">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Your wiggle your bottom.</CharacterNoArg>
+    <OthersNoArg>$n wiggles $s bottom.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="wink">
+    <Hide>false</Hide>
+    <MinimumPosition>5</MinimumPosition>
+    <CharacterNoArg>Have you got something in your eye?</CharacterNoArg>
+    <OthersNoArg>$n winks suggestively.</OthersNoArg>
+    <CharacterFound>You wink suggestively at $N.</CharacterFound>
+    <OthersFound>$n winks at $N.</OthersFound>
+    <VictimFound>$n winks suggestively at you.</VictimFound>
+    <NotFound>No one with that name is present.</NotFound>
+    <CharacterAuto>You wink at yourself?? -- what are you up to?</CharacterAuto>
+    <OthersAuto>$n winks at $mself -- something strange is going on...</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="worship">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You find yourself head-down in the dirt, worshipping.</CharacterNoArg>
+    <OthersNoArg>$n starts worshipping nothing at all.</OthersNoArg>
+    <CharacterFound>You fall to your knees and worship $M deeply.</CharacterFound>
+    <OthersFound>$n falls to $s knees, worshipping $N with uncanny dedication.</OthersFound>
+    <VictimFound>$n kneels before you in solemn worship.</VictimFound>
+    <NotFound>Uh.. who?  They're not here, pal.</NotFound>
+    <CharacterAuto>You seem sure to have found a true deity.....</CharacterAuto>
+    <OthersAuto>$n falls to $s knees and humbly worships $mself.</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="yawn">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>Gosh, will you trade those teeth for mine?? -- you get my glasseyes in the bargain too!</CharacterNoArg>
+    <OthersNoArg>$n yawns.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+  <SocialMessage ID="yodel">
+    <Hide>false</Hide>
+    <MinimumPosition>0</MinimumPosition>
+    <CharacterNoArg>You start yodelling loudly and rather beautifully in your own ears.</CharacterNoArg>
+    <OthersNoArg>$n starts a yodelling session that goes right to the bone.</OthersNoArg>
+    <CharacterFound>#</CharacterFound>
+    <OthersFound>#</OthersFound>
+    <VictimFound>#</VictimFound>
+    <NotFound>#</NotFound>
+    <CharacterAuto>#</CharacterAuto>
+    <OthersAuto>#</OthersAuto>
+  </SocialMessage>
+
+</Socials>

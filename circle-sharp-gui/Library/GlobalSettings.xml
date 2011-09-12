@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<GlobalSettings>
+  <MortalStartRoom>0</MortalStartRoom>
+  <ImmortalStartRoom>0</ImmortalStartRoom>
+  <FrozenStartRoom>0</FrozenStartRoom>
+  <AutoPlayerWipe>false</AutoPlayerWipe>
+  <DeathTrapsAreDumps>false</DeathTrapsAreDumps>
+  <ListenPort>4000</ListenPort>
+  <TunnelSize>2</TunnelSize>
+  <StampPrice>0</StampPrice>
+  <UserRestriction>0</UserRestriction>
+</GlobalSettings>
