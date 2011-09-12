@@ -59,8 +59,13 @@ namespace circle_sharp_gui
 			if (_enabled)
 			{
 				e.Cancel = true;
-				this.Hide ();
+				this.Hide();
 			}
+		}
+
+		private void ServerWindow_VisibleChanged(object sender, EventArgs e)
+		{
+			_enabled = Visible;
 		}
 
     }
