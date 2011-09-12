@@ -24,6 +24,8 @@ namespace CircleSharp
 
 		public int UserRestriction = 0;
 
+		public long BeginningOfTime = 0;
+
 		private string _settingsFile = String.Empty;
 		private XmlDocument _settingsDocument = new XmlDocument ();
 		
@@ -47,6 +49,8 @@ namespace CircleSharp
 			ListenPort = Int32.Parse (_settingsDocument.DocumentElement["ListenPort"].InnerText);
 
 			UserRestriction = Int32.Parse(_settingsDocument.DocumentElement["UserRestriction"].InnerText);
+
+			BeginningOfTime = long.Parse(_settingsDocument.DocumentElement["BeginningOfTime"].InnerText);
 		}
 
 		public void Save ()
@@ -66,6 +70,8 @@ namespace CircleSharp
 			_settingsDocument.DocumentElement["TunnelSize"].InnerText = TunnelSize.ToString ();
 			_settingsDocument.DocumentElement["StampPrice"].InnerText = StampPrice.ToString();
 			_settingsDocument.DocumentElement["UserRestriction"].InnerText = UserRestriction.ToString();
+
+			_settingsDocument.DocumentElement["BeginningOfTime"].InnerText = BeginningOfTime.ToString();
 
 			_settingsDocument.Save (_settingsFile);
 		}

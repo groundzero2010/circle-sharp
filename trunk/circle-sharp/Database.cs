@@ -153,14 +153,13 @@ namespace CircleSharp
 
 		private void ResetTime ()
 		{
-			DateTime beginningOfTime = DateTime.MinValue;
+			if (GlobalSettings.BeginningOfTime == 0)
+			{
+				GlobalSettings.BeginningOfTime = DateTime.Now.Ticks; // FIXME: Could figure out something that puts the date at something reasonable?
+				GlobalSettings.Save();
+			}
 
-			// FIXME: Load game time from file. or something.
-
-			if (beginningOfTime == DateTime.MinValue)
-				beginningOfTime = DateTime.Now;
-
-			_timeInfo = MudTimePassed (DateTime.Now, beginningOfTime);
+			_timeInfo = MudTimePassed (DateTime.Now, new DateTime(GlobalSettings.BeginningOfTime));
 
 			if (_timeInfo.Hours <= 4)
 				_weatherInfo.Sun = SunState.Dark;
