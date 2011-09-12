@@ -303,18 +303,25 @@ namespace CircleSharp
         {
             DescriptorData descriptor = new DescriptorData(client);
 
-            // FIXME: Fix the max user count so its global and changable by the admin.
-
-            if (_descriptors.Count >= 150)
+			if (_descriptors.Count >= GlobalSettings.UserRestriction)
             {
                 WriteToDescriptor(descriptor, "Sorry, the system is full right now... please try again later!\r\n");
                 client.Close();
                 return;
             }
-
+			
             descriptor.Hostname = Dns.GetHostEntry(client.Client.RemoteEndPoint.ToString().Split(':')[0]).HostName;
 
-            // TODO: Determine if the site is banned.
+			foreach (BanListElement element in _bans)
+			{
+				if (descriptor.Hostname.Equals(element.Site))
+					if (element.Type == BanTypes.All)
+					{
+						WriteToDescriptor(descriptor, "You have been banned.\r\n");
+						client.Close();
+						return;
+					}
+			}
 
             // TODO: Notify of the new connection in the Mud Log.
             //mudlog(CMP, LVL_GOD, FALSE, "New connection from [%s]", newd->host);
