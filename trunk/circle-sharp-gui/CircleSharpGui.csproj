@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="ServerApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="App.png" />
     <Content Include="Library\Etc\BanSites.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
