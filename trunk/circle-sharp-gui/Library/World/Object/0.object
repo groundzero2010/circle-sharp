@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Objects>
+  <ObjectData Number="0">
+    <Name>bug</Name>
+    <ShortDescription>a bug</ShortDescription>
+    <Description>This object is BAD!  If you see it, there must be a bug in the game.  Please\nreport it immediately using the BUG command.</Description>
+    <ActionDescription>0</ActionDescription>
+    <ObjectType>1</ObjectType>
+    <ExtraFlags>1</ExtraFlags>
+    <WearFlags>1</WearFlags>
+    <Bitvector>1</Bitvector>
+    <Values One="1" Two="1" Three="1" Four="1"/>
+    <Weight>1</Weight>
+    <Cost>1</Cost>
+    <CostPerDay>1</CostPerDay>
+    <MinimumLevel>1</MinimumLevel>
+    <Affect>
+      <Location>1</Location>
+      <Modifier>1</Modifier>
+    </Affect>
+    <ExtraDescription>
+      <Keyword>bug</Keyword>
+      <Description>The bug is lost in the void.</Description>
+    </ExtraDescription>
+  </ObjectData>
+</Objects>

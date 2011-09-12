@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Shops>
+  <ShopData Number="0">
+    <Product>0</Product>
+    <ProfitBuy>2.1</ProfitBuy>
+    <ProfitSell>0.5</ProfitSell>
+    <Type>FOOD</Type>
+    <Type>LIQ CONTAINER</Type>
+    <NoSuchItem1>%s Haven't got that in storage, try LIST!</NoSuchItem1>
+    <NoSuchItem2>%s You can't sell what you don't HAVE!</NoSuchItem2>
+    <DoNotBuy>%s Sorry, I'm not a fence.</DoNotBuy>
+    <MissingCash1>%s I'd love to buy it, I just can't spare the coinage.</MissingCash1>
+    <MissingCash2>%s Bah, come back when you can pay!</MissingCash2>
+    <MessageBuy>%s That'll be %d coins -- thank you.</MessageBuy>
+    <MessageSell>%s I'll give ya %d coins for that!</MessageSell>
+    <Temper>0</Temper>
+    <Bitvector>2</Bitvector>
+    <Keeper>0</Keeper>
+    <WithWho>112</WithWho>
+    <InRoom>0</InRoom>
+    <Open1>0</Open1>
+    <Close1>28</Close1>
+    <Open2>0</Open2>
+    <Close2>0</Close2>
+  </ShopData>
+</Shops>

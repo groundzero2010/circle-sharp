@@ -39,7 +39,7 @@ namespace CircleSharp
 				try
 				{
 					element.Type = (BanTypes)int.Parse(node.Attributes["Type"].Value);
-					element.Date = DateTime.Parse(node.Attributes["Type"].Value);
+					element.Date = DateTime.Parse(node.Attributes["Date"].Value);
 					element.Name = node.Attributes["Name"].Value;
 					element.Site = node.InnerText;
 				}
